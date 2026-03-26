@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ───────────────────────────────────────────── */
+:root {
+  --nm-bg:          #0C0D0F;
+  --nm-s1:          #131517;
+  --nm-s2:          #1A1D20;
+  --nm-s3:          #222528;
+  --nm-border:      #242729;
+  --nm-border-mid:  #2E3236;
+  --nm-green:       #2E6642;
+  --nm-birch:       #C4B49A;
+  --nm-text-p:      #E8E5DF;
+  --nm-text-s:      #8C8A85;
+  --nm-text-t:      #565450;
+}
+
+/* ─── Base reset & defaults ────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-nm-bg text-nm-text-p font-sans;
+    overflow-x: hidden;
+  }
+
+  /* Reduce motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Selection colour */
+  ::selection {
+    background-color: rgb(46 102 66 / 0.35);
+    color: #E8E5DF;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid rgb(94 165 117 / 0.6);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0C0D0F;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2E3236;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #383C40;
+  }
+}
+
+/* ─── Utility layer ────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Container with site max-width and horizontal padding */
+  .site-container {
+    @apply max-w-site mx-auto px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Section vertical padding rhythm */
+  .section-py {
+    @apply py-20 md:py-28 lg:py-36;
+  }
+
+  .section-py-sm {
+    @apply py-14 md:py-20;
+  }
+
+  /* Subtle horizontal rule */
+  .nm-rule {
+    @apply border-t border-nm-border;
+  }
+
+  /* Gradient overlays */
+  .fade-bottom {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  /* Text gradient green */
+  .text-green-gradient {
+    background: linear-gradient(135deg, #5FA575 0%, #3D8055 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Technical grid dot pattern */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgb(46 102 66 / 0.18) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Line pattern */
+  .line-grid {
+    background-image:
+      linear-gradient(rgb(36 39 41 / 0.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(36 39 41 / 0.6) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Animate on scroll (handled via JS intersection or just CSS) */
+  .anim-fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .anim-fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Component layer ──────────────────────────────────────────────────── */
+@layer components {
+  /* Prose overrides for content-heavy sections */
+  .nm-prose {
+    @apply text-body-md text-nm-text-s leading-relaxed;
+  }
+  .nm-prose p + p {
+    @apply mt-4;
+  }
+
+  /* Card base */
+  .nm-card {
+    @apply bg-nm-s1 border border-nm-border rounded-sm2 transition-all duration-300;
+  }
+  .nm-card:hover {
+    @apply border-nm-border-mid bg-nm-s2;
+  }
+
+  /* Number / index label */
+  .index-label {
+    @apply font-mono text-label-sm text-nm-green-text tracking-widest uppercase;
+  }
+}
