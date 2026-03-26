@@ -265,12 +265,9 @@ export default function ContactPage() {
                       <select
                         id="budget"
                         name="budget"
-                        defaultValue=""
                         className="w-full bg-nm-s1 border border-nm-border rounded-sm2 px-4 py-3 text-body-md text-nm-text-p focus:outline-none focus:border-nm-green-accent transition-colors duration-200 appearance-none cursor-pointer"
                       >
-                        <option value="" disabled className="text-nm-text-t">
-                          Select a range
-                        </option>
+                        <option value="">Select a range</option>
                         {budgetRanges.map((r) => (
                           <option key={r} value={r} className="bg-nm-s2 text-nm-text-p">
                             {r}
@@ -288,7 +285,7 @@ export default function ContactPage() {
                   <p className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2">
                     Drawings or Reference Files
                   </p>
-                  <div className="border border-dashed border-nm-border-mid rounded-sm2 p-8 text-center hover:border-nm-green-mid transition-colors duration-200 cursor-pointer group">
+                  <div className="relative border border-dashed border-nm-border-mid rounded-sm2 p-8 text-center hover:border-nm-green-mid transition-colors duration-200 cursor-pointer group">
                     <svg
                       width="32"
                       height="32"
