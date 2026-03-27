@@ -1,18 +1,24 @@
 import Link from 'next/link'
 
-const footerSolutions = [
-  { label: 'Product Development & Prototyping', href: '/solutions/product-development' },
-  { label: 'Tooling, Fixtures & Production Support', href: '/solutions/tooling-fixtures' },
-  { label: 'Engineered Transport & Handling', href: '/solutions/transport-handling' },
-  { label: 'Targeted Automation & Control', href: '/solutions/automation-control' },
+const footerPrinting = [
+  { label: '3D Printing Overview', href: '/3d-printing' },
+  { label: 'Prototypes', href: '/3d-printing#prototypes' },
+  { label: 'Functional Parts', href: '/3d-printing#functional' },
+  { label: 'Small-Batch Production', href: '/3d-printing#batch' },
+  { label: 'Materials & Capabilities', href: '/3d-printing#capabilities' },
+]
+
+const footerEngineering = [
+  { label: 'Tooling & Fixtures', href: '/solutions/tooling-fixtures' },
+  { label: 'Transport & Handling', href: '/solutions/transport-handling' },
+  { label: 'Product Development', href: '/solutions/product-development' },
+  { label: 'Automation & Control', href: '/solutions/automation-control' },
 ]
 
 const footerNav = [
-  { label: 'All Solutions', href: '/solutions' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Our Process', href: '/process' },
+  { label: 'Portfolio', href: '/projects' },
   { label: 'About', href: '/about' },
-  { label: 'Start a Project', href: '/contact' },
+  { label: 'Get a Quote', href: '/contact' },
 ]
 
 export default function Footer() {
@@ -21,16 +27,11 @@ export default function Footer() {
       <div className="site-container">
         {/* Main footer grid */}
         <div className="py-16 md:py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+
           {/* Brand column */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <Link href="/" className="flex items-center gap-2.5 mb-5 group w-fit">
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 28 28"
-                fill="none"
-                aria-hidden="true"
-              >
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none" aria-hidden="true">
                 <rect x="1" y="1" width="12" height="12" stroke="#2E6642" strokeWidth="1.5" />
                 <rect x="7" y="7" width="20" height="20" stroke="#5FA575" strokeWidth="1.5" fill="none" />
                 <rect x="8" y="8" width="6" height="6" fill="#2E6642" />
@@ -39,29 +40,28 @@ export default function Footer() {
                 Northern<span className="text-nm-green-text">Modulus</span>
               </span>
             </Link>
-            <p className="text-body-md text-nm-text-s leading-relaxed max-w-xs">
-              Custom industrial engineering solutions for manufacturers — from prototype to production-ready hardware.
+            <p className="text-body-md text-nm-text-s leading-relaxed max-w-xs mb-6">
+              Premium custom 3D printing — prototypes, functional parts, and small-batch
+              production with engineering review as standard.
             </p>
-            <div className="mt-6">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-label-md font-mono uppercase tracking-[0.12em] text-nm-green-text hover:text-nm-green-bright transition-colors duration-200"
-              >
-                Start a Project
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <path d="M2 6H10M6.5 2.5L10 6L6.5 9.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 text-label-md font-mono uppercase tracking-[0.12em] text-nm-green-text hover:text-nm-green-bright transition-colors duration-200"
+            >
+              Get a Quote
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 6H10M6.5 2.5L10 6L6.5 9.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </div>
 
-          {/* Solutions column */}
-          <div className="lg:col-span-4">
+          {/* 3D Printing column */}
+          <div className="lg:col-span-3">
             <p className="font-mono text-label-sm uppercase tracking-[0.14em] text-nm-text-t mb-5">
-              Solutions
+              3D Printing
             </p>
             <ul className="space-y-3">
-              {footerSolutions.map((link) => (
+              {footerPrinting.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -74,13 +74,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Navigation column */}
-          <div className="lg:col-span-2">
+          {/* Engineering column */}
+          <div className="lg:col-span-3">
             <p className="font-mono text-label-sm uppercase tracking-[0.14em] text-nm-text-t mb-5">
-              Company
+              Engineering Services
             </p>
             <ul className="space-y-3">
-              {footerNav.map((link) => (
+              {footerEngineering.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -94,20 +94,33 @@ export default function Footer() {
           </div>
 
           {/* Contact column */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <p className="font-mono text-label-sm uppercase tracking-[0.14em] text-nm-text-t mb-5">
               Contact
             </p>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
                 <p className="text-label-sm font-mono uppercase tracking-[0.1em] text-nm-text-t mb-1">
-                  Enquiries
+                  Email
                 </p>
                 <a
-                  href="mailto:projects@northernmodulus.com"
+                  href="mailto:northernmodulus@gmail.com"
+                  className="text-body-sm text-nm-text-s hover:text-nm-green-text transition-colors duration-200 break-all"
+                >
+                  northernmodulus@gmail.com
+                </a>
+              </div>
+              <div>
+                <p className="text-label-sm font-mono uppercase tracking-[0.1em] text-nm-text-t mb-1">
+                  Instagram
+                </p>
+                <a
+                  href="https://instagram.com/northernmodulus"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-body-sm text-nm-text-s hover:text-nm-green-text transition-colors duration-200"
                 >
-                  projects@northernmodulus.com
+                  @northernmodulus
                 </a>
               </div>
               <div>
@@ -115,6 +128,25 @@ export default function Footer() {
                   Response time
                 </p>
                 <p className="text-body-sm text-nm-text-s">Within one business day</p>
+              </div>
+
+              {/* Company nav */}
+              <div className="pt-2">
+                <p className="text-label-sm font-mono uppercase tracking-[0.1em] text-nm-text-t mb-3">
+                  Company
+                </p>
+                <ul className="space-y-2">
+                  {footerNav.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-body-sm text-nm-text-s hover:text-nm-text-p transition-colors duration-200"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -125,19 +157,21 @@ export default function Footer() {
           <p className="font-mono text-label-sm text-nm-text-t tracking-[0.1em]">
             © {new Date().getFullYear()} Northern Modulus. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/contact"
+          <div className="flex items-center gap-5">
+            <a
+              href="https://instagram.com/northernmodulus"
+              target="_blank"
+              rel="noopener noreferrer"
               className="font-mono text-label-sm text-nm-text-t hover:text-nm-text-s transition-colors duration-200 tracking-[0.1em]"
             >
-              Privacy
-            </Link>
-            <Link
-              href="/contact"
+              Instagram
+            </a>
+            <a
+              href="mailto:northernmodulus@gmail.com"
               className="font-mono text-label-sm text-nm-text-t hover:text-nm-text-s transition-colors duration-200 tracking-[0.1em]"
             >
-              Terms
-            </Link>
+              Contact
+            </a>
           </div>
         </div>
       </div>

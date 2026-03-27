@@ -20,27 +20,27 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Northern Modulus — Industrial Engineering Solutions',
+    default: 'Northern Modulus — Premium Custom 3D Printing',
     template: '%s — Northern Modulus',
   },
   description:
-    'Custom industrial engineering solutions for manufacturers — fixtures, tooling, engineered transport systems, product development, and targeted automation.',
+    'Premium custom 3D printing for prototypes, functional parts, and small-batch production. Engineering-led file review, material guidance, and fast quoting.',
   keywords: [
-    'industrial engineering',
-    'custom fixtures',
-    'tooling design',
-    'engineered transport systems',
-    'product development',
-    'prototyping',
-    'automation integration',
-    'manufacturing solutions',
+    'custom 3D printing',
+    'FDM printing service',
+    'prototype printing',
+    'functional 3D printed parts',
+    'small batch 3D printing',
+    'engineering 3D printing',
+    'industrial 3D printing',
+    'rapid prototyping',
   ],
   openGraph: {
     type: 'website',
     siteName: 'Northern Modulus',
-    title: 'Northern Modulus — Industrial Engineering Solutions',
+    title: 'Northern Modulus — Premium Custom 3D Printing',
     description:
-      'Custom industrial engineering solutions for manufacturers — fixtures, tooling, engineered transport systems, product development, and targeted automation.',
+      'Premium custom 3D printing for prototypes, functional parts, and small-batch production. Engineering-led file review, material guidance, and fast quoting.',
   },
   twitter: {
     card: 'summary_large_image',

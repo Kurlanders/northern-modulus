@@ -1,9 +1,9 @@
 export default function PositioningStrip() {
   const points = [
-    'Industrial problem scoping',
-    'Engineered concept development',
-    'Prototype and validation',
-    'Delivery-ready solutions',
+    'Engineering-led file review',
+    'Premium FDM printing',
+    'Prototypes to production',
+    'Fast, clear quoting',
   ]
 
   return (
@@ -16,7 +16,7 @@ export default function PositioningStrip() {
               Northern Modulus
             </p>
             <p className="text-body-sm text-nm-text-s mt-1 leading-relaxed">
-              From brief to engineered solution
+              Premium custom 3D printing
             </p>
           </div>
 

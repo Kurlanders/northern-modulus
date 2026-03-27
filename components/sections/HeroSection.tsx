@@ -29,7 +29,7 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* Corner mark — top right technical */}
+      {/* Corner mark */}
       <div className="absolute top-20 right-8 hidden lg:block" aria-hidden="true">
         <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-nm-border opacity-60">
           <line x1="120" y1="0" x2="120" y2="120" stroke="currentColor" strokeWidth="1" />
@@ -45,7 +45,7 @@ export default function HeroSection() {
           {/* Label */}
           <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}>
             <SectionLabel index="NM" light>
-              Industrial Engineering Solutions
+              Custom 3D Printing
             </SectionLabel>
           </div>
 
@@ -54,11 +54,11 @@ export default function HeroSection() {
             className="animate-fade-up"
             style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}
           >
-            <h1 className="text-disp-2xl text-nm-text-p font-light tracking-tight max-w-[18ch] mb-8">
-              Engineering solutions{' '}
-              <span className="text-nm-text-s font-light">that work</span>{' '}
+            <h1 className="text-disp-2xl text-nm-text-p font-light tracking-tight max-w-[20ch] mb-8">
+              Premium 3D printing{' '}
+              <span className="text-nm-text-s font-light">for parts</span>{' '}
               <br className="hidden sm:block" />
-              in practice.
+              that need to work.
             </h1>
           </div>
 
@@ -68,17 +68,16 @@ export default function HeroSection() {
             style={{ animationDelay: '0.35s', animationFillMode: 'backwards' }}
           >
             <p className="text-body-lg text-nm-text-s max-w-[50ch] leading-relaxed">
-              We help manufacturers and industrial businesses solve practical physical problems —
-              through custom fixtures and tooling, engineered transport systems, product
-              development, and targeted automation.
+              Prototypes, functional parts, and small-batch production — with engineering-led
+              file review, practical material guidance, and premium finish as standard.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
               <Button href="/contact" variant="primary" size="lg" withArrow>
-                Start a Project
+                Get a Quote
               </Button>
-              <Button href="/solutions" variant="secondary" size="lg">
-                Explore Solutions
+              <Button href="/3d-printing" variant="secondary" size="lg">
+                Explore 3D Printing
               </Button>
             </div>
           </div>
@@ -89,10 +88,10 @@ export default function HeroSection() {
             style={{ animationDelay: '0.5s', animationFillMode: 'backwards' }}
           >
             {[
-              { value: '4', label: 'Solution Areas' },
-              { value: 'DfM', label: 'Design-for-Manufacture' },
-              { value: '01→', label: 'Concept to Delivery' },
-              { value: 'B2B', label: 'Manufacturer Focus' },
+              { value: 'FDM', label: 'Premium FDM Printing' },
+              { value: '24h', label: 'Quote Turnaround' },
+              { value: '1→500', label: 'Flexible Quantities' },
+              { value: 'Eng.', label: 'Engineering-Led Review' },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col gap-1.5">
                 <span className="font-mono text-[1.5rem] font-light text-nm-text-p tracking-tight leading-none">
