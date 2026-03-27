@@ -64,10 +64,10 @@ export default function SolutionPageTemplate({ solution }: SolutionPageTemplateP
                 <div className="absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <svg width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                    <rect x="8" y="8" width="28" height="28" stroke="#2E6642" strokeWidth="1.5" />
-                    <rect x="22" y="22" width="50" height="50" stroke="#5FA575" strokeWidth="1.5" fill="none" />
-                    <rect x="24" y="24" width="18" height="18" fill="#172D21" stroke="#2E6642" strokeWidth="1.2" />
-                    <circle cx="40" cy="40" r="3" fill="#3D8055" />
+                    <rect x="8" y="8" width="28" height="28" stroke="#245040" strokeWidth="1.5" />
+                    <rect x="22" y="22" width="50" height="50" stroke="#4D8F6A" strokeWidth="1.5" fill="none" />
+                    <rect x="24" y="24" width="18" height="18" fill="#0E1F18" stroke="#245040" strokeWidth="1.2" />
+                    <circle cx="40" cy="40" r="3" fill="#2D6349" />
                   </svg>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4">

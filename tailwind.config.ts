@@ -19,17 +19,13 @@ const config: Config = {
           border: '#242729',
           'border-mid': '#2E3236',
           'border-light': '#383C40',
-          // Green system
-          'green-deep': '#172D21',
-          'green-mid': '#1F3D2C',
-          'green-accent': '#2E6642',
-          'green-bright': '#3D8055',
-          'green-text': '#5FA575',
-          'green-dim': '#4A7A5E',
-          // Warm birch accent
-          birch: '#C4B49A',
-          'birch-dim': '#8A7D6A',
-          'birch-faint': '#35302A',
+          // Green system — aligned with Northern Modulus logo (deep forest green)
+          'green-deep': '#0E1F18',
+          'green-mid': '#162B1F',
+          'green-accent': '#245040',
+          'green-bright': '#2D6349',
+          'green-text': '#4D8F6A',
+          'green-dim': '#3A6B53',
           // Text hierarchy
           'text-p': '#E8E5DF',
           'text-s': '#8C8A85',

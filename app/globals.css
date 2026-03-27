@@ -10,8 +10,7 @@
   --nm-s3:          #222528;
   --nm-border:      #242729;
   --nm-border-mid:  #2E3236;
-  --nm-green:       #2E6642;
-  --nm-birch:       #C4B49A;
+  --nm-green:       #245040;
   --nm-text-p:      #E8E5DF;
   --nm-text-s:      #8C8A85;
   --nm-text-t:      #565450;
@@ -48,13 +47,13 @@
 
   /* Selection colour */
   ::selection {
-    background-color: rgb(46 102 66 / 0.35);
+    background-color: rgb(36 80 64 / 0.4);
     color: #E8E5DF;
   }
 
   /* Focus ring */
   :focus-visible {
-    outline: 2px solid rgb(94 165 117 / 0.6);
+    outline: 2px solid rgb(77 143 106 / 0.6);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -104,7 +103,7 @@
 
   /* Text gradient green */
   .text-green-gradient {
-    background: linear-gradient(135deg, #5FA575 0%, #3D8055 100%);
+    background: linear-gradient(135deg, #4D8F6A 0%, #2D6349 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -112,7 +111,7 @@
 
   /* Technical grid dot pattern */
   .dot-grid {
-    background-image: radial-gradient(circle, rgb(46 102 66 / 0.18) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgb(36 80 64 / 0.2) 1px, transparent 1px);
     background-size: 28px 28px;
   }
 

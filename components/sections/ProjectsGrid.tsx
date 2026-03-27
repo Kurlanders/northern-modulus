@@ -36,9 +36,9 @@ export default function ProjectsGrid() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="flex flex-col items-center gap-3">
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-                      <rect x="4" y="4" width="14" height="14" stroke="#2E6642" strokeWidth="1.2" />
-                      <rect x="12" y="12" width="24" height="24" stroke="#5FA575" strokeWidth="1.2" fill="none" />
-                      <rect x="13" y="13" width="10" height="10" fill="#172D21" stroke="#2E6642" strokeWidth="1" />
+                      <rect x="4" y="4" width="14" height="14" stroke="#245040" strokeWidth="1.2" />
+                      <rect x="12" y="12" width="24" height="24" stroke="#4D8F6A" strokeWidth="1.2" fill="none" />
+                      <rect x="13" y="13" width="10" height="10" fill="#0E1F18" stroke="#245040" strokeWidth="1" />
                     </svg>
                     <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.12em]">
                       {project.category}

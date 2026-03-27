@@ -60,9 +60,9 @@ export default function ProjectsPage() {
                   <div className="absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                      <rect x="4" y="4" width="18" height="18" stroke="#2E6642" strokeWidth="1.2" />
-                      <rect x="14" y="14" width="30" height="30" stroke="#5FA575" strokeWidth="1.2" fill="none" />
-                      <rect x="15" y="15" width="12" height="12" fill="#172D21" stroke="#2E6642" strokeWidth="1" />
+                      <rect x="4" y="4" width="18" height="18" stroke="#245040" strokeWidth="1.2" />
+                      <rect x="14" y="14" width="30" height="30" stroke="#4D8F6A" strokeWidth="1.2" fill="none" />
+                      <rect x="15" y="15" width="12" height="12" fill="#0E1F18" stroke="#245040" strokeWidth="1" />
                     </svg>
                   </div>
                   <div className="absolute inset-0 bg-nm-green-deep opacity-0 group-hover:opacity-50 transition-opacity duration-300" />

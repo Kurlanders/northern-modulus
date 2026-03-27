@@ -80,7 +80,7 @@ export default function ContactForm() {
         {/* Success icon */}
         <div className="w-12 h-12 rounded-full bg-nm-green-deep border border-nm-green-mid flex items-center justify-center flex-shrink-0">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M4 10L8 14L16 6" stroke="#5FA575" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 10L8 14L16 6" stroke="#4D8F6A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <div>

@@ -22,9 +22,9 @@ export default function HeroSection() {
 
       {/* Green accent — top right */}
       <div
-        className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.04] pointer-events-none"
+        className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.05] pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at 70% 30%, #2E6642 0%, transparent 65%)',
+          background: 'radial-gradient(circle at 70% 30%, #245040 0%, transparent 65%)',
         }}
         aria-hidden="true"
       />
@@ -34,9 +34,9 @@ export default function HeroSection() {
         <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="text-nm-border opacity-60">
           <line x1="120" y1="0" x2="120" y2="120" stroke="currentColor" strokeWidth="1" />
           <line x1="0" y1="0" x2="120" y2="0" stroke="currentColor" strokeWidth="1" />
-          <line x1="90" y1="0" x2="120" y2="0" stroke="#2E6642" strokeWidth="1.5" />
-          <line x1="120" y1="0" x2="120" y2="30" stroke="#2E6642" strokeWidth="1.5" />
-          <circle cx="120" cy="0" r="3" fill="#2E6642" />
+          <line x1="90" y1="0" x2="120" y2="0" stroke="#245040" strokeWidth="1.5" />
+          <line x1="120" y1="0" x2="120" y2="30" stroke="#245040" strokeWidth="1.5" />
+          <circle cx="120" cy="0" r="3" fill="#245040" />
         </svg>
       </div>
 

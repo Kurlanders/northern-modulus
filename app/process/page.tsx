@@ -163,7 +163,7 @@ export default function ProcessPage() {
                       <div className="mt-5 flex items-center gap-3" aria-hidden="true">
                         <div className="w-4 h-px bg-nm-green-mid" />
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                          <path d="M1.5 5H8.5M5.5 2L8.5 5L5.5 8" stroke="#2E6642" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M1.5 5H8.5M5.5 2L8.5 5L5.5 8" stroke="#245040" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.1em]">
                           Next stage

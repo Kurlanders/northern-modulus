@@ -75,17 +75,26 @@ export default function Header() {
               <svg
                 width="28"
                 height="28"
-                viewBox="0 0 28 28"
+                viewBox="0 0 32 32"
                 fill="none"
                 aria-hidden="true"
                 className="flex-shrink-0"
               >
-                <rect x="1" y="1" width="12" height="12" stroke="#2E6642" strokeWidth="1.5" />
-                <rect x="7" y="7" width="20" height="20" stroke="#5FA575" strokeWidth="1.5" fill="none" />
-                <rect x="8" y="8" width="6" height="6" fill="#2E6642" />
+                <path
+                  d="M 16 3 L 27.26 9.5 L 27.26 22.5 L 16 29 L 4.74 22.5 L 4.74 9.5 Z"
+                  stroke="#2D6349"
+                  strokeWidth="1.4"
+                />
+                <path
+                  d="M 10.5 9 L 10.5 23 M 21.5 9 L 21.5 23 M 10.5 9 L 21.5 23"
+                  stroke="#4D8F6A"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
               <span className="font-sans font-medium text-nm-text-p tracking-tight text-[0.9375rem] leading-none">
-                Northern<span className="text-nm-green-text">Modulus</span>
+                Northern<span className="text-nm-green-text font-light"> Modulus</span>
               </span>
             </Link>
 
