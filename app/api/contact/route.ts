@@ -21,7 +21,7 @@ export async function POST(request: Request) {
       description,
       challenge,
       timeline,
-      budget,
+      fileLink,
       referral,
     } = body
 
@@ -92,10 +92,10 @@ export async function POST(request: Request) {
               <td style="padding: 8px 0; color: #666; width: 160px; vertical-align: top;">Timeline</td>
               <td style="padding: 8px 0;">${timeline}</td>
             </tr>` : ''}
-            ${budget ? `
+            ${fileLink ? `
             <tr>
-              <td style="padding: 8px 0; color: #666; vertical-align: top;">Budget range</td>
-              <td style="padding: 8px 0;">${budget}</td>
+              <td style="padding: 8px 0; color: #666; vertical-align: top;">File link</td>
+              <td style="padding: 8px 0;"><a href="${fileLink}">${fileLink}</a></td>
             </tr>` : ''}
             ${referral ? `
             <tr>

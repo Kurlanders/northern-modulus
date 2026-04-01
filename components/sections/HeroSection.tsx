@@ -61,10 +61,10 @@ export default function HeroSection() {
               style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}
             >
               <h1 className="text-disp-2xl text-nm-text-p font-light tracking-tight mb-8">
-                Parts built to{' '}
-                <span className="text-nm-text-s font-light">engineering</span>
+                Premium FDM 3D printing for{' '}
+                <span className="text-nm-text-s font-light">parts that</span>
                 <br className="hidden sm:block" />
-                {' '}standard.
+                {' '}need to work.
               </h1>
             </div>
 
@@ -73,8 +73,8 @@ export default function HeroSection() {
               style={{ animationDelay: '0.32s', animationFillMode: 'backwards' }}
             >
               <p className="text-body-lg text-nm-text-s leading-relaxed mb-10 max-w-[44ch]">
-                Premium FDM printing with engineering review as standard —
-                prototypes, functional parts, and small-batch production.
+                Prototypes, functional parts, and small-batch production with engineering-led
+                review, practical material guidance, and premium print quality on every order.
               </p>
             </div>
 

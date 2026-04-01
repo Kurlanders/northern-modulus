@@ -41,7 +41,7 @@ const capabilities = [
   'Structural and component calculation',
   'Design for manufacture review',
   'Prototype build and validation',
-  '3D printing (FDM, SLA, SLS)',
+  '3D printing (FDM)',
   'Fixture and jig design',
   'Fabrication design (welded, bonded, bolted)',
   'Composite structure and sandwich panel design',

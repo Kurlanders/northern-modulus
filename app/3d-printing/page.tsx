@@ -81,7 +81,7 @@ const useCases = [
     title: 'Small-Batch Production',
     headline: 'Short runs where tooling does not make sense.',
     description:
-      'When you need 10 to 500 of a part and the volume does not justify tooling investment, 3D printing is often the most practical and cost-effective option. We provide consistent quality across the batch, with repeat orders matched to saved settings.',
+      'When you need 1 to 500+ parts and the volume does not justify tooling investment, FDM 3D printing is often the most practical and cost-effective option. We provide consistent quality across the batch, with repeat orders matched to saved settings.',
     detail:
       'Batch pricing scales with quantity. We quote clearly so you can make the right decision for your volume. Repeat orders are processed efficiently once settings are established.',
     points: [
@@ -111,7 +111,7 @@ export default function ThreeDPrintingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             <div className="lg:col-span-8">
               <h1 className="text-disp-xl text-nm-text-p font-light tracking-tight mb-6">
-                Premium 3D printing for<br />
+                Premium FDM 3D printing for<br />
                 parts that need to work.
               </h1>
               <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[54ch]">

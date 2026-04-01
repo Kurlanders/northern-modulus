@@ -20,7 +20,7 @@ const printTypes = [
     index: '03',
     title: 'Small-Batch Production',
     description:
-      'When you need 5 to 500 of a part, short-run 3D printing is often faster and cheaper than cutting tooling. Consistent quality, clean finish, and practical lead times across the batch.',
+      'When you need 1 to 500+ parts, short-run FDM 3D printing is often faster and cheaper than cutting tooling. Consistent quality, clean finish, and practical lead times across the batch.',
     detail: 'One-off or repeat — same standard either way.',
   },
 ]

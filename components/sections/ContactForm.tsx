@@ -3,15 +3,6 @@
 import { useState } from 'react'
 import Button from '@/components/ui/Button'
 
-const budgetRanges = [
-  'Under £5,000',
-  '£5,000 – £15,000',
-  '£15,000 – £50,000',
-  '£50,000 – £150,000',
-  'Over £150,000',
-  'Not yet defined',
-]
-
 const serviceAreas = [
   'Custom 3D Printing',
   'Tooling, Fixtures & Production Support',
@@ -27,9 +18,23 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [serviceArea, setServiceArea] = useState('')
+  const [fileLink, setFileLink] = useState('')
+  const [fileLinkSubmitted, setFileLinkSubmitted] = useState(false)
+  const [fileLinkError, setFileLinkError] = useState('')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    // Validate file link if provided
+    if (fileLink.trim()) {
+      try {
+        new URL(fileLink.trim())
+        setFileLinkError('')
+      } catch {
+        setFileLinkError('Please enter a valid file-sharing link.')
+        return
+      }
+    }
+
     setStatus('loading')
     setErrorMessage('')
 
@@ -46,7 +51,7 @@ export default function ContactForm() {
       description: data.get('description') as string,
       challenge:   data.get('challenge') as string,
       timeline:    data.get('timeline') as string,
-      budget:      data.get('budget') as string,
+      fileLink:    fileLink.trim() || '',
       referral:    data.get('referral') as string,
     }
 
@@ -65,9 +70,11 @@ export default function ContactForm() {
         return
       }
 
+      setFileLinkSubmitted(!!fileLink.trim())
       setStatus('success')
       form.reset()
       setServiceArea('')
+      setFileLink('')
     } catch {
       setErrorMessage('Could not reach the server. Please try again or email us directly.')
       setStatus('error')
@@ -92,6 +99,28 @@ export default function ContactForm() {
             Check your inbox — including spam — for our reply.
           </p>
         </div>
+        {fileLinkSubmitted ? (
+          <div className="p-5 bg-nm-s1 border border-nm-border-mid rounded-sm2 max-w-[46ch]">
+            <p className="text-body-sm text-nm-text-s leading-relaxed">
+              Your enquiry has been sent successfully. Your file link was included with the submission.
+            </p>
+          </div>
+        ) : (
+          <div className="p-5 bg-nm-s1 border border-nm-border-mid rounded-sm2 space-y-3 max-w-[46ch]">
+            <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.1em]">
+              Next step
+            </p>
+            <p className="text-body-sm text-nm-text-s leading-relaxed">
+              If needed, you can still email your files to{' '}
+              <a href="mailto:northernmodulus@gmail.com" className="text-nm-green-text hover:text-nm-green-bright transition-colors duration-200">
+                northernmodulus@gmail.com
+              </a>
+            </p>
+            <p className="text-body-sm text-nm-text-t leading-relaxed">
+              For larger files, send a Google Drive or WeTransfer link.
+            </p>
+          </div>
+        )}
         <button
           onClick={() => setStatus('idle')}
           className="font-mono text-label-md uppercase tracking-[0.12em] text-nm-text-t hover:text-nm-text-s transition-colors duration-200 mt-2"
@@ -225,53 +254,75 @@ export default function ContactForm() {
 
       <div className="h-px bg-nm-border" aria-hidden="true" />
 
-      {/* Timeline + budget */}
-      <fieldset className="space-y-5">
-        <legend className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.14em] mb-5 block">
-          Timeline & Budget
-        </legend>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div>
-            <label htmlFor="timeline" className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2">
-              Timeline
-            </label>
-            <input
-              id="timeline" name="timeline" type="text"
-              placeholder="e.g. Required within 3 weeks"
-              className="w-full bg-nm-s1 border border-nm-border rounded-sm2 px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none focus:border-nm-green-accent transition-colors duration-200"
-            />
-          </div>
-          <div>
-            <label htmlFor="budget" className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2">
-              Budget Range
-            </label>
-            <select
-              id="budget" name="budget"
-              className="w-full bg-nm-s1 border border-nm-border rounded-sm2 px-4 py-3 text-body-md text-nm-text-p focus:outline-none focus:border-nm-green-accent transition-colors duration-200 appearance-none cursor-pointer"
-            >
-              <option value="">Select a range</option>
-              {budgetRanges.map((r) => (
-                <option key={r} value={r}>{r}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </fieldset>
+      {/* Timeline */}
+      <div>
+        <label htmlFor="timeline" className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2">
+          Timeline
+        </label>
+        <input
+          id="timeline" name="timeline" type="text"
+          placeholder="e.g. Required within 3 weeks"
+          className="w-full bg-nm-s1 border border-nm-border rounded-sm2 px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none focus:border-nm-green-accent transition-colors duration-200"
+        />
+      </div>
 
       <div className="h-px bg-nm-border" aria-hidden="true" />
 
-      {/* File upload note */}
-      <div>
-        <p className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2">
-          Drawings or Reference Files
+      {/* How to send files + link field */}
+      <div className="space-y-4">
+        <p className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em]">
+          How to Send Files
         </p>
-        <div className="p-5 bg-nm-s1 border border-nm-border-mid rounded-sm2">
+
+        {/* File link input */}
+        <div>
+          <label htmlFor="fileLink" className="block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2">
+            File Link <span className="text-nm-text-t font-normal normal-case tracking-normal">(optional)</span>
+          </label>
+          <input
+            id="fileLink"
+            name="fileLink"
+            type="url"
+            value={fileLink}
+            onChange={(e) => { setFileLink(e.target.value); setFileLinkError('') }}
+            placeholder="https://..."
+            className={`w-full bg-nm-s1 border rounded-sm2 px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none transition-colors duration-200 ${
+              fileLinkError ? 'border-red-700 focus:border-red-600' : 'border-nm-border focus:border-nm-green-accent'
+            }`}
+          />
+          {fileLinkError ? (
+            <p className="mt-1.5 text-body-sm text-red-400">{fileLinkError}</p>
+          ) : (
+            <p className="mt-1.5 text-body-sm text-nm-text-t">
+              Paste a Google Drive, WeTransfer, Dropbox, OneDrive, or similar link to your project files.
+            </p>
+          )}
+        </div>
+
+        {/* Fallback info block */}
+        <div className="p-5 bg-nm-s1 border border-nm-border-mid rounded-sm2 space-y-4">
           <p className="text-body-sm text-nm-text-s leading-relaxed">
-            Send files directly to{' '}
+            File upload is not available on this site yet. You can include a Google Drive,
+            WeTransfer, Dropbox, OneDrive, or similar file-sharing link directly in this form.
+          </p>
+          <p className="text-body-sm text-nm-text-s leading-relaxed">
+            If you prefer, you can also email your files to{' '}
             <a href="mailto:northernmodulus@gmail.com" className="text-nm-green-text hover:text-nm-green-bright transition-colors duration-200">
               northernmodulus@gmail.com
             </a>
-            {' '}— STEP, STL, PDF, DXF, DWG, or images. Files are treated as confidential by default.
+            {' '}after submitting your enquiry. For smaller files, email attachments are fine.
+            For larger files, please use a file-sharing link.
+          </p>
+          <div className="space-y-1">
+            <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.1em]">
+              Accepted formats
+            </p>
+            <p className="text-body-sm text-nm-text-s">
+              STL, STEP, STP, 3MF, OBJ, PDF, DXF, DWG, ZIP
+            </p>
+          </div>
+          <p className="text-body-sm text-nm-text-t leading-relaxed border-t border-nm-border pt-4">
+            Files are reviewed confidentially and used only for quote evaluation.
           </p>
         </div>
       </div>

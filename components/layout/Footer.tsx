@@ -50,7 +50,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-body-md text-nm-text-s leading-relaxed max-w-xs mb-6">
-              Premium custom 3D printing — prototypes, functional parts, and small-batch
+              Premium FDM 3D printing — prototypes, functional parts, and small-batch
               production with engineering review as standard.
             </p>
             <Link
