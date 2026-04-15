@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Button from '@/components/ui/Button'
 
@@ -72,30 +73,14 @@ export default function Header() {
               className="flex items-center gap-2.5 group flex-shrink-0"
               aria-label="Northern Modulus — Home"
             >
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 32 32"
-                fill="none"
-                aria-hidden="true"
-                className="flex-shrink-0"
-              >
-                <path
-                  d="M 16 3 L 27.26 9.5 L 27.26 22.5 L 16 29 L 4.74 22.5 L 4.74 9.5 Z"
-                  stroke="#2D6349"
-                  strokeWidth="1.4"
-                />
-                <path
-                  d="M 10.5 9 L 10.5 23 M 21.5 9 L 21.5 23 M 10.5 9 L 21.5 23"
-                  stroke="#4D8F6A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span className="font-sans font-medium text-nm-text-p tracking-tight text-[0.9375rem] leading-none">
-                Northern<span className="text-nm-green-text font-light"> Modulus</span>
-              </span>
+              <Image
+                src="/pictures/new-logo_svg.svg"
+                alt="Northern Modulus"
+                width={817}
+                height={273}
+                className="h-[57px] w-auto flex-shrink-0"
+                priority
+              />
             </Link>
 
             {/* Desktop nav */}

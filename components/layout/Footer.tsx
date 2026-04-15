@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const footerPrinting = [
   { label: '3D Printing Overview', href: '/3d-printing' },
@@ -30,24 +31,14 @@ export default function Footer() {
 
           {/* Brand column */}
           <div className="lg:col-span-3">
-            <Link href="/" className="flex items-center gap-2.5 mb-5 group w-fit">
-              <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                <path
-                  d="M 16 3 L 27.26 9.5 L 27.26 22.5 L 16 29 L 4.74 22.5 L 4.74 9.5 Z"
-                  stroke="#2D6349"
-                  strokeWidth="1.4"
-                />
-                <path
-                  d="M 10.5 9 L 10.5 23 M 21.5 9 L 21.5 23 M 10.5 9 L 21.5 23"
-                  stroke="#4D8F6A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span className="font-sans font-medium text-nm-text-p tracking-tight text-[0.9375rem]">
-                Northern<span className="text-nm-green-text font-light"> Modulus</span>
-              </span>
+            <Link href="/" className="mb-5 w-fit block">
+              <Image
+                src="/pictures/new-logo.png"
+                alt="Northern Modulus"
+                width={1536}
+                height={1024}
+                className="h-7 w-auto"
+              />
             </Link>
             <p className="text-body-md text-nm-text-s leading-relaxed max-w-xs mb-6">
               Premium FDM 3D printing — prototypes, functional parts, and small-batch
