@@ -1,91 +1,82 @@
-import SectionLabel from '@/components/ui/SectionLabel'
-import Button from '@/components/ui/Button'
+﻿import Link from 'next/link'
 
 const capabilities = [
   {
     index: '01',
     title: 'Premium FDM Printing',
-    description:
-      'High-resolution fused deposition modelling on industrial-grade hardware. Tighter tolerances, cleaner surfaces, and more consistent results than consumer-grade equipment.',
+    description: 'Industrial-grade hardware. Tighter tolerances, cleaner surfaces, more consistent results.',
   },
   {
     index: '02',
-    title: 'Engineering-Led Part Review',
-    description:
-      'We review every file before printing — checking wall thickness, geometry, print orientation, and potential failure points. You get a better part, not just a printed file.',
+    title: 'Engineering-Led Review',
+    description: 'Wall thickness, geometry, orientation, and failure points checked before printing.',
   },
   {
     index: '03',
-    title: 'Material Guidance by Use Case',
-    description:
-      'PLA, PETG, ABS, ASA, TPU, PC, and more. We recommend the right material for your application — load conditions, temperature, environment, and finish requirements all factor in.',
+    title: 'Material Guidance',
+    description: 'PLA, PETG, ABS, ASA, TPU, PC. Right material for load, temperature, and environment.',
   },
   {
     index: '04',
-    title: 'Structural and Functional Parts',
-    description:
-      'Print settings, infill, and orientation are chosen for the application — not defaulted. Parts intended for load, assembly, or repeated use are treated differently from display models.',
+    title: 'Structural Settings',
+    description: 'Infill, orientation, and print settings chosen for the application — not defaulted.',
   },
   {
     index: '05',
-    title: 'Prototype and Pre-Production Builds',
-    description:
-      'From first-off validation builds to pre-production batches before tooling commitment. We support the full development cycle, not just final production.',
+    title: 'Pre-Production Builds',
+    description: 'First-off validation to pre-production batches. Full development cycle supported.',
   },
   {
     index: '06',
-    title: 'Small Batch from 1 to 500+',
-    description:
-      'Single parts, repeat orders, or short production runs. No minimum order requirements. Pricing scales sensibly with quantity — we quote clearly so you can make the right decision.',
+    title: 'Small Batch 1–500+',
+    description: 'No minimum order. Clear quotes so you can decide with confidence.',
   },
 ]
 
 export default function PrintCapabilities() {
   return (
-    <section className="section-py bg-nm-s1 border-y border-nm-border" aria-labelledby="capabilities-heading">
+    <section className="py-[120px] bg-nm-bg border-t border-nm-border" aria-labelledby="capabilities-heading">
       <div className="site-container">
-        <div className="mb-14 md:mb-18 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-24 items-start">
+
+          {/* Left sidebar */}
           <div>
-            <SectionLabel className="mb-5">Capabilities</SectionLabel>
+            <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+              // Capabilities
+            </p>
             <h2
               id="capabilities-heading"
-              className="text-disp-lg text-nm-text-p font-light tracking-tight max-w-[22ch]"
+              className="text-[clamp(26px,3vw,42px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em] mb-7"
             >
-              What you get<br />
-              with every order.
+              What you get<br />with every order.
             </h2>
-          </div>
-          <div className="flex flex-col gap-3 items-start lg:items-end">
-            <p className="text-body-md text-nm-text-s max-w-[40ch] leading-relaxed lg:text-right">
-              Consistent engineering input and premium print quality across every job —
-              whether it is a single prototype or a repeat production run.
+            <p className="text-[13px] text-nm-text-s leading-[1.8] mb-9">
+              Consistent engineering input and premium print quality — prototype or repeat production run.
             </p>
-            <Button href="/3d-printing" variant="ghost" size="sm" withArrow>
-              Full Capabilities
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-nm-border">
-          {capabilities.map((cap) => (
-            <div
-              key={cap.index}
-              className="bg-nm-s1 p-7 hover:bg-nm-s2 transition-colors duration-300 group"
+            <Link
+              href="/3d-printing"
+              className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity"
             >
-              <div className="flex items-center gap-4 mb-5">
-                <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em]">
+              Full Capabilities →
+            </Link>
+          </div>
+
+          {/* Right 2-col grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-nm-border">
+            {capabilities.map((cap) => (
+              <div
+                key={cap.index}
+                className="bg-nm-bg p-8 hover:bg-nm-s1 transition-colors duration-300"
+              >
+                <p className="text-[11px] font-semibold text-nm-green-text tracking-[2px] mb-3.5 opacity-70">
                   {cap.index}
-                </span>
-                <div className="h-px flex-1 bg-nm-border group-hover:bg-nm-border-mid transition-colors duration-300" aria-hidden="true" />
+                </p>
+                <h3 className="text-[15px] font-semibold text-nm-text-p mb-2.5">{cap.title}</h3>
+                <p className="text-[13px] text-nm-text-s leading-[1.8]">{cap.description}</p>
               </div>
-              <h3 className="text-h3 text-nm-text-p font-medium tracking-tight mb-3">
-                {cap.title}
-              </h3>
-              <p className="text-body-sm text-nm-text-s leading-relaxed">
-                {cap.description}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
+
         </div>
       </div>
     </section>

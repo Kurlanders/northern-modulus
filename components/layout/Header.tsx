@@ -1,30 +1,29 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import Button from '@/components/ui/Button'
 
 const printingLinks = [
-  { label: 'How It Works', href: '/3d-printing#how-it-works' },
+  { label: 'How It Works',           href: '/3d-printing#how-it-works' },
   { label: 'Materials & Capabilities', href: '/3d-printing#capabilities' },
-  { label: 'Prototypes', href: '/3d-printing#prototypes' },
-  { label: 'Functional Parts', href: '/3d-printing#functional' },
+  { label: 'Prototypes',             href: '/3d-printing#prototypes' },
+  { label: 'Functional Parts',       href: '/3d-printing#functional' },
   { label: 'Small-Batch Production', href: '/3d-printing#batch' },
 ]
 
 const navLinks = [
   { label: '3D Printing', href: '/3d-printing', hasDropdown: true },
-  { label: 'Portfolio', href: '/projects' },
-  { label: 'About', href: '/about' },
+  { label: 'Portfolio',   href: '/projects' },
+  { label: 'About',       href: '/about' },
 ]
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [printingOpen, setPrintingOpen] = useState(false)
-  const pathname = usePathname()
+  const [scrolled,      setScrolled]      = useState(false)
+  const [mobileOpen,    setMobileOpen]    = useState(false)
+  const [printingOpen,  setPrintingOpen]  = useState(false)
+  const pathname    = usePathname()
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -59,18 +58,17 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled || mobileOpen
-            ? 'bg-nm-bg/95 backdrop-blur-md border-b border-nm-border'
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-nm-border ${
+          scrolled || mobileOpen ? 'bg-nm-bg/95 backdrop-blur-md' : 'bg-nm-bg'
         }`}
       >
         <div className="site-container">
-          <nav className="flex items-center justify-between h-16 md:h-18">
+          <nav className="flex items-center justify-between h-[68px]">
+
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 group flex-shrink-0"
+              className="flex-shrink-0"
               aria-label="Northern Modulus — Home"
             >
               <Image
@@ -78,13 +76,13 @@ export default function Header() {
                 alt="Northern Modulus"
                 width={817}
                 height={273}
-                className="h-[57px] w-auto flex-shrink-0"
+                className="h-[62px] w-auto flex-shrink-0"
                 priority
               />
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-9">
               {navLinks.map((link) =>
                 link.hasDropdown ? (
                   <div key={link.href} className="relative" ref={dropdownRef}>
@@ -93,18 +91,13 @@ export default function Header() {
                       onKeyDown={(e) => e.key === 'Escape' && setPrintingOpen(false)}
                       aria-expanded={printingOpen}
                       aria-haspopup="true"
-                      className={`flex items-center gap-1.5 px-3.5 py-2 text-label-md font-mono uppercase tracking-[0.1em] transition-colors duration-200 rounded-sm2 ${
-                        isActive(link.href)
-                          ? 'text-nm-text-p'
-                          : 'text-nm-text-s hover:text-nm-text-p'
+                      className={`flex items-center gap-1.5 text-[13px] font-medium transition-colors duration-200 ${
+                        isActive(link.href) ? 'text-nm-text-p' : 'text-nm-text-s hover:text-nm-text-p'
                       }`}
                     >
                       {link.label}
                       <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 10 10"
-                        fill="none"
+                        width="10" height="10" viewBox="0 0 10 10" fill="none"
                         aria-hidden="true"
                         className={`transition-transform duration-200 ${printingOpen ? 'rotate-180' : ''}`}
                       >
@@ -113,11 +106,11 @@ export default function Header() {
                     </button>
 
                     {printingOpen && (
-                      <div className="absolute top-full left-0 mt-1.5 w-64 bg-nm-s2 border border-nm-border rounded-sm2 shadow-2xl shadow-black/60 overflow-hidden">
+                      <div className="absolute top-full left-0 mt-2 w-60 bg-nm-s1 border border-nm-border shadow-2xl shadow-black/60 overflow-hidden">
                         <div className="p-1">
                           <Link
                             href="/3d-printing"
-                            className="block px-4 py-2.5 text-label-sm font-mono uppercase tracking-[0.12em] text-nm-green-text hover:bg-nm-s3 rounded-sm2 transition-colors duration-150"
+                            className="block px-4 py-2.5 text-[12px] font-semibold text-nm-green-text hover:bg-nm-s2 transition-colors duration-150 tracking-[1.5px] uppercase"
                           >
                             Overview
                           </Link>
@@ -126,7 +119,7 @@ export default function Header() {
                             <Link
                               key={s.href}
                               href={s.href}
-                              className="block px-4 py-2.5 text-body-sm text-nm-text-s hover:text-nm-text-p hover:bg-nm-s3 rounded-sm2 transition-colors duration-150"
+                              className="block px-4 py-2.5 text-[13px] text-nm-text-s hover:text-nm-text-p hover:bg-nm-s2 transition-colors duration-150"
                             >
                               {s.label}
                             </Link>
@@ -139,10 +132,8 @@ export default function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3.5 py-2 text-label-md font-mono uppercase tracking-[0.1em] transition-colors duration-200 rounded-sm2 ${
-                      isActive(link.href)
-                        ? 'text-nm-text-p'
-                        : 'text-nm-text-s hover:text-nm-text-p'
+                    className={`text-[13px] font-medium transition-colors duration-200 ${
+                      isActive(link.href) ? 'text-nm-text-p' : 'text-nm-text-s hover:text-nm-text-p'
                     }`}
                   >
                     {link.label}
@@ -152,10 +143,13 @@ export default function Header() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
-              <Button href="/contact" variant="primary" size="sm" withArrow>
+            <div className="hidden lg:block">
+              <Link
+                href="/contact"
+                className="bg-nm-green-text text-white px-6 py-2.5 text-[13px] font-semibold hover:opacity-85 transition-opacity"
+              >
                 Get a Quote
-              </Button>
+              </Link>
             </div>
 
             {/* Mobile hamburger */}
@@ -163,23 +157,11 @@ export default function Header() {
               onClick={() => setMobileOpen((v) => !v)}
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] group"
+              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
             >
-              <span
-                className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${
-                  mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''
-                }`}
-              />
-              <span
-                className={`block h-[1.5px] bg-nm-text-s transition-all duration-300 ${
-                  mobileOpen ? 'opacity-0 w-0' : 'w-4'
-                }`}
-              />
-              <span
-                className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${
-                  mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''
-                }`}
-              />
+              <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
+              <span className={`block h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'opacity-0 w-0' : 'w-4'}`} />
+              <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
             </button>
           </nav>
         </div>
@@ -192,14 +174,13 @@ export default function Header() {
         }`}
         aria-hidden={!mobileOpen}
       >
-        <div className="flex flex-col h-full pt-20 pb-8 px-5 overflow-y-auto">
+        <div className="flex flex-col h-full pt-20 pb-8 px-6 overflow-y-auto">
           <nav className="flex-1">
             <div className="space-y-1 mb-6">
-              {/* 3D Printing with sub-links */}
               <div>
                 <Link
                   href="/3d-printing"
-                  className={`block py-3 text-h2 font-sans font-medium tracking-tight transition-colors duration-200 ${
+                  className={`block py-3 text-[22px] font-bold tracking-tight transition-colors duration-200 ${
                     isActive('/3d-printing') ? 'text-nm-text-p' : 'text-nm-text-s hover:text-nm-text-p'
                   }`}
                 >
@@ -210,7 +191,7 @@ export default function Header() {
                     <Link
                       key={s.href}
                       href={s.href}
-                      className="block py-1.5 text-body-sm text-nm-text-t hover:text-nm-text-s transition-colors duration-200"
+                      className="block py-1.5 text-[13px] text-nm-text-t hover:text-nm-text-s transition-colors duration-200"
                     >
                       {s.label}
                     </Link>
@@ -222,7 +203,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block py-3 text-h2 font-sans font-medium tracking-tight transition-colors duration-200 ${
+                  className={`block py-3 text-[22px] font-bold tracking-tight transition-colors duration-200 ${
                     isActive(link.href) ? 'text-nm-text-p' : 'text-nm-text-s hover:text-nm-text-p'
                   }`}
                 >
@@ -233,13 +214,16 @@ export default function Header() {
 
             <div className="h-px bg-nm-border mb-6" />
 
-            <Button href="/contact" variant="primary" size="lg" className="w-full justify-center">
+            <Link
+              href="/contact"
+              className="bg-nm-green-text text-white py-4 text-[13px] font-semibold block text-center hover:opacity-85 transition-opacity"
+            >
               Get a Quote
-            </Button>
+            </Link>
           </nav>
 
           <div className="pt-6">
-            <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.12em]">
+            <p className="text-[12px] text-nm-text-t uppercase tracking-[1.5px]">
               Northern Modulus
             </p>
           </div>

@@ -1,77 +1,91 @@
-import SectionLabel from '@/components/ui/SectionLabel'
-import Button from '@/components/ui/Button'
+﻿import Link from 'next/link'
 
 const steps = [
   {
     index: '01',
-    title: 'Send your file, sketch, or idea',
+    title: 'Send your file,\nsketch, or idea',
     description:
-      'Upload a CAD file, share a sketch, or describe what you need. We accept STEP, STL, OBJ, DXF, and most common 3D formats. No file yet? Tell us what you are trying to make.',
+      'Upload a CAD file, share a sketch, or describe what you need. STEP, STL, OBJ, DXF accepted.',
+    isLast: false,
   },
   {
     index: '02',
-    title: 'We review and quote',
+    title: 'We review\nand quote',
     description:
-      'We check the geometry, recommend a material, and send a clear quote with price, lead time, and any notes on the design. Most quotes returned within 24 hours.',
+      'We check geometry, recommend material, and send a clear quote. Most quotes within 24 hours.',
+    isLast: false,
   },
   {
     index: '03',
-    title: 'We print and finish',
+    title: 'We print\nand finish',
     description:
-      'Once approved, your parts go into production. We print, remove supports, clean, and inspect before packing. No surprises at delivery.',
+      'Parts go into production. We print, remove supports, clean, and inspect before packing.',
+    isLast: false,
   },
   {
     index: '04',
-    title: 'You receive the part',
+    title: 'You receive\nthe part',
     description:
-      'Parts are packed to protect surface finish in transit and dispatched with tracking. For repeat orders, the same settings are saved so every batch matches the last.',
+      'Packed to protect surface finish, dispatched with tracking. Repeat orders use saved settings.',
+    isLast: true,
   },
 ]
 
 export default function HowItWorks() {
   return (
-    <section className="section-py bg-nm-bg" aria-labelledby="how-it-works-heading">
+    <section className="py-[120px] bg-nm-s2 border-t border-nm-border" aria-labelledby="how-it-works-heading">
       <div className="site-container">
-        <div className="mb-14 md:mb-18 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-          <div>
-            <SectionLabel className="mb-5">How It Works</SectionLabel>
-            <h2
-              id="how-it-works-heading"
-              className="text-disp-lg text-nm-text-p font-light tracking-tight max-w-[20ch]"
-            >
-              Simple process.<br />
-              No surprises.
-            </h2>
-          </div>
-          <Button href="/contact" variant="primary" size="md" withArrow>
-            Get a Quote
-          </Button>
+
+        {/* Header */}
+        <div className="mb-18">
+          <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+            // Process
+          </p>
+          <h2
+            id="how-it-works-heading"
+            className="text-[clamp(28px,3vw,44px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em]"
+          >
+            Simple process.<br />
+            <span className="text-nm-text-s font-medium">No surprises.</span>
+          </h2>
         </div>
 
-        {/* Steps — horizontal on desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-nm-border">
-          {steps.map((step) => (
+        {/* Steps grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4">
+          {steps.map((step, i) => (
             <div
               key={step.index}
-              className="bg-nm-bg hover:bg-nm-s1 transition-colors duration-300 p-7 md:p-8 flex flex-col group"
+              className={`pb-10 md:pb-0 ${
+                !step.isLast
+                  ? 'md:pr-10 md:border-r md:mr-10 border-nm-border border-b md:border-b-0 mb-10 md:mb-0'
+                  : ''
+              }`}
             >
-              {/* Index + connector */}
-              <div className="flex items-center gap-3 mb-6">
-                <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em]">
-                  {step.index}
-                </span>
-                <div className="h-px flex-1 bg-nm-border group-hover:bg-nm-green-mid transition-colors duration-500" aria-hidden="true" />
+              <div
+                className={`text-[48px] font-extrabold leading-none tracking-[-2px] mb-7 ${
+                  step.isLast ? 'text-nm-green-text opacity-30' : 'text-nm-border'
+                }`}
+              >
+                {step.index}
               </div>
-
-              <h3 className="text-h3 text-nm-text-p font-medium tracking-tight mb-4">
+              <h3 className="text-[15px] font-bold text-nm-text-p mb-3.5 leading-[1.4] whitespace-pre-line">
                 {step.title}
               </h3>
-              <p className="text-body-sm text-nm-text-s leading-relaxed flex-1">
-                {step.description}
-              </p>
+              <p className="text-[13px] text-nm-text-s leading-[1.8]">{step.description}</p>
             </div>
           ))}
         </div>
+
+        {/* CTA */}
+        <div className="mt-18 pt-14 border-t border-nm-border flex justify-center">
+          <Link
+            href="/contact"
+            className="bg-nm-green-text text-white px-14 py-4 text-[13px] font-semibold hover:opacity-85 transition-opacity"
+          >
+            Get a Quote →
+          </Link>
+        </div>
+
       </div>
     </section>
   )

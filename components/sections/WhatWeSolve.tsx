@@ -1,85 +1,85 @@
-import SectionLabel from '@/components/ui/SectionLabel'
-import Button from '@/components/ui/Button'
+﻿import Link from 'next/link'
 
-const printTypes = [
+const services = [
   {
     index: '01',
     title: 'Prototypes',
     description:
-      'CAD to physical part in days. Test form, fit, and function before committing to tooling or production investment. Suitable for mechanical development, client review, and design validation.',
-    detail: 'Send a file or a sketch — we handle the rest.',
+      'CAD to physical part in days. Test form, fit, and function before committing to tooling or production investment.',
+    link: 'Prototyping',
+    href: '/3d-printing#prototypes',
   },
   {
     index: '02',
     title: 'Functional Parts',
     description:
-      'Parts that do real work. We print in materials suited to the application — structural, heat-resistant, flexible, or chemical-resistant — and review geometry before printing to catch issues early.',
-    detail: 'Engineering review included on every order.',
+      'Parts that do real work. Printed in materials suited to the application — structural, heat-resistant, flexible, or chemical-resistant.',
+    link: 'Functional Parts',
+    href: '/3d-printing#functional',
   },
   {
     index: '03',
     title: 'Small-Batch Production',
     description:
-      'When you need 1 to 500+ parts, short-run FDM 3D printing is often faster and cheaper than cutting tooling. Consistent quality, clean finish, and practical lead times across the batch.',
-    detail: 'One-off or repeat — same standard either way.',
+      '1 to 500+ parts. Short-run FDM is often faster and cheaper than cutting tooling. Consistent quality across the batch.',
+    link: 'Small-Batch',
+    href: '/3d-printing#batch',
   },
 ]
 
 export default function WhatWeSolve() {
   return (
-    <section className="section-py bg-nm-bg" aria-labelledby="what-we-print-heading">
+    <section className="pt-[120px] bg-nm-s1 border-t border-nm-border" aria-labelledby="what-we-print-heading">
       <div className="site-container">
-        <div className="mb-14 md:mb-18 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+
+        {/* Section header */}
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end pb-12 border-b border-nm-border gap-6">
           <div>
-            <SectionLabel className="mb-5">What We Print</SectionLabel>
+            <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+              // What We Print
+            </p>
             <h2
               id="what-we-print-heading"
-              className="text-disp-lg text-nm-text-p font-light tracking-tight max-w-[22ch]"
+              className="text-[clamp(30px,3.5vw,50px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em]"
             >
               Three types of work.<br />
-              One consistent standard.
+              <span className="text-nm-text-s font-medium">One consistent standard.</span>
             </h2>
           </div>
-          <p className="text-body-md text-nm-text-s max-w-[44ch] leading-relaxed lg:text-right">
-            Whether you need a single prototype or a short production run, the same engineering
-            review and print quality applies to every order.
-          </p>
+          <Link
+            href="/contact"
+            className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity whitespace-nowrap self-start lg:self-auto"
+          >
+            Get a Quote →
+          </Link>
         </div>
 
-        {/* Cards */}
+        {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-nm-border">
-          {printTypes.map((type) => (
-            <article
-              key={type.index}
-              className="bg-nm-bg p-8 md:p-10 flex flex-col group hover:bg-nm-s1 transition-colors duration-300"
+          {services.map((service) => (
+            <div
+              key={service.index}
+              className="bg-nm-s1 px-10 py-12 hover:bg-nm-s3 transition-colors duration-300"
             >
-              <div className="flex items-start gap-5 mb-6">
-                <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em] flex-shrink-0 mt-1">
-                  {type.index}
-                </span>
-                <div
-                  className="h-px flex-1 bg-nm-border group-hover:bg-nm-border-mid transition-colors duration-300 mt-2.5"
-                  aria-hidden="true"
-                />
-              </div>
-              <h3 className="text-h1 text-nm-text-p mb-4 font-medium tracking-tight">
-                {type.title}
+              <p className="text-[12px] font-semibold text-nm-green-text tracking-[2px] mb-9">
+                {service.index}
+              </p>
+              <h3 className="text-[20px] font-bold text-nm-text-p tracking-[-0.01em] mb-[18px]">
+                {service.title}
               </h3>
-              <p className="text-body-md text-nm-text-s leading-relaxed flex-1">
-                {type.description}
+              <p className="text-[13px] text-nm-text-s leading-[1.8] mb-9">
+                {service.description}
               </p>
-              <p className="mt-5 font-mono text-label-sm text-nm-green-text uppercase tracking-[0.12em]">
-                {type.detail}
-              </p>
-            </article>
+              <Link
+                href={service.href}
+                className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity"
+              >
+                {service.link} →
+              </Link>
+            </div>
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
-          <Button href="/contact" variant="outline" size="md" withArrow>
-            Get a Quote
-          </Button>
-        </div>
       </div>
     </section>
   )

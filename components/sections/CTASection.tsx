@@ -1,4 +1,4 @@
-import Button from '@/components/ui/Button'
+﻿import Link from 'next/link'
 
 interface CTASectionProps {
   headline?: string
@@ -11,49 +11,47 @@ interface CTASectionProps {
 }
 
 export default function CTASection({
-  headline = 'Have a project in mind?',
-  subtext = "If you have an engineering problem that needs a practical solution, we'd like to hear about it. Send us a brief — we'll come back with a clear view on how to approach it.",
-  primaryCTA = 'Start a Project',
+  headline = 'Ready to get a quote?',
+  subtext = "Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within 24 hours.",
+  primaryCTA = 'Get a Quote',
   primaryHref = '/contact',
-  secondaryCTA = 'Discuss Your Application',
-  secondaryHref = '/contact',
-  variant = 'green',
+  secondaryCTA,
+  secondaryHref,
 }: CTASectionProps) {
-  const bg = {
-    dark:   'bg-nm-s1 border-y border-nm-border',
-    green:  'bg-nm-green-deep border-y border-nm-green-mid',
-    subtle: 'bg-nm-bg border-y border-nm-border',
-  }[variant]
-
   return (
-    <section className={`section-py-sm ${bg}`} aria-label="Project inquiry call to action">
+    <section className="py-[100px] bg-nm-s1 border-t border-nm-border" aria-label="Call to action">
       <div className="site-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <div className="lg:col-span-7">
-            {/* Technical accent line */}
-            <div className="flex items-center gap-4 mb-7" aria-hidden="true">
-              <div className="w-8 h-px bg-nm-green-accent" />
-              <span className="font-mono text-label-sm text-nm-green-text uppercase tracking-[0.14em]">
-                Project Enquiries
-              </span>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-16 lg:gap-20 items-center">
 
-            <h2 className="text-disp-md text-nm-text-p font-light tracking-tight mb-6">
+          <div>
+            <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+              // Get Started
+            </p>
+            <h2 className="text-[clamp(28px,3.5vw,50px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em] mb-5">
               {headline}
             </h2>
-            <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[52ch]">
+            <p className="text-[14px] text-nm-text-s leading-[1.8] max-w-[480px]">
               {subtext}
             </p>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3 lg:items-start xl:items-center">
-            <Button href={primaryHref} variant="primary" size="lg" withArrow>
-              {primaryCTA}
-            </Button>
-            <Button href={secondaryHref} variant="secondary" size="lg">
-              {secondaryCTA}
-            </Button>
+          <div className="flex flex-col gap-3 min-w-[220px]">
+            <Link
+              href={primaryHref}
+              className="bg-nm-green-text text-white px-10 py-4 text-[13px] font-semibold text-center block hover:opacity-85 transition-opacity whitespace-nowrap"
+            >
+              {primaryCTA} →
+            </Link>
+            {secondaryCTA && secondaryHref && (
+              <Link
+                href={secondaryHref}
+                className="border border-nm-border text-nm-text-p px-10 py-4 text-[13px] font-medium text-center block hover:border-nm-green-text transition-colors whitespace-nowrap"
+              >
+                {secondaryCTA} →
+              </Link>
+            )}
           </div>
+
         </div>
       </div>
     </section>

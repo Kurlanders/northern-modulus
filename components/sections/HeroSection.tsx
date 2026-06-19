@@ -1,142 +1,112 @@
-'use client'
+﻿'use client'
 
 import dynamic from 'next/dynamic'
-import Button from '@/components/ui/Button'
-import SectionLabel from '@/components/ui/SectionLabel'
+import Link from 'next/link'
 
-// Canvas requires WebGL — must be client-only, no SSR
 const HeroModel = dynamic(() => import('./HeroModel'), {
   ssr: false,
   loading: () => null,
 })
 
+const stats = [
+  { value: 'FDM',   label: 'Print Method',      accent: false },
+  { value: '24h',   label: 'Quote Turnaround',  accent: false },
+  { value: '1→500', label: 'Quantity Range',    accent: false },
+  { value: 'Eng.',  label: 'Led Review',        accent: true  },
+]
+
 export default function HeroSection() {
   return (
-    <section
-      className="relative min-h-screen bg-nm-bg overflow-hidden flex items-center"
-      aria-label="Hero"
-    >
-      {/* Subtle dot-grid texture */}
-      <div className="absolute inset-0 line-grid opacity-[0.10]" aria-hidden="true" />
+    <section className="relative min-h-screen overflow-hidden bg-nm-bg" aria-label="Hero">
 
-      {/* Very faint green ambient glow — top-right corner */}
+      {/* Grid background */}
       <div
-        className="absolute top-0 right-0 pointer-events-none"
-        style={{
-          width: '700px',
-          height: '700px',
-          background:
-            'radial-gradient(circle at 70% 20%, #245040 0%, transparent 60%)',
-          opacity: 0.05,
-        }}
+        className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
+        style={{
+          backgroundImage:
+            'linear-gradient(#252729 1px, transparent 1px), linear-gradient(90deg, #252729 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+          opacity: 0.22,
+        }}
       />
 
-      {/* Bottom edge fade into the next section */}
+      {/* Scan line */}
+      <div className="scan-line" aria-hidden="true" />
+
+      {/* 3D canvas — absolute right */}
       <div
-        className="absolute inset-x-0 bottom-0 pointer-events-none"
-        style={{
-          height: '18%',
-          background: 'linear-gradient(to top, #0C0D0F, transparent)',
-        }}
+        className="absolute right-0 top-0 w-[45%] h-screen hidden lg:block z-[2] pointer-events-none"
         aria-hidden="true"
-      />
+      >
+        <HeroModel />
+      </div>
 
-      {/* ── Main grid layout ──────────────────────────────────────────────── */}
-      <div className="relative z-10 w-full site-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center min-h-screen gap-0">
+      {/* Text — aligned with site-container */}
+      <div className="relative z-[3] min-h-screen flex items-center w-full">
+        <div className="max-w-[1440px] mx-auto w-full px-6 md:px-12 pt-[120px] pb-20">
+        <div className="max-w-[640px] w-full lg:max-w-[52%]">
 
-          {/* ── Left column: text content ─────────────────────────────────── */}
-          <div className="flex flex-col justify-center pt-36 pb-16 lg:pt-0 lg:pb-0 pr-0 lg:pr-12">
-
-            <div
-              className="mb-8 animate-fade-in"
-              style={{ animationDelay: '0.1s', animationFillMode: 'backwards' }}
-            >
-              <SectionLabel index="NM" light>Custom 3D Printing</SectionLabel>
-            </div>
-
-            <div
-              className="animate-fade-up"
-              style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}
-            >
-              <h1 className="text-disp-2xl text-nm-text-p font-light tracking-tight mb-8">
-                Premium FDM 3D printing for{' '}
-                <span className="text-nm-text-s font-light">parts that</span>
-                <br className="hidden sm:block" />
-                {' '}need to work.
-              </h1>
-            </div>
-
-            <div
-              className="animate-fade-up"
-              style={{ animationDelay: '0.32s', animationFillMode: 'backwards' }}
-            >
-              <p className="text-body-lg text-nm-text-s leading-relaxed mb-10 max-w-[44ch]">
-                Prototypes, functional parts, and small-batch production with engineering-led
-                review, practical material guidance, and premium print quality on every order.
-              </p>
-            </div>
-
-            <div
-              className="flex flex-wrap items-center gap-3 mb-14 animate-fade-up"
-              style={{ animationDelay: '0.44s', animationFillMode: 'backwards' }}
-            >
-              <Button href="/contact" variant="primary" size="lg" withArrow>
-                Get a Quote
-              </Button>
-              <Button href="/3d-printing" variant="secondary" size="lg">
-                Explore 3D Printing
-              </Button>
-            </div>
-
-            {/* Stat strip */}
-            <div
-              className="pt-8 border-t border-nm-border grid grid-cols-2 sm:grid-cols-4 gap-6 animate-fade-up"
-              style={{ animationDelay: '0.56s', animationFillMode: 'backwards' }}
-            >
-              {[
-                { value: 'FDM',   label: 'Premium printing' },
-                { value: '24h',   label: 'Quote turnaround' },
-                { value: '1→500', label: 'Qty range'        },
-                { value: 'Eng.',  label: 'Led review'       },
-              ].map((s) => (
-                <div key={s.value} className="flex flex-col gap-1.5">
-                  <span className="font-mono text-[1.4rem] font-light text-nm-text-p tracking-tight leading-none">
-                    {s.value}
-                  </span>
-                  <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.12em]">
-                    {s.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3.5 mb-12">
+            <div className="w-7 h-px bg-nm-green-text flex-shrink-0" aria-hidden="true" />
+            <span className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase">
+              // Premium FDM 3D Printing
+            </span>
           </div>
 
-          {/* ── Right column: 3D model canvas ─────────────────────────────── */}
-          <div
-            className="relative h-[55vw] lg:h-screen max-h-[600px] lg:max-h-none"
-            aria-hidden="true"
-          >
-            <HeroModel />
+          {/* H1 */}
+          <h1 className="text-[clamp(44px,5vw,84px)] font-bold leading-[1.05] tracking-[-0.025em] text-nm-text-p mb-7">
+            Premium FDM<br />
+            3D printing for<br />
+            <span className="text-nm-green-text">parts that work.</span>
+          </h1>
+
+          {/* Subtext */}
+          <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[480px] mb-12">
+            Engineering-led file review, practical material guidance, and premium print quality
+            on every order. Prototypes to small-batch production.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-3.5 mb-20">
+            <Link
+              href="/contact"
+              className="bg-nm-green-text text-white px-9 py-[14px] text-[13px] font-semibold inline-flex items-center gap-2 hover:opacity-85 transition-opacity"
+            >
+              Get a Quote →
+            </Link>
+            <Link
+              href="/3d-printing"
+              className="border border-nm-border text-nm-text-p px-9 py-[14px] text-[13px] font-medium inline-flex items-center gap-2 hover:border-nm-green-text transition-colors"
+            >
+              Explore →
+            </Link>
+          </div>
+
+          {/* Stats strip */}
+          <div className="border-t border-nm-border pt-10 flex items-start flex-wrap gap-y-6">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.value}
+                className={`flex flex-col gap-1.5 ${
+                  i > 0 ? 'pl-10 border-l border-nm-border' : ''
+                } ${i < stats.length - 1 ? 'pr-10' : ''}`}
+              >
+                <span className={`text-[30px] font-bold leading-none tracking-[-1px] ${stat.accent ? 'text-nm-green-text' : 'text-nm-text-p'}`}>
+                  {stat.value}
+                </span>
+                <span className="text-[11px] font-medium text-nm-text-s tracking-[1.5px] uppercase whitespace-nowrap">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
 
         </div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-20"
-        aria-hidden="true"
-      >
-        <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.14em]">
-          Scroll
-        </span>
-        <svg width="12" height="20" viewBox="0 0 12 20" fill="none">
-          <rect x="1" y="1" width="10" height="18" rx="5" stroke="#8C8A85" strokeWidth="1.2" />
-          <rect x="5" y="5" width="2" height="4" rx="1" fill="#8C8A85" />
-        </svg>
-      </div>
     </section>
   )
 }

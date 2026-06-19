@@ -1,78 +1,80 @@
-import Link from 'next/link'
-import SectionLabel from '@/components/ui/SectionLabel'
-import Button from '@/components/ui/Button'
+﻿import Link from 'next/link'
 import { featuredProjects } from '@/lib/data/projects'
+
+const categoryTag: Record<string, string> = {
+  'Tooling & Fixtures':   'TOOLING',
+  'Transport & Handling': 'TRANSPORT',
+  'Automation & Control': 'AUTOMATION',
+  'Product Development':  'PRODUCT',
+}
 
 export default function ProjectsGrid() {
   return (
-    <section className="section-py bg-nm-bg" aria-labelledby="projects-heading">
+    <section className="py-[120px] bg-nm-s1 border-t border-nm-border" aria-labelledby="projects-heading">
       <div className="site-container">
-        <div className="mb-14 md:mb-18 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end mb-12 gap-6">
           <div>
-            <SectionLabel className="mb-5">Selected Projects</SectionLabel>
+            <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+              // Selected Projects
+            </p>
             <h2
               id="projects-heading"
-              className="text-disp-lg text-nm-text-p font-light tracking-tight max-w-[20ch]"
+              className="text-[clamp(28px,3vw,44px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em]"
             >
               Work that demonstrates<br />
-              engineering judgement.
+              <span className="text-nm-text-s font-medium">engineering judgement.</span>
             </h2>
           </div>
-          <Button href="/projects" variant="secondary" size="md" withArrow>
-            All Projects
-          </Button>
+          <Link
+            href="/projects"
+            className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity whitespace-nowrap self-start lg:self-auto"
+          >
+            All Projects →
+          </Link>
         </div>
 
+        {/* Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-nm-border">
           {featuredProjects.map((project) => (
             <Link
               key={project.id}
-              href={`/projects`}
-              className="group bg-nm-bg hover:bg-nm-s1 transition-colors duration-300 flex flex-col"
+              href="/projects"
+              className="bg-nm-s1 hover:bg-nm-s3 transition-colors duration-300 flex flex-col group"
             >
               {/* Image placeholder */}
-              <div className="relative h-52 bg-nm-s1 border-b border-nm-border overflow-hidden">
-                <div className="absolute inset-0 dot-grid opacity-50" aria-hidden="true" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex flex-col items-center gap-3">
-                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-                      <rect x="4" y="4" width="14" height="14" stroke="#245040" strokeWidth="1.2" />
-                      <rect x="12" y="12" width="24" height="24" stroke="#4D8F6A" strokeWidth="1.2" fill="none" />
-                      <rect x="13" y="13" width="10" height="10" fill="#0E1F18" stroke="#245040" strokeWidth="1" />
-                    </svg>
-                    <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.12em]">
-                      {project.category}
-                    </span>
-                  </div>
+              <div className="h-[200px] bg-nm-s2 border-b border-nm-border flex items-center justify-center relative overflow-hidden">
+                <div className="w-14 h-14 border border-nm-border flex items-center justify-center">
+                  <div className="w-6 h-6 border border-nm-text-t" />
                 </div>
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-nm-green-deep opacity-0 group-hover:opacity-60 transition-opacity duration-300" />
+                {/* Category tag */}
+                <div
+                  className="absolute top-4 left-4 px-2.5 py-1 border border-nm-green-text"
+                  style={{ background: 'rgba(30,187,110,0.10)' }}
+                >
+                  <span className="text-[11px] font-semibold text-nm-green-text tracking-[1px]">
+                    {categoryTag[project.category] ?? project.category.toUpperCase()}
+                  </span>
+                </div>
               </div>
 
-              <div className="p-7 flex flex-col flex-1">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-label-sm text-nm-green-text tracking-[0.12em]">
-                    {project.index}
-                  </span>
-                  <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.1em]">
-                    {project.category}
-                  </span>
-                </div>
-
-                <h3 className="text-h2 text-nm-text-p font-medium tracking-tight mb-3 group-hover:text-nm-text-p">
+              {/* Content */}
+              <div className="p-8 flex flex-col flex-1">
+                <p className="text-[11px] font-medium text-nm-text-t tracking-[1.5px] uppercase mb-3">
+                  {project.category}
+                </p>
+                <h3 className="text-[17px] font-bold text-nm-text-p tracking-[-0.01em] mb-3 leading-[1.4]">
                   {project.title}
                 </h3>
-
-                <p className="text-body-sm text-nm-text-s leading-relaxed flex-1">
+                <p className="text-[13px] text-nm-text-s leading-[1.8] mb-6 flex-1">
                   {project.summary}
                 </p>
-
-                {/* Tags */}
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.tags.slice(0, 3).map((tag) => (
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
-                      className="font-mono text-label-sm text-nm-text-t border border-nm-border px-2.5 py-1 rounded-sm2 uppercase tracking-[0.1em] group-hover:border-nm-green-mid transition-colors duration-300"
+                      className="text-[11px] font-medium text-nm-text-s border border-nm-border px-2.5 py-1 tracking-[0.5px] uppercase"
                     >
                       {tag}
                     </span>
@@ -82,6 +84,7 @@ export default function ProjectsGrid() {
             </Link>
           ))}
         </div>
+
       </div>
     </section>
   )
