@@ -1,157 +1,194 @@
 import type { Metadata } from 'next'
-import SectionLabel from '@/components/ui/SectionLabel'
-import Button from '@/components/ui/Button'
+import Image from 'next/image'
+import Link from 'next/link'
 import CTASection from '@/components/sections/CTASection'
 import { projects } from '@/lib/data/projects'
 
 export const metadata: Metadata = {
-  title: 'Projects — Selected Engineering Work',
+  title: 'Projects — Northern Modulus',
   description:
-    'A selection of industrial engineering projects covering fixtures and tooling, engineered transport systems, automation, and product development.',
+    'A selection of engineering projects built and printed at Northern Modulus. Real problems, real results.',
 }
+
+const published = projects.filter((p) => p.status === 'published')
 
 export default function ProjectsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        <div className="absolute inset-0 line-grid opacity-30" aria-hidden="true" />
+      <section className="relative pt-[140px] pb-[80px] bg-nm-bg border-b border-nm-border overflow-hidden">
+        <div className="absolute inset-0 line-grid opacity-20 pointer-events-none" aria-hidden="true" />
         <div className="site-container relative">
-          <SectionLabel className="mb-6">Selected Projects</SectionLabel>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-8">
-              <h1 className="text-disp-xl text-nm-text-p font-light tracking-tight mb-6">
-                Work that demonstrates<br />
-                engineering judgement.
-              </h1>
-              <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[56ch]">
-                Each project below represents a specific operational problem solved through
-                engineering. The detail matters — both in the problem definition and in the
-                delivered result.
-              </p>
-            </div>
+          <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-6">
+            // Projects
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-end">
+            <h1 className="text-[clamp(32px,4.5vw,64px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.025em]">
+              Work that demonstrates<br />
+              <span className="text-nm-text-s font-medium">engineering judgement.</span>
+            </h1>
+            <p className="text-[14px] text-nm-text-s leading-[1.8] max-w-[400px] lg:pb-2">
+              Each project here is a specific problem solved through engineering and 3D printing.
+              The detail matters — both in the problem definition and in the result.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Projects */}
-      <section className="pb-20 md:pb-32">
-        <div className="site-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-nm-border">
-            {projects.filter((p) => p.status === 'published').map((project) => (
-              <article
-                key={project.id}
-                className="bg-nm-bg hover:bg-nm-s1 transition-colors duration-300 group p-8 md:p-10 flex flex-col"
-              >
-                {/* Header */}
-                <div className="flex items-start justify-between gap-6 mb-6">
-                  <div className="flex items-center gap-4">
-                    <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em]">
-                      {project.index}
-                    </span>
-                    <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.1em]">
-                      {project.category}
-                    </span>
-                  </div>
+      {/* Project list */}
+      <section className="bg-nm-bg">
+        {published.map((project, idx) => (
+          <article
+            key={project.id}
+            className={idx > 0 ? 'border-t border-nm-border' : ''}
+          >
+
+            {/* Image banner */}
+            <div className="grid grid-cols-2 border-b border-nm-border overflow-hidden" style={{ height: '580px' }}>
+              {project.images?.[0] && (
+                <div className="relative overflow-hidden border-r border-nm-border">
+                  <Image
+                    src={project.images[0]}
+                    alt={`${project.title} — overview`}
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: 'center 8%' }}
+                    priority={idx === 0}
+                  />
                 </div>
-
-                {/* Image placeholder */}
-                <div className="relative h-48 bg-nm-s1 border border-nm-border rounded-sm2 mb-7 overflow-hidden">
-                  <div className="absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                      <rect x="4" y="4" width="18" height="18" stroke="#245040" strokeWidth="1.2" />
-                      <rect x="14" y="14" width="30" height="30" stroke="#4D8F6A" strokeWidth="1.2" fill="none" />
-                      <rect x="15" y="15" width="12" height="12" fill="#0E1F18" stroke="#245040" strokeWidth="1" />
-                    </svg>
-                  </div>
-                  <div className="absolute inset-0 bg-nm-green-deep opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+              )}
+              {project.images?.[1] && (
+                <div className="relative overflow-hidden">
+                  <Image
+                    src={project.images[1]}
+                    alt={`${project.title} — detail`}
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: 'center 8%' }}
+                  />
                 </div>
+              )}
+              {!project.images?.length && (
+                <div className="col-span-2 flex items-center justify-center bg-nm-s2">
+                  <div className="w-12 h-12 border border-nm-border" />
+                </div>
+              )}
+            </div>
 
-                {/* Title */}
-                <h2 className="text-h1 text-nm-text-p font-medium tracking-tight mb-4">
-                  {project.title}
-                </h2>
+            {/* Content */}
+            <div className="site-container py-16 lg:py-20">
 
-                {/* Summary */}
-                <p className="text-body-md text-nm-text-s leading-relaxed mb-6">
-                  {project.summary}
+              {/* Meta row */}
+              <div className="flex flex-wrap items-center gap-3 mb-8">
+                <span className="font-mono text-[11px] text-nm-green-text tracking-[2px]">
+                  {project.index}
+                </span>
+                {project.badge && (
+                  <span
+                    className="text-[11px] font-semibold text-nm-green-text tracking-[1.5px] uppercase px-2.5 py-1 border border-nm-green-text"
+                    style={{ background: 'rgba(30,187,110,0.08)' }}
+                  >
+                    {project.badge}
+                  </span>
+                )}
+                <span className="text-[11px] font-medium text-nm-text-t tracking-[1.5px] uppercase">
+                  {project.category}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h2 className="text-[clamp(24px,3vw,44px)] font-bold text-nm-text-p tracking-[-0.02em] leading-[1.15] mb-3">
+                {project.title}
+              </h2>
+              {project.subtitle && (
+                <p className="text-[14px] font-medium text-nm-green-text mb-8">
+                  {project.subtitle}
                 </p>
+              )}
 
-                {/* Challenge */}
-                <div className="mb-6 p-5 bg-nm-s1 border border-nm-border rounded-sm2">
-                  <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.12em] mb-2">
-                    The Challenge
+              {/* Summary */}
+              <p className="text-[15px] text-nm-text-s leading-[1.85] max-w-[680px] mb-14">
+                {project.summary}
+              </p>
+
+              {/* Challenge / Solution */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-nm-border mb-14">
+                <div className="bg-nm-bg p-8 lg:p-10">
+                  <p className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
+                    // The Challenge
                   </p>
-                  <p className="text-body-sm text-nm-text-s leading-relaxed">
+                  <p className="text-[13px] text-nm-text-s leading-[1.85]">
                     {project.challenge}
                   </p>
                 </div>
-
-                {/* Outcomes */}
-                <div className="mb-7">
-                  <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.12em] mb-4">
-                    Outcomes
+                <div className="bg-nm-s1 p-8 lg:p-10">
+                  <p className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
+                    // The Solution
                   </p>
-                  <ul className="space-y-2.5">
-                    {project.outcomes.map((outcome, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <span className="font-mono text-label-sm text-nm-green-text tracking-[0.12em] flex-shrink-0 mt-0.5">
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <span className="text-body-sm text-nm-text-p leading-relaxed">{outcome}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-[13px] text-nm-text-s leading-[1.85]">
+                    {project.solution}
+                  </p>
                 </div>
+              </div>
 
-                {/* Tags */}
-                <div className="mt-auto flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-mono text-label-sm text-nm-text-t border border-nm-border px-2.5 py-1 rounded-sm2 uppercase tracking-[0.1em]"
-                    >
-                      {tag}
-                    </span>
+              {/* Outcomes */}
+              <div className="mb-12">
+                <p className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-7">
+                  // Outcomes
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {project.outcomes.map((outcome, i) => (
+                    <div key={i} className="flex items-start gap-4 p-5 border border-nm-border bg-nm-s1">
+                      <span className="font-mono text-[11px] text-nm-green-text tracking-[2px] flex-shrink-0 mt-0.5">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-[13px] text-nm-text-p leading-[1.7]">{outcome}</span>
+                    </div>
                   ))}
                 </div>
-              </article>
-            ))}
-          </div>
-        </div>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[11px] font-medium text-nm-text-s border border-nm-border px-3 py-1.5 tracking-[0.5px] uppercase"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+            </div>
+          </article>
+        ))}
       </section>
 
-      {/* Note on confidentiality */}
-      <section className="section-py-sm bg-nm-s1 border-y border-nm-border">
+      {/* Confidentiality note */}
+      <section className="py-16 bg-nm-s1 border-t border-nm-border border-b border-nm-border">
         <div className="site-container">
-          <div className="max-w-content mx-auto">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="flex-shrink-0">
-                <span className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.14em]">
-                  Note
-                </span>
-              </div>
-              <p className="text-body-md text-nm-text-s leading-relaxed">
-                A number of projects are not published here due to client confidentiality
-                requirements. The projects shown reflect the quality and scope of work we
-                undertake across all four solution areas. If you would like to discuss
-                relevant past work in a specific area before starting a project enquiry,
-                we are happy to do so under NDA where appropriate.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 items-start">
+            <p className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase">
+              // Note
+            </p>
+            <p className="text-[13px] text-nm-text-s leading-[1.85] max-w-[640px]">
+              A number of projects are not published here due to client confidentiality requirements.
+              The projects shown reflect the quality and scope of work we undertake. If you would
+              like to discuss relevant past work before starting an enquiry, we are happy to do so
+              under NDA where appropriate.
+            </p>
           </div>
         </div>
       </section>
 
       <CTASection
         headline="Working on something similar?"
-        subtext="If any of these projects reflect the kind of problem you are trying to solve, we would like to hear about your application."
+        subtext="If any of these projects reflect the kind of problem you're trying to solve, we'd like to hear about your application."
         primaryCTA="Start a Project"
         primaryHref="/contact"
-        secondaryCTA="View All Solutions"
-        secondaryHref="/solutions"
-        variant="green"
+        secondaryCTA="View Capabilities"
+        secondaryHref="/3d-printing"
       />
     </>
   )

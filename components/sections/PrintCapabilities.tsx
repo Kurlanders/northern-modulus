@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link'
+import Image from 'next/image'
 
 const capabilities = [
   {
@@ -78,6 +79,36 @@ export default function PrintCapabilities() {
           </div>
 
         </div>
+
+        {/* Printer photo */}
+        <div className="mt-16 border border-nm-border overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_400px]">
+
+          {/* Caption panel */}
+          <div className="bg-nm-s1 px-12 py-14 flex flex-col justify-center border-b border-nm-border lg:border-b-0 lg:border-r lg:border-nm-border">
+            <p className="text-[12px] font-medium text-nm-green-text tracking-[2.5px] uppercase mb-5">
+              // Our Machine
+            </p>
+            <h3 className="text-[clamp(22px,2.5vw,34px)] font-bold text-nm-text-p leading-[1.2] tracking-[-0.02em] mb-5">
+              Custom-built.<br />Modified in-house.
+            </h3>
+            <p className="text-[14px] text-nm-text-s leading-[1.85] max-w-[420px]">
+              Tuned for precision, consistency, and the kind of results that off-the-shelf hardware doesn't produce. Every print runs on this machine.
+            </p>
+          </div>
+
+          {/* Image panel */}
+          <div className="relative h-[580px] lg:h-auto overflow-hidden" style={{ minHeight: '580px' }}>
+            <Image
+              src="/pictures/printer_picture.jpg"
+              alt="Our custom-built FDM 3D printer"
+              fill
+              className="object-cover"
+              style={{ objectPosition: 'center 32%' }}
+            />
+          </div>
+
+        </div>
+
       </div>
     </section>
   )
