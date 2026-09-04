@@ -5,6 +5,7 @@ import PrintCapabilities from '@/components/sections/PrintCapabilities'
 import HowItWorks from '@/components/sections/HowItWorks'
 import ProjectsGrid from '@/components/sections/ProjectsGrid'
 import AdditionalServices from '@/components/sections/AdditionalServices'
+import MeetTheTeamBanner from '@/components/sections/MeetTheTeamBanner'
 import CTASection from '@/components/sections/CTASection'
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function HomePage() {
       <HowItWorks />
       <ProjectsGrid />
       <AdditionalServices />
+      <MeetTheTeamBanner />
       <CTASection
         headline="Ready to get a quote?"
         subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within 24 hours."

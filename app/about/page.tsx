@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
 import CTASection from '@/components/sections/CTASection'
+import TeamSection from '@/components/sections/TeamSection'
 
 export const metadata: Metadata = {
   title: 'About Northern Modulus — Engineering-Led Industrial Solutions',
@@ -77,6 +78,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <TeamSection />
 
       {/* Company story */}
       <section className="section-py bg-nm-s1 border-y border-nm-border">
