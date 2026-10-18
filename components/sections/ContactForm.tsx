@@ -62,10 +62,16 @@ export default function ContactForm() {
         body: JSON.stringify(payload),
       })
 
-      const json = await res.json()
+      const json = await res.json().catch(() => null)
 
-      if (!res.ok) {
-        setErrorMessage(json.error || 'Something went wrong. Please try again.')
+      if (res.status === 400 && json?.error) {
+        setErrorMessage(json.error)
+        setStatus('error')
+        return
+      }
+
+      if (!res.ok || json?.success !== true) {
+        setErrorMessage('')
         setStatus('error')
         return
       }
@@ -76,7 +82,7 @@ export default function ContactForm() {
       setServiceArea('')
       setFileLink('')
     } catch {
-      setErrorMessage('Could not reach the server. Please try again or email us directly.')
+      setErrorMessage('')
       setStatus('error')
     }
   }
@@ -342,7 +348,17 @@ export default function ContactForm() {
       {/* Error message */}
       {status === 'error' && (
         <div className="p-4 bg-red-950/40 border border-red-900/60 rounded-sm2">
-          <p className="text-body-sm text-red-400">{errorMessage}</p>
+          <p className="text-body-sm text-red-400">
+            {errorMessage || (
+              <>
+                Something went wrong — please email{' '}
+                <a href="mailto:northernmodulus@gmail.com" className="underline hover:text-red-300">
+                  northernmodulus@gmail.com
+                </a>{' '}
+                directly.
+              </>
+            )}
+          </p>
         </div>
       )}
 
