@@ -20,11 +20,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Northern Modulus — Premium Custom 3D Printing',
+    default: 'Northern Modulus — Engineering-Led 3D Printing in Riga',
     template: '%s — Northern Modulus',
   },
   description:
-    'Premium custom 3D printing for prototypes, functional parts, and small-batch production. Engineering-led file review, material guidance, and fast quoting.',
+    'Standard printed parts from the shop, and custom 3D printing for prototypes, functional parts, small batches, jigs, fixtures and moulds. Engineering review on every part.',
   keywords: [
     'custom 3D printing',
     'FDM printing service',
@@ -32,15 +32,17 @@ export const metadata: Metadata = {
     'functional 3D printed parts',
     'small batch 3D printing',
     'engineering 3D printing',
-    'industrial 3D printing',
+    '3D printed jigs and fixtures',
+    '3D printed moulds',
+    '3D printing Riga',
     'rapid prototyping',
   ],
   openGraph: {
     type: 'website',
     siteName: 'Northern Modulus',
-    title: 'Northern Modulus — Premium Custom 3D Printing',
+    title: 'Northern Modulus — Engineering-Led 3D Printing in Riga',
     description:
-      'Premium custom 3D printing for prototypes, functional parts, and small-batch production. Engineering-led file review, material guidance, and fast quoting.',
+      'Standard printed parts from the shop, and custom 3D printing for prototypes, functional parts, small batches, jigs, fixtures and moulds. Engineering review on every part.',
   },
   twitter: {
     card: 'summary_large_image',

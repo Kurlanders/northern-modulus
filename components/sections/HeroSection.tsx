@@ -11,8 +11,25 @@ const HeroModel = dynamic(() => import('./HeroModel'), {
 const stats = [
   { value: 'FDM',   label: 'Print Method',      accent: false },
   { value: '24h',   label: 'Quote Turnaround',  accent: false },
-  { value: '1→500', label: 'Quantity Range',    accent: false },
+  { value: '1–100+', label: 'Parts per Order', accent: false },
   { value: 'Eng.',  label: 'Led Review',        accent: true  },
+]
+
+const offers = [
+  {
+    index: '01',
+    title: 'Shop parts',
+    description: 'Standard printed parts, ready to order.',
+    href: '/shop',
+    cta: 'Go to shop',
+  },
+  {
+    index: '02',
+    title: 'Custom print / quote',
+    description: 'Prototypes, functional parts, small batches, jigs, fixtures and moulds — made to your file.',
+    href: '/contact',
+    cta: 'Get a quote',
+  },
 ]
 
 export default function HeroSection() {
@@ -51,37 +68,44 @@ export default function HeroSection() {
           <div className="flex items-center gap-3.5 mb-12">
             <div className="w-7 h-px bg-nm-green-text flex-shrink-0" aria-hidden="true" />
             <span className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase">
-              // Premium FDM 3D Printing
+              {'// Engineering-led 3D printing · Riga'}
             </span>
           </div>
 
           {/* H1 */}
           <h1 className="text-[clamp(44px,5vw,84px)] font-bold leading-[1.05] tracking-[-0.025em] text-nm-text-p mb-7">
-            Premium FDM<br />
-            3D printing for<br />
-            <span className="text-nm-green-text">parts that work.</span>
+            Printed parts,<br />
+            <span className="text-nm-green-text">engineered to work.</span>
           </h1>
 
           {/* Subtext */}
           <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[480px] mb-12">
-            Engineering-led file review, practical material guidance, and premium print quality
-            on every order. Prototypes to small-batch production.
+            Standard parts from the shop, or custom prints made to your file. Every part is
+            reviewed before printing and made on one in-house Voron, tuned for precision.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3.5 mb-20">
-            <Link
-              href="/contact"
-              className="bg-nm-green-text text-white px-9 py-[14px] text-[13px] font-semibold inline-flex items-center gap-2 hover:opacity-85 transition-opacity"
-            >
-              Get a Quote →
-            </Link>
-            <Link
-              href="/3d-printing"
-              className="border border-nm-border text-nm-text-p px-9 py-[14px] text-[13px] font-medium inline-flex items-center gap-2 hover:border-nm-green-text transition-colors"
-            >
-              Explore →
-            </Link>
+          {/* Two equal offers */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-nm-border border border-nm-border mb-16">
+            {offers.map((offer) => (
+              <Link
+                key={offer.href}
+                href={offer.href}
+                className="group bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 p-7 flex flex-col"
+              >
+                <span className="text-[11px] font-semibold text-nm-green-text tracking-[2px] mb-5">
+                  {offer.index}
+                </span>
+                <span className="text-[20px] font-bold text-nm-text-p tracking-[-0.01em] mb-2.5">
+                  {offer.title}
+                </span>
+                <span className="text-[13px] text-nm-text-s leading-[1.7] mb-6 flex-1">
+                  {offer.description}
+                </span>
+                <span className="text-[13px] font-semibold text-nm-green-text group-hover:translate-x-1 transition-transform duration-200">
+                  {offer.cta} →
+                </span>
+              </Link>
+            ))}
           </div>
 
           {/* Stats strip */}

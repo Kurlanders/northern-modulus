@@ -28,11 +28,26 @@ const socials = [
   },
 ]
 
+const footerLinks = [
+  { label: 'Shop',            href: '/shop' },
+  { label: 'Custom Printing', href: '/3d-printing' },
+  { label: 'Work',            href: '/work' },
+  { label: 'About',           href: '/about' },
+  { label: 'Contact',         href: '/contact' },
+]
+
+// TODO: replace with the registered company details. Do not guess these values.
+const legal = {
+  name: 'TODO: company legal name',
+  registrationNumber: 'TODO: registration number',
+  address: 'TODO: registered address',
+}
+
 export default function Footer() {
   return (
     <footer className="bg-nm-bg border-t border-nm-border">
       <div className="site-container">
-        <div className="py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="py-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
 
           {/* Logo + copyright */}
           <div className="flex flex-col gap-2.5">
@@ -50,6 +65,18 @@ export default function Footer() {
             </p>
           </div>
 
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-3">
+            {footerLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[13px] text-nm-text-s hover:text-nm-text-p transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
           {/* Right: socials */}
           <div className="flex items-center gap-5">
               {socials.map((s) => (
@@ -66,6 +93,12 @@ export default function Footer() {
               ))}
           </div>
 
+        </div>
+
+        <div className="border-t border-nm-border py-6 flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5 text-[12px] text-nm-text-t">
+          <span>{legal.name}</span>
+          <span>Reg. no. {legal.registrationNumber}</span>
+          <span>{legal.address}</span>
         </div>
       </div>
     </footer>

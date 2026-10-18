@@ -39,7 +39,7 @@ export default function HowItWorks() {
         {/* Header */}
         <div className="mb-18">
           <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-            // Process
+            {'// Process'}
           </p>
           <h2
             id="how-it-works-heading"

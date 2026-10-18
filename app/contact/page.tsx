@@ -1,12 +1,11 @@
-import type { Metadata } from 'next'
 import SectionLabel from '@/components/ui/SectionLabel'
 import ContactForm from '@/components/sections/ContactForm'
+import { pageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Get a Quote — Project Enquiries',
-  description:
-    'Send a project brief or describe your 3D printing requirement. Northern Modulus responds within one business day.',
-}
+export const metadata = pageMetadata(
+  'Get a Quote',
+  'Send a file, sketch or description of the part you need printed. Northern Modulus replies with a clear quote: material, lead time and price.'
+)
 
 export default function ContactPage() {
   return (

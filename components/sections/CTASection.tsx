@@ -25,7 +25,7 @@ export default function CTASection({
 
           <div>
             <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-              // Get Started
+              {'// Get Started'}
             </p>
             <h2 className="text-[clamp(28px,3.5vw,50px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em] mb-5">
               {headline}

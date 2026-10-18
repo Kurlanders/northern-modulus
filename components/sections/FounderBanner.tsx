@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-export default function MeetTheTeamBanner() {
+export default function FounderBanner() {
   return (
-    <section className="py-[80px] bg-nm-bg border-t border-nm-border" aria-label="Meet the team">
+    <section className="py-[80px] bg-nm-bg border-t border-nm-border" aria-label="About the founder">
       <div className="site-container">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8">
 
@@ -28,13 +28,13 @@ export default function MeetTheTeamBanner() {
           {/* Right: copy + link */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
             <p className="text-[14px] text-nm-text-s leading-[1.7] max-w-[340px]">
-              Want to know who's behind every print?
+              Want to know who&apos;s behind every print?
             </p>
             <Link
               href="/about"
               className="text-[13px] font-semibold text-nm-green-text border border-nm-green-text px-7 py-3.5 hover:bg-nm-green-text hover:text-white transition-colors duration-200 whitespace-nowrap"
             >
-              Meet the team →
+              About the founder →
             </Link>
           </div>
 

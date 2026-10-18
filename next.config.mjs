@@ -9,6 +9,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      { source: '/projects', destination: '/work', statusCode: 301 },
+      { source: '/process', destination: '/3d-printing', statusCode: 301 },
+      { source: '/solutions', destination: '/3d-printing', statusCode: 301 },
+      { source: '/solutions/:path*', destination: '/3d-printing', statusCode: 301 },
+    ]
+  },
 }
 
 export default nextConfig
