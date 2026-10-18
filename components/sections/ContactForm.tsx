@@ -78,9 +78,9 @@ export default function ContactForm({ product }: { product?: string }) {
 
     if (fileInputRef.current) fileInputRef.current.value = ''
 
-    let upload: typeof import('@vercel/blob/client').upload
+    let uploadPresigned: typeof import('@vercel/blob/client').uploadPresigned
     try {
-      ;({ upload } = await import('@vercel/blob/client'))
+      ;({ uploadPresigned } = await import('@vercel/blob/client'))
     } catch {
       setUploadError('File upload could not start. Please try again or paste a file link instead.')
       return
@@ -94,17 +94,17 @@ export default function ContactForm({ product }: { product?: string }) {
         { id, name: file.name, size: file.size, progress: 0, state: 'uploading', controller },
       ])
 
-      upload(`${UPLOAD_PREFIX}${crypto.randomUUID()}/${safeFileName(file.name)}`, file, {
+      uploadPresigned(`${UPLOAD_PREFIX}${crypto.randomUUID()}/${safeFileName(file.name)}`, file, {
         access: 'private',
         handleUploadUrl: '/api/upload',
-        multipart: file.size > 8 * 1024 * 1024,
         abortSignal: controller.signal,
         onUploadProgress: ({ percentage }) => updateUpload(id, { progress: Math.round(percentage) }),
       })
         .then((blob) => updateUpload(id, { state: 'done', progress: 100, path: blob.pathname }))
         .catch((err: unknown) => {
           if (controller.signal.aborted) return
-          updateUpload(id, { state: 'error', error: err instanceof Error ? err.message : 'Upload failed.' })
+          console.error('Upload failed:', err)
+          updateUpload(id, { state: 'error', error: 'Upload failed. Remove it and try again, or paste a file link below.' })
         })
     }
   }
