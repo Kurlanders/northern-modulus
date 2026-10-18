@@ -13,23 +13,23 @@ const stats = [
   { value: 'FDM',    label: 'Print Method',     accent: false },
   { value: '1 day',  label: 'Quote Turnaround', accent: false },
   { value: '1–100+', label: 'Parts per Order',  accent: false },
-  { value: 'Eng.',   label: 'Led Review',       accent: true  },
+  { value: 'Engineering', label: 'Led Review',  accent: true  },
 ]
 
 const offers = [
   {
     index: '01',
-    title: 'Shop parts',
-    description: 'Standard printed parts, ready to order.',
-    href: '/shop',
-    cta: publishedProducts.length > 0 ? 'Go to shop' : 'Coming soon',
-  },
-  {
-    index: '02',
     title: 'Custom print / quote',
     description: 'Prototypes, functional parts, small batches, jigs, fixtures and moulds — made to your file.',
     href: '/contact',
     cta: 'Get a quote',
+  },
+  {
+    index: '02',
+    title: 'Shop parts',
+    description: 'Standard printed parts, ready to order.',
+    href: '/shop',
+    cta: publishedProducts.length > 0 ? 'Go to shop' : 'Coming soon',
   },
 ]
 
@@ -65,14 +65,6 @@ export default function HeroSection() {
         <div className="max-w-[1440px] mx-auto w-full px-6 md:px-12 pt-[120px] pb-20">
         <div className="max-w-[640px] w-full lg:max-w-[52%]">
 
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3.5 mb-12">
-            <div className="w-7 h-px bg-nm-green-text flex-shrink-0" aria-hidden="true" />
-            <span className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase">
-              {'// Engineering-led 3D printing · Riga'}
-            </span>
-          </div>
-
           {/* H1 */}
           <h1 className="text-[clamp(44px,5vw,84px)] font-bold leading-[1.05] tracking-[-0.025em] text-nm-text-p mb-7">
             Printed parts,<br />
@@ -82,7 +74,7 @@ export default function HeroSection() {
           {/* Subtext */}
           <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[480px] mb-12">
             Standard parts from the shop, or custom prints made to your file. Every part is
-            reviewed before printing and made on one in-house Voron, tuned for precision.
+            reviewed before printing and made in-house.
           </p>
 
           {/* Two equal offers */}
@@ -110,17 +102,17 @@ export default function HeroSection() {
           </div>
 
           {/* Stats strip */}
-          {/* Below lg: 2x2 grid with a centre vertical and horizontal divider. lg+: single row. */}
-          <div className="border-t border-nm-border grid grid-cols-2 lg:flex lg:items-start lg:pt-10">
+          {/* Below 1440px: 2x2 grid with a centre vertical and horizontal divider. 1440px+: single row (it needs ~680px). */}
+          <div className="border-t border-nm-border grid grid-cols-2 min-[1440px]:flex min-[1440px]:items-start min-[1440px]:pt-10">
             {stats.map((stat, i) => (
               <div
                 key={stat.value}
                 className={[
-                  'flex flex-col gap-1.5 py-6 lg:py-0',
+                  'flex flex-col gap-1.5 py-6 min-[1440px]:py-0',
                   i % 2 === 1 ? 'border-l border-nm-border pl-6' : 'pr-6',
-                  i >= 2 ? 'border-t border-nm-border lg:border-t-0' : '',
-                  i > 0 ? 'lg:border-l lg:pl-10' : 'lg:pl-0',
-                  i < stats.length - 1 ? 'lg:pr-10' : 'lg:pr-0',
+                  i >= 2 ? 'border-t border-nm-border min-[1440px]:border-t-0' : '',
+                  i > 0 ? 'min-[1440px]:border-l min-[1440px]:pl-7' : 'min-[1440px]:pl-0',
+                  i < stats.length - 1 ? 'min-[1440px]:pr-7' : 'min-[1440px]:pr-0',
                 ].join(' ')}
               >
                 <span className={`text-[30px] font-bold leading-none tracking-[-1px] ${stat.accent ? 'text-nm-green-text' : 'text-nm-text-p'}`}>

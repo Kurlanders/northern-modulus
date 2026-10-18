@@ -1,6 +1,6 @@
 # Northern Modulus — website
 
-Marketing site for Northern Modulus, a one-founder engineering 3D printing business in Riga, Latvia. Deployed on Vercel from `main` (repo: github.com/Kurlanders/northern-modulus).
+Marketing site for Northern Modulus, an engineering-led 3D printing company in Riga, Latvia. Deployed on Vercel from `main` (repo: github.com/Kurlanders/northern-modulus).
 
 ## Stack
 
@@ -12,7 +12,11 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
   - Newer pages and sections (homepage, `/shop`, `/work`, `/about`, Footer, Header) use explicit pixel sizes (`text-[13px]`, `text-[clamp(...)]`) and `// Label` eyebrows. Older pages (`/3d-printing`, `/contact`, 404, ContactForm) still use legacy tokens like `text-disp-xl`, `text-body-md`, `section-py`, `rounded-sm2` and `SectionLabel`. Prefer the newer style for new work.
   - In JSX, write eyebrows as `{'// Label'}`. Bare `// Label` text fails lint (`react/jsx-no-comment-textnodes`).
   - Fonts: Outfit (sans) and JetBrains Mono, loaded via `next/font/google` in `app/layout.tsx`.
-- **3D hero:** `@react-three/fiber` + `@react-three/drei` + `three` in `components/sections/HeroModel.tsx`; model and Draco decoder files are in `public/models` and `public/draco`.
+- **3D hero:** `@react-three/fiber` + `@react-three/drei` + `three` in `components/sections/HeroModel.tsx`; model is `public/models/hero-object.glb`.
+  - It's simplified to ~190k triangles, with 1024px WebP textures and meshopt compression (`useGLTF(path, false, true)`; the decoder is bundled, there's no `public/draco`).
+  - The original 1.16M-triangle Draco mesh rendered as shards in Safari on macOS. Keep hero models under ~200k triangles and use meshopt, not Draco. Rebuild with `npx @gltf-transform/cli weld → simplify → resize → meshopt`.
+  - The canvas is wrapped in an error boundary (renders nothing on failure), and `dpr` is capped at 1.5.
+- **Hero stats:** 2x2 grid below 1440px, single row at 1440px and up (`min-[1440px]:`). The row needs ~680px, so re-measure if you change a stat's text.
 - **Other deps:** `motion`, `resend`, `@vercel/blob` (file uploads), `@vercel/analytics`.
 - **`next.config.mjs` sets `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` to `true`.** `npm run build` will therefore pass even with type or lint errors, so run `npx tsc --noEmit` and `npm run lint` explicitly.
 - Images live in `public/pictures/`.
@@ -81,16 +85,17 @@ Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions
 
 ## Brand rules (apply to all future work)
 
-- **Who we are:** Northern Modulus is a **one-founder** engineering-led 3D printing business in **Riga, Latvia**.
+- **Who we are:** Northern Modulus is an engineering-led 3D printing company in **Riga, Latvia**, founded by Rihards Vašuks.
 - **Company legal details:** NORTHERN MODULUS SIA, registration number 50203734921, Marijas iela 16–17, Rīga, Latvia. Copyright line: "© {year} NORTHERN MODULUS SIA. All rights reserved."
 - **Founder:** Rihards Vašuks. Industrial Engineering master's student; day-to-day background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in CAD). Don't mention flood prevention manufacturing or claim a mechanical engineering degree. Say "CAD", never "SolidWorks".
-- **Production:** one custom-built, in-house-modified **350 mm Voron**. That is the entire print fleet.
+  - Present him as a strong engineer who leads the company and runs projects end to end (requirements, design, production), building Northern Modulus to grow into a team of engineers. **Don't claim staff, employees or an existing team of engineers.**
+- **Production:** several in-house printers, built and tuned for precision. Say "in-house". **Never state how many printers there are, and never name or list printer models (no "Voron", no "350 mm").** No "one machine", "the machine" or "single printer" phrasing.
 - **Two equal offers.** Give them equal weight; neither is a footnote to the other:
   1. **Shop**: standard parts.
   2. **Custom printing**: prototypes, functional parts, small batches, jigs/fixtures, moulds.
 - **Tone:** precise, confident, honest.
-  - Never claim scale, a team, or industrial hardware we don't have. No "industrial-grade machines", "print farm", "our engineers", "industrial engineering company".
-  - "I" and "we" are fine. **"The team" is not.**
+  - Never claim scale, staff, or industrial hardware we don't have. No "industrial-grade machines", "print farm", "our engineers", "our team", "industrial engineering company".
+  - "We" is the default voice. **"The team" is not OK.** Don't describe the business as small, one-person or one-founder either ("one engineer", "deliberately small setup").
   - Don't invent capabilities, certifications, clients, lead times or statistics.
 - **Quote turnaround = 1 business day.** Write "within one business day" (hero stat: "1 day"). **Never promise 24h.**
 

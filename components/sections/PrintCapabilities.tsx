@@ -5,7 +5,7 @@ const capabilities = [
   {
     index: '01',
     title: 'Premium FDM Printing',
-    description: 'One custom-built 350 mm Voron, modified and tuned in-house. Tight tolerances, clean surfaces, repeatable results.',
+    description: 'In-house printers, built and tuned for precision. Clean surfaces, tight tolerances, repeatable results.',
   },
   {
     index: '02',
@@ -60,6 +60,16 @@ export default function PrintCapabilities() {
             >
               Full Capabilities →
             </Link>
+            <div className="relative mt-10 aspect-[3/4] border border-nm-border overflow-hidden bg-nm-s1">
+              <Image
+                src="/pictures/printer_picture.jpg"
+                alt="In-house 3D printing"
+                fill
+                sizes="(min-width: 1024px) 300px, 100vw"
+                className="object-cover"
+                style={{ objectPosition: 'center 32%' }}
+              />
+            </div>
           </div>
 
           {/* Right 2-col grid */}
@@ -76,36 +86,6 @@ export default function PrintCapabilities() {
                 <p className="text-[13px] text-nm-text-s leading-[1.8]">{cap.description}</p>
               </div>
             ))}
-          </div>
-
-        </div>
-
-        {/* Printer photo */}
-        <div className="mt-16 border border-nm-border overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_400px]">
-
-          {/* Caption panel */}
-          <div className="bg-nm-s1 px-12 py-14 flex flex-col justify-center border-b border-nm-border lg:border-b-0 lg:border-r lg:border-nm-border">
-            <p className="text-[12px] font-medium text-nm-green-text tracking-[2.5px] uppercase mb-5">
-              {'// The Machine'}
-            </p>
-            <h3 className="text-[clamp(22px,2.5vw,34px)] font-bold text-nm-text-p leading-[1.2] tracking-[-0.02em] mb-5">
-              Custom-built.<br />Modified in-house.
-            </h3>
-            <p className="text-[14px] text-nm-text-s leading-[1.85] max-w-[420px]">
-              A 350 mm Voron, built and modified in-house and tuned for precision and
-              consistency. It&apos;s the only printer here — every part is made on this machine.
-            </p>
-          </div>
-
-          {/* Image panel */}
-          <div className="relative h-[580px] lg:h-auto overflow-hidden" style={{ minHeight: '580px' }}>
-            <Image
-              src="/pictures/printer_picture.jpg"
-              alt="Our custom-built FDM 3D printer"
-              fill
-              className="object-cover"
-              style={{ objectPosition: 'center 32%' }}
-            />
           </div>
 
         </div>

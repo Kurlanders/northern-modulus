@@ -54,7 +54,7 @@ export default function ShopPage() {
               <span className="text-nm-text-s font-medium">ready to order.</span>
             </h1>
             <p className="text-[14px] text-nm-text-s leading-[1.8] max-w-[400px] lg:pb-2">
-              Each part is printed on the in-house Voron and checked before it ships. Need a
+              Each part is printed in-house and checked before it ships. Need a
               different size or material?{' '}
               <Link href="/contact" className="text-nm-green-text hover:opacity-80 transition-opacity">
                 Get a custom quote

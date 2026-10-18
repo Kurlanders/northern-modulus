@@ -33,7 +33,7 @@ export default function RecentPrints() {
               id="recent-prints-heading"
               className="text-[clamp(22px,2.5vw,32px)] font-bold text-nm-text-p tracking-[-0.02em]"
             >
-              Off the machine.
+              Fresh off the print bed.
             </h2>
           </div>
           <a
