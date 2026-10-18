@@ -2,8 +2,9 @@ import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
 import { MATERIALS, MAX_FILES, SERVICE_AREAS } from '@/lib/enquiry'
 import { FILE_LINK_TTL_DAYS, createSignedFileUrl, fileNameFromPath, isValidUploadPath } from '@/lib/file-links'
+import { company } from '@/lib/company'
 
-const TO_EMAIL = 'northernmodulus@gmail.com'
+const TO_EMAIL = company.email
 const FROM_EMAIL = process.env.CONTACT_FROM || 'Northern Modulus <onboarding@resend.dev>'
 
 const MAX_DESCRIPTION = 5000

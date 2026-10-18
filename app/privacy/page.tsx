@@ -37,7 +37,7 @@ export default function PrivacyPage() {
       <h2>How your enquiry is sent and stored</h2>
       <p>
         The website does not store form submissions in a database. Each enquiry is sent as an email
-        through <strong>Resend</strong>, an email delivery service, to our Gmail inbox. Files you
+        through <strong>Resend</strong>, an email delivery service, to our company inbox ({company.email}). Files you
         upload are stored privately with <strong>Vercel Blob</strong> and are only accessible to
         Northern Modulus. The enquiry email contains signed download links that expire after 30
         days. The website is hosted on <strong>Vercel</strong>, which keeps standard server logs.
