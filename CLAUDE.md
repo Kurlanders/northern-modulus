@@ -42,9 +42,10 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
   - Removed or abandoned uploads stay in the Blob store until deleted manually.
   - The file-link field remains as an alternative. `@vercel/blob/client` is lazy-loaded when a file is picked.
 - **Attribution:** `components/AttributionCapture.tsx` (in the root layout) stores utm_source, utm_medium, utm_campaign and `document.referrer` in sessionStorage (`nm_attribution`, via `lib/attribution.ts`) on the first page load of a session and never overwrites them. The form sends them with every submission, and the email lists them under "Source".
-- Handler: `app/api/contact/route.ts`. Validates as above (400 on failure). All fields are HTML-escaped and truncated (description 5000 chars, URLs 1000, others 300). Sends an HTML email through **Resend** to **northernmodulus@gmail.com**, with `replyTo` set to the submitter.
+- Handler: `app/api/contact/route.ts`. Validates as above (400 on failure). All fields are HTML-escaped and truncated (description 5000 chars, URLs 1000, others 300). Sends an HTML email through **Resend** to **info@northernmodulus.com** (`company.email`), with `replyTo` set to the submitter.
+- **The business email is `info@northernmodulus.com`, defined once as `company.email` in `lib/company.ts`.** Import it; never hard-code the address. Don't use the old Gmail address anywhere.
 - Sender is `CONTACT_FROM` env var, falling back to `onboarding@resend.dev` (no verified domain yet).
-- A failed send returns 500; the form then shows "Something went wrong — please email northernmodulus@gmail.com directly." The success screen only appears when the API returns `{ success: true }`.
+- A failed send returns 500; the form then shows "Something went wrong — please email info@northernmodulus.com directly." The success screen only appears when the API returns `{ success: true }`.
 - No database; the email is the record and uploaded files live in Vercel Blob. Env vars: `RESEND_API_KEY`, `CONTACT_FROM`, `BLOB_STORE_ID`, `BLOB_WEBHOOK_PUBLIC_KEY`, `FILE_LINK_SECRET` (Vercel env vars / `.env*`, which are gitignored). `VERCEL_PROJECT_PRODUCTION_URL` is a Vercel system variable, and Blob auth uses Vercel OIDC, which is automatic on Vercel. Uploads and downloads don't work locally without that OIDC token.
 
 ### Analytics

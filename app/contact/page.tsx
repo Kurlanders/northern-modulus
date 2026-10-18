@@ -2,6 +2,7 @@ import SectionLabel from '@/components/ui/SectionLabel'
 import ContactForm from '@/components/sections/ContactForm'
 import { pageMetadata } from '@/lib/metadata'
 import { getPublishedProduct } from '@/lib/data/products'
+import { company } from '@/lib/company'
 
 export const metadata = pageMetadata(
   'Get a Quote',
@@ -66,10 +67,10 @@ export default function ContactPage({
                   <div>
                     <p className="text-label-sm font-mono uppercase tracking-[0.1em] text-nm-text-t mb-1">Email</p>
                     <a
-                      href="mailto:northernmodulus@gmail.com"
+                      href={`mailto:${company.email}`}
                       className="text-body-md text-nm-text-p hover:text-nm-green-text transition-colors duration-200 break-all"
                     >
-                      northernmodulus@gmail.com
+                      {company.email}
                     </a>
                   </div>
                   <div>

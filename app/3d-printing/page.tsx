@@ -2,6 +2,7 @@ import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
 import CTASection from '@/components/sections/CTASection'
 import { pageMetadata } from '@/lib/metadata'
+import { company } from '@/lib/company'
 
 export const metadata = pageMetadata(
   'Custom 3D Printing — Prototypes, Parts, Jigs & Moulds',
@@ -156,10 +157,10 @@ export default function ThreeDPrintingPage() {
                 Get a Quote
               </Button>
               <a
-                href="mailto:northernmodulus@gmail.com"
+                href={`mailto:${company.email}`}
                 className="font-mono text-label-sm text-nm-text-t hover:text-nm-green-text transition-colors duration-200 uppercase tracking-[0.1em]"
               >
-                northernmodulus@gmail.com
+                {company.email}
               </a>
             </div>
           </div>
@@ -281,7 +282,7 @@ export default function ThreeDPrintingPage() {
         primaryCTA="Get a Quote"
         primaryHref="/contact"
         secondaryCTA="Email Us Directly"
-        secondaryHref="mailto:northernmodulus@gmail.com"
+        secondaryHref={`mailto:${company.email}`}
         variant="green"
       />
     </>

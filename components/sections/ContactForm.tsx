@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { track } from '@vercel/analytics'
 import Button from '@/components/ui/Button'
 import { readAttribution } from '@/lib/attribution'
+import { company } from '@/lib/company'
 import {
   SERVICE_AREAS,
   MATERIALS,
@@ -226,8 +227,8 @@ export default function ContactForm({ product }: { product?: string }) {
             </p>
             <p className="text-body-sm text-nm-text-s leading-relaxed">
               If needed, you can still email your files to{' '}
-              <a href="mailto:northernmodulus@gmail.com" className="text-nm-green-text hover:text-nm-green-bright transition-colors duration-200">
-                northernmodulus@gmail.com
+              <a href={`mailto:${company.email}`} className="text-nm-green-text hover:text-nm-green-bright transition-colors duration-200">
+                {company.email}
               </a>
             </p>
           </div>
@@ -466,8 +467,8 @@ export default function ContactForm({ product }: { product?: string }) {
           <p className="text-body-sm text-nm-text-s leading-relaxed">
             Upload files directly above, or share a link if they are larger than{' '}
             {MAX_FILE_BYTES / (1024 * 1024)} MB. You can also email them to{' '}
-            <a href="mailto:northernmodulus@gmail.com" className="text-nm-green-text hover:text-nm-green-bright transition-colors duration-200">
-              northernmodulus@gmail.com
+            <a href={`mailto:${company.email}`} className="text-nm-green-text hover:text-nm-green-bright transition-colors duration-200">
+              {company.email}
             </a>{' '}
             after submitting.
           </p>
@@ -491,8 +492,8 @@ export default function ContactForm({ product }: { product?: string }) {
             {errorMessage || (
               <>
                 Something went wrong — please email{' '}
-                <a href="mailto:northernmodulus@gmail.com" className="underline hover:text-red-300">
-                  northernmodulus@gmail.com
+                <a href={`mailto:${company.email}`} className="underline hover:text-red-300">
+                  {company.email}
                 </a>{' '}
                 directly.
               </>
