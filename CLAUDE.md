@@ -45,13 +45,14 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 
 Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions`, `/solutions/*` → `/3d-printing`.
 
-- The nav has no dropdowns. The footer also links Instagram and LinkedIn, and shows the company legal name, registration number and address as **TODO placeholders** in `components/layout/Footer.tsx`. Fill these in with real values; don't guess them.
+- The nav has no dropdowns. The footer also links Instagram and LinkedIn, and has a legal-details row (company legal name, registration number, address) driven by the `legal` constant in `components/layout/Footer.tsx`. A guard hides the whole row if any value is empty or starts with "TODO".
 - In-page anchors on `/3d-printing`: `#prototypes`, `#functional`, `#batch`, `#jigs-fixtures`, `#moulds` (one per service, from `useCases[].id`), plus `#services`, `#materials`, `#how-it-works`. The homepage links to the first three. `/work#<slug>` anchors come from `lib/data/work.ts`. When you add an anchor link, check the id exists. Ids set from data (`id={x.id}`) don't show up in a search for `id="`.
 
 ## Brand rules (apply to all future work)
 
 - **Who we are:** Northern Modulus is a **one-founder** engineering-led 3D printing business in **Riga, Latvia**.
-- **Founder:** Rihards Vašuks. Industrial Engineering master's student; hands-on background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in CAD). Say "CAD", not "SolidWorks".
+- **Company legal details:** NORTHERN MODULUS SIA, registration number 50203734921, Marijas iela 16–17, Rīga, Latvia. Copyright line: "© {year} NORTHERN MODULUS SIA. All rights reserved."
+- **Founder:** Rihards Vašuks. Industrial Engineering master's student; day-to-day background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in SolidWorks). Don't mention flood prevention manufacturing or claim a mechanical engineering degree.
 - **Production:** one custom-built, in-house-modified **350 mm Voron**. That is the entire print fleet.
 - **Two equal offers.** Give them equal weight; neither is a footnote to the other:
   1. **Shop**: standard parts.
@@ -60,6 +61,7 @@ Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions
   - Never claim scale, a team, or industrial hardware we don't have. No "industrial-grade machines", "print farm", "our engineers", "industrial engineering company".
   - "I" and "we" are fine. **"The team" is not.**
   - Don't invent capabilities, certifications, clients, lead times or statistics.
+- **Quote turnaround = 1 business day.** Write "within one business day" (hero stat: "1 day"). **Never promise 24h.**
 
 ### Existing copy that breaks these rules
 

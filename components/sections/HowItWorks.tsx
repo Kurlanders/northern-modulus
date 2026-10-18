@@ -12,7 +12,7 @@ const steps = [
     index: '02',
     title: 'We review\nand quote',
     description:
-      'We check geometry, recommend material, and send a clear quote. Most quotes within 24 hours.',
+      'We check geometry, recommend material, and send a clear quote. Most quotes within one business day.',
     isLast: false,
   },
   {

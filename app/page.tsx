@@ -35,7 +35,7 @@ export default function HomePage() {
       <FounderBanner />
       <CTASection
         headline="Ready to get a quote?"
-        subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within 24 hours."
+        subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within one business day."
         primaryCTA="Get a Quote"
         primaryHref="/contact"
         secondaryCTA="Custom Printing"

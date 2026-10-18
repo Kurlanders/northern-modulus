@@ -36,12 +36,13 @@ const footerLinks = [
   { label: 'Contact',         href: '/contact' },
 ]
 
-// TODO: replace with the registered company details. Do not guess these values.
 const legal = {
-  name: 'TODO: company legal name',
-  registrationNumber: 'TODO: registration number',
-  address: 'TODO: registered address',
+  name: 'NORTHERN MODULUS SIA',
+  registrationNumber: '50203734921',
+  address: 'Marijas iela 16–17, Rīga, Latvia',
 }
+
+const legalComplete = Object.values(legal).every((v) => v.trim() !== '' && !v.startsWith('TODO'))
 
 export default function Footer() {
   return (
@@ -61,7 +62,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-[12px] text-nm-text-t">
-              © {new Date().getFullYear()} Northern Modulus. All rights reserved.
+              © {new Date().getFullYear()} NORTHERN MODULUS SIA. All rights reserved.
             </p>
           </div>
 
@@ -95,11 +96,13 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-nm-border py-6 flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5 text-[12px] text-nm-text-t">
-          <span>{legal.name}</span>
-          <span>Reg. no. {legal.registrationNumber}</span>
-          <span>{legal.address}</span>
-        </div>
+        {legalComplete && (
+          <div className="border-t border-nm-border py-6 flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5 text-[12px] text-nm-text-t">
+            <span>{legal.name}</span>
+            <span>Reg. no. {legal.registrationNumber}</span>
+            <span>{legal.address}</span>
+          </div>
+        )}
       </div>
     </footer>
   )

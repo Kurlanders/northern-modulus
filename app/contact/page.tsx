@@ -23,7 +23,7 @@ export default function ContactPage() {
               </h1>
               <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[52ch]">
                 Fill in the form below and we will come back with a clear quote — material,
-                lead time, and price. Most quotes within 24 hours.
+                lead time, and price. Most quotes within one business day.
               </p>
             </div>
           </div>

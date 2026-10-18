@@ -9,10 +9,10 @@ const HeroModel = dynamic(() => import('./HeroModel'), {
 })
 
 const stats = [
-  { value: 'FDM',   label: 'Print Method',      accent: false },
-  { value: '24h',   label: 'Quote Turnaround',  accent: false },
-  { value: '1–100+', label: 'Parts per Order', accent: false },
-  { value: 'Eng.',  label: 'Led Review',        accent: true  },
+  { value: 'FDM',    label: 'Print Method',     accent: false },
+  { value: '1 day',  label: 'Quote Turnaround', accent: false },
+  { value: '1–100+', label: 'Parts per Order',  accent: false },
+  { value: 'Eng.',   label: 'Led Review',       accent: true  },
 ]
 
 const offers = [
@@ -109,13 +109,18 @@ export default function HeroSection() {
           </div>
 
           {/* Stats strip */}
-          <div className="border-t border-nm-border pt-10 flex items-start flex-wrap gap-y-6">
+          {/* Below lg: 2x2 grid with a centre vertical and horizontal divider. lg+: single row. */}
+          <div className="border-t border-nm-border grid grid-cols-2 lg:flex lg:items-start lg:pt-10">
             {stats.map((stat, i) => (
               <div
                 key={stat.value}
-                className={`flex flex-col gap-1.5 ${
-                  i > 0 ? 'pl-10 border-l border-nm-border' : ''
-                } ${i < stats.length - 1 ? 'pr-10' : ''}`}
+                className={[
+                  'flex flex-col gap-1.5 py-6 lg:py-0',
+                  i % 2 === 1 ? 'border-l border-nm-border pl-6' : 'pr-6',
+                  i >= 2 ? 'border-t border-nm-border lg:border-t-0' : '',
+                  i > 0 ? 'lg:border-l lg:pl-10' : 'lg:pl-0',
+                  i < stats.length - 1 ? 'lg:pr-10' : 'lg:pr-0',
+                ].join(' ')}
               >
                 <span className={`text-[30px] font-bold leading-none tracking-[-1px] ${stat.accent ? 'text-nm-green-text' : 'text-nm-text-p'}`}>
                   {stat.value}
