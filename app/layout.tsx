@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from 'next'
 import { Outfit, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import AttributionCapture from '@/components/AttributionCapture'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -75,6 +77,8 @@ export default function RootLayout({
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <AttributionCapture />
+        <Analytics />
       </body>
     </html>
   )

@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { publishedProducts } from '@/lib/data/products'
 
 const HeroModel = dynamic(() => import('./HeroModel'), {
   ssr: false,
@@ -21,7 +22,7 @@ const offers = [
     title: 'Shop parts',
     description: 'Standard printed parts, ready to order.',
     href: '/shop',
-    cta: 'Go to shop',
+    cta: publishedProducts.length > 0 ? 'Go to shop' : 'Coming soon',
   },
   {
     index: '02',
