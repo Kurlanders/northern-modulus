@@ -1,13 +1,21 @@
 import SectionLabel from '@/components/ui/SectionLabel'
 import ContactForm from '@/components/sections/ContactForm'
 import { pageMetadata } from '@/lib/metadata'
+import { getPublishedProduct } from '@/lib/data/products'
 
 export const metadata = pageMetadata(
   'Get a Quote',
   'Send a file, sketch or description of the part you need printed. Northern Modulus replies with a clear quote: material, lead time and price.'
 )
 
-export default function ContactPage() {
+export default function ContactPage({
+  searchParams,
+}: {
+  searchParams: { product?: string | string[] }
+}) {
+  const slug = typeof searchParams.product === 'string' ? searchParams.product : undefined
+  const product = slug ? getPublishedProduct(slug) : undefined
+
   return (
     <>
       {/* Hero */}
@@ -37,7 +45,13 @@ export default function ContactPage() {
 
             {/* Form */}
             <div className="lg:col-span-7">
-              <ContactForm />
+              {product && (
+                <div className="mb-8 px-5 py-4 border border-nm-green-text text-[13px] text-nm-text-p" style={{ background: 'rgba(30,187,110,0.08)' }}>
+                  <span className="text-nm-text-t">Enquiry about:</span>{' '}
+                  <span className="font-semibold">{product.name}</span>
+                </div>
+              )}
+              <ContactForm product={product?.slug} />
             </div>
 
             {/* Sidebar */}

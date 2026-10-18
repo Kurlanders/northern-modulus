@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { company } from '@/lib/company'
 
 const socials = [
   {
@@ -36,10 +37,16 @@ const footerLinks = [
   { label: 'Contact',         href: '/contact' },
 ]
 
+const legalLinks = [
+  { label: 'Terms',   href: '/terms' },
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Returns', href: '/returns' },
+]
+
 const legal = {
-  name: 'NORTHERN MODULUS SIA',
-  registrationNumber: '50203734921',
-  address: 'Marijas iela 16–17, Rīga, Latvia',
+  name: company.name,
+  registrationNumber: company.registrationNumber,
+  address: company.address,
 }
 
 const legalComplete = Object.values(legal).every((v) => v.trim() !== '' && !v.startsWith('TODO'))
@@ -62,7 +69,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-[12px] text-nm-text-t">
-              © {new Date().getFullYear()} NORTHERN MODULUS SIA. All rights reserved.
+              © {new Date().getFullYear()} {company.name}. All rights reserved.
             </p>
           </div>
 
@@ -96,13 +103,22 @@ export default function Footer() {
 
         </div>
 
-        {legalComplete && (
-          <div className="border-t border-nm-border py-6 flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5 text-[12px] text-nm-text-t">
-            <span>{legal.name}</span>
-            <span>Reg. no. {legal.registrationNumber}</span>
-            <span>{legal.address}</span>
-          </div>
-        )}
+        <div className="border-t border-nm-border py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-[12px] text-nm-text-t">
+          {legalComplete && (
+            <div className="flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5">
+              <span>{legal.name}</span>
+              <span>Reg. no. {legal.registrationNumber}</span>
+              <span>{legal.address}</span>
+            </div>
+          )}
+          <nav aria-label="Legal" className="flex gap-x-6">
+            {legalLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-nm-text-p transition-colors duration-200">
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
     </footer>
   )

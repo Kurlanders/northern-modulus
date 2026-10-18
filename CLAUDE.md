@@ -18,13 +18,16 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 - Images live in `public/pictures/`.
 - **Work entries** live in `lib/data/work.ts` (title, slug, images[], problem, material, quantity, result, status). Entries with `status: 'concept'` are hidden unless `showConcepts` is `true` (currently `false`). `/work` shows a "Recent work coming soon" state linking to Instagram when nothing is visible, and the homepage work section renders nothing.
 - **Recent prints strip** (`components/sections/RecentPrints.tsx`, homepage) lists every image in `public/pictures/prints/` (jpg, png, webp, avif, gif), sorted by filename, with alt text taken from the filename. It is read at build time, so new images appear after the next deploy. The section is hidden when the folder has no images.
+- **Shop** (no backend): products live in `lib/data/products.ts` (slug, name, shortDescription, description, priceEur, images[], material, dimensions, leadTimeDays, inStock, optional stripePaymentLink, draft). Entries with `draft: true` never render; the `example-product` entry is a draft template to copy. Use `formatPrice()` ("€12.00"). With no published products, `/shop` shows "First products launching soon" and the homepage Shop card says "Coming soon"; both switch automatically once one is published. Product pages are statically generated (`dynamicParams = false`), so a new product appears after the next deploy. A product with `stripePaymentLink` shows "Buy now" (same tab). One without it shows "Order via enquiry", linking to `/contact?product=<slug>`. Prices are final: not VAT-registered, "Price includes all applicable taxes. Shipping quoted separately." Product images go in `public/pictures/products/`.
+- **Company details** (legal name, reg. no., address, email) live in `lib/company.ts`, used by the footer and the legal pages. `LEGAL_LAST_UPDATED` there sets the "Last updated" date on `/terms`, `/privacy` and `/returns`. Update it when you change those pages.
 - **Page metadata:** use `pageMetadata(title, description)` from `lib/metadata.ts`. The layout template adds " — Northern Modulus", so don't put the brand in page titles. The homepage uses `title.absolute`.
 - **Redirects** (301) are in `next.config.mjs`: `/projects` → `/work`; `/process`, `/solutions`, `/solutions/*` → `/3d-printing`.
 
 ### Contact form
 
 - UI: `components/sections/ContactForm.tsx` (client component), used only on `/contact`.
-- Submits with `fetch('POST /api/contact')` as JSON: name, company, email, phone, serviceArea, help, description, challenge, timeline, fileLink, referral. There is no file upload; users paste a share link or email files.
+- Submits with `fetch('POST /api/contact')` as JSON: name, company, email, phone, serviceArea, help, description, challenge, timeline, fileLink, referral, product. There is no file upload; users paste a share link or email files.
+- `/contact?product=<slug>` (published products only; other values are ignored) shows an "Enquiry about: <name>" banner above the form and sends the slug as `product`. The email gets a Product row, and the subject says "product enquiry". This makes `/contact` dynamically rendered.
 - Handler: `app/api/contact/route.ts`. Requires name, company, email, description, a valid email format and an http(s) file link if one is given (400 otherwise). Fields are HTML-escaped and truncated (description 5000 chars, others 300). Sends an HTML email through **Resend** to **northernmodulus@gmail.com**, with `replyTo` set to the submitter.
 - Sender is `CONTACT_FROM` env var, falling back to `onboarding@resend.dev` (no verified domain yet).
 - A failed send returns 500; the form then shows "Something went wrong — please email northernmodulus@gmail.com directly." The success screen only appears when the API returns `{ success: true }`.
@@ -35,17 +38,21 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 | Route | File | Linked from nav (Header) | Linked from footer |
 |---|---|---|---|
 | `/` | `app/page.tsx` | Logo | Logo |
-| `/shop` | `app/shop/page.tsx` (placeholder: "First products launching soon") | Yes ("Shop") | Yes |
+| `/shop` | `app/shop/page.tsx` (product grid, or "First products launching soon" when empty) | Yes ("Shop") | Yes |
+| `/shop/[slug]` | `app/shop/[slug]/page.tsx` (one static page per published product; drafts and unknown slugs 404) | Via `/shop` | No |
 | `/3d-printing` | `app/3d-printing/page.tsx` | Yes ("Custom Printing") | Yes ("Custom Printing") |
 | `/work` | `app/work/page.tsx` | Yes ("Work") | Yes |
 | `/about` | `app/about/page.tsx` | Yes ("About") | Yes |
 | `/contact` | `app/contact/page.tsx` | Yes ("Get a Quote" button) | Yes ("Contact") |
+| `/terms` | `app/terms/page.tsx` | No | Yes (legal row) |
+| `/privacy` | `app/privacy/page.tsx` | No | Yes (legal row) |
+| `/returns` | `app/returns/page.tsx` | No | Yes (legal row); also linked from product pages |
 | `POST /api/contact` | `app/api/contact/route.ts` | n/a | n/a |
 | 404 | `app/not-found.tsx` | n/a | n/a |
 
 Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions`, `/solutions/*` → `/3d-printing`.
 
-- The nav has no dropdowns. The footer also links Instagram and LinkedIn, and has a legal-details row (company legal name, registration number, address) driven by the `legal` constant in `components/layout/Footer.tsx`. A guard hides the whole row if any value is empty or starts with "TODO".
+- The nav has no dropdowns. The footer also links Instagram and LinkedIn, and has a bottom row with the legal details (from `lib/company.ts`) and links to Terms, Privacy and Returns. A guard hides the legal details if any value is empty or starts with "TODO"; the legal links always show.
 - In-page anchors on `/3d-printing`: `#prototypes`, `#functional`, `#batch`, `#jigs-fixtures`, `#moulds` (one per service, from `useCases[].id`), plus `#services`, `#materials`, `#how-it-works`. The homepage links to the first three. `/work#<slug>` anchors come from `lib/data/work.ts`. When you add an anchor link, check the id exists. Ids set from data (`id={x.id}`) don't show up in a search for `id="`.
 
 ## Brand rules (apply to all future work)

@@ -46,6 +46,7 @@ export async function POST(request: Request) {
       timeline:    clean(body?.timeline),
       fileLink:    clean(body?.fileLink),
       referral:    clean(body?.referral),
+      product:     clean(body?.product),
     }
 
     if (!raw.name || !raw.company || !raw.email || !raw.description) {
@@ -70,7 +71,7 @@ export async function POST(request: Request) {
       from: FROM_EMAIL,
       to: TO_EMAIL,
       replyTo: raw.email,
-      subject: `New enquiry from ${raw.name} — ${raw.company}`.replace(/[\r\n]+/g, ' '),
+      subject: `New ${raw.product ? `product enquiry (${raw.product})` : 'enquiry'} from ${raw.name} — ${raw.company}`.replace(/[\r\n]+/g, ' '),
       html: `
         <div style="font-family: monospace; max-width: 640px; color: #1a1a1a;">
           <h2 style="font-size: 1.1rem; border-bottom: 1px solid #ddd; padding-bottom: 8px; margin-bottom: 20px;">
@@ -94,6 +95,11 @@ export async function POST(request: Request) {
             <tr>
               <td style="padding: 8px 0; color: #666; vertical-align: top;">Phone</td>
               <td style="padding: 8px 0;">${f.phone}</td>
+            </tr>` : ''}
+            ${f.product ? `
+            <tr>
+              <td style="padding: 8px 0; color: #666; vertical-align: top;">Product</td>
+              <td style="padding: 8px 0;">${f.product}</td>
             </tr>` : ''}
             ${f.serviceArea ? `
             <tr>

@@ -14,7 +14,7 @@ const serviceAreas = [
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
-export default function ContactForm() {
+export default function ContactForm({ product }: { product?: string }) {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [serviceArea, setServiceArea] = useState('')
@@ -53,6 +53,7 @@ export default function ContactForm() {
       timeline:    data.get('timeline') as string,
       fileLink:    fileLink.trim() || '',
       referral:    data.get('referral') as string,
+      product:     product ?? '',
     }
 
     try {
