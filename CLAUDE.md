@@ -30,10 +30,13 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 - **Required: name, email, description.** Everything else is optional, including company and "What do you need?".
 - Option lists live in `lib/enquiry.ts`, shared by the form and the API: service areas ("Custom 3D print", "Jig / fixture / tooling", "Mould", "Shop product", "Other") and materials (PLA, PETG, ABS, ASA, TPU, PC, Not sure). The API rejects values that aren't in these lists. Quantity must be a whole number from 1 to 999999. Phone placeholder: `+371 2X XXX XXX`.
 - `/contact?product=<slug>` (published products only; other values are ignored) shows an "Enquiry about: <name>" banner above the form, pre-selects "Shop product", and sends the slug as `product`. This makes `/contact` dynamically rendered.
-- **File uploads (Vercel Blob, PRIVATE store, client uploads):**
-  - The browser asks `app/api/upload/route.ts` (`handleUpload`) for a token, then uploads directly to Blob with `access: 'private'`, which shows progress; the user can remove a file before sending.
+- **File uploads (Vercel Blob, PRIVATE store, presigned client uploads):**
+  - The store is connected by `BLOB_STORE_ID` and authenticates with Vercel OIDC (the per-request `x-vercel-oidc-token`). **There is no `BLOB_READ_WRITE_TOKEN`, so don't use `handleUpload` / `upload()` from `@vercel/blob/client`**; they require one.
+  - The browser calls `uploadPresigned()`, which asks `app/api/upload/route.ts` (`handleUploadPresigned`) for a presigned URL, then PUTs the file directly to Blob with `access: 'private'`. This shows progress, and the user can remove a file before sending.
+  - The route validates the path first, then calls `issueSignedToken` scoped to that one pathname, `put` only, 50 MB max, valid 30 minutes. The URL options repeat the size limit and set no random suffix and no overwrite. Multipart is rejected.
+  - `handleUploadPresigned` requires `BLOB_WEBHOOK_PUBLIC_KEY`, which is set by the store connection.
   - Pathname: `enquiries/<uuid>/<original file name>` (no random suffix, no overwrite), so downloads keep the original name. Path and signing helpers are in `lib/file-links.ts`.
-  - Rules are in `lib/enquiry.ts`: up to 5 files, 50 MB each, extensions stl, step, stp, 3mf, obj, dxf, dwg, pdf, zip, jpg, png. They're checked in the browser, when issuing the token (`isValidUploadPath` plus the size limit) and again in `/api/contact`, which accepts `filePaths[]` only in that shape, max 5.
+  - Rules are in `lib/enquiry.ts`: up to 5 files, 50 MB each, extensions stl, step, stp, 3mf, obj, dxf, dwg, pdf, zip, jpg, png. They're checked in the browser, when issuing the presigned URL (`isValidUploadPath` plus the size limit) and again in `/api/contact`, which accepts `filePaths[]` only in that shape, max 5.
   - **Downloads:** the email links to `GET /api/files?path=…&exp=…&sig=…`. `sig` is an HMAC-SHA256 of `path + "\n" + exp` using `FILE_LINK_SECRET`. Links are valid for 30 days (`FILE_LINK_TTL_DAYS`). The route checks the path shape, the expiry and the signature (timing-safe), returning 403 if any fails. It then streams the file from Blob with the server token as `Content-Disposition: attachment` under the original name. Links use `https://$VERCEL_PROJECT_PRODUCTION_URL`, falling back to the request origin locally. If `FILE_LINK_SECRET` is missing, the email still sends and lists the Blob path instead of a link.
   - Rotating `FILE_LINK_SECRET` invalidates every link already emailed. The files are still in Blob and can be downloaded from the Vercel dashboard.
   - Removed or abandoned uploads stay in the Blob store until deleted manually.
@@ -42,7 +45,7 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 - Handler: `app/api/contact/route.ts`. Validates as above (400 on failure). All fields are HTML-escaped and truncated (description 5000 chars, URLs 1000, others 300). Sends an HTML email through **Resend** to **northernmodulus@gmail.com**, with `replyTo` set to the submitter.
 - Sender is `CONTACT_FROM` env var, falling back to `onboarding@resend.dev` (no verified domain yet).
 - A failed send returns 500; the form then shows "Something went wrong — please email northernmodulus@gmail.com directly." The success screen only appears when the API returns `{ success: true }`.
-- No database; the email is the record and uploaded files live in Vercel Blob. Env vars: `RESEND_API_KEY`, `CONTACT_FROM`, `BLOB_READ_WRITE_TOKEN`, `FILE_LINK_SECRET` (Vercel env vars / `.env*`, which are gitignored). `VERCEL_PROJECT_PRODUCTION_URL` is a Vercel system variable.
+- No database; the email is the record and uploaded files live in Vercel Blob. Env vars: `RESEND_API_KEY`, `CONTACT_FROM`, `BLOB_STORE_ID`, `BLOB_WEBHOOK_PUBLIC_KEY`, `FILE_LINK_SECRET` (Vercel env vars / `.env*`, which are gitignored). `VERCEL_PROJECT_PRODUCTION_URL` is a Vercel system variable, and Blob auth uses Vercel OIDC, which is automatic on Vercel. Uploads and downloads don't work locally without that OIDC token.
 
 ### Analytics
 
@@ -66,7 +69,7 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 | `/privacy` | `app/privacy/page.tsx` | No | Yes (legal row) |
 | `/returns` | `app/returns/page.tsx` | No | Yes (legal row); also linked from product pages |
 | `POST /api/contact` | `app/api/contact/route.ts` | n/a | n/a |
-| `POST /api/upload` | `app/api/upload/route.ts` (Vercel Blob client-upload tokens, private) | n/a | n/a |
+| `POST /api/upload` | `app/api/upload/route.ts` (presigned Blob upload URLs, private store) | n/a | n/a |
 | `GET /api/files` | `app/api/files/route.ts` (signed, expiring download of an uploaded file) | n/a | n/a |
 | 404 | `app/not-found.tsx` | n/a | n/a |
 
