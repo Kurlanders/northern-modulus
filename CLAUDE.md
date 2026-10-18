@@ -52,7 +52,7 @@ Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions
 
 - **Who we are:** Northern Modulus is a **one-founder** engineering-led 3D printing business in **Riga, Latvia**.
 - **Company legal details:** NORTHERN MODULUS SIA, registration number 50203734921, Marijas iela 16–17, Rīga, Latvia. Copyright line: "© {year} NORTHERN MODULUS SIA. All rights reserved."
-- **Founder:** Rihards Vašuks. Industrial Engineering master's student; day-to-day background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in SolidWorks). Don't mention flood prevention manufacturing or claim a mechanical engineering degree.
+- **Founder:** Rihards Vašuks. Industrial Engineering master's student; day-to-day background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in CAD). Don't mention flood prevention manufacturing or claim a mechanical engineering degree. Say "CAD", never "SolidWorks".
 - **Production:** one custom-built, in-house-modified **350 mm Voron**. That is the entire print fleet.
 - **Two equal offers.** Give them equal weight; neither is a footnote to the other:
   1. **Shop**: standard parts.
