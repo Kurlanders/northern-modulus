@@ -22,7 +22,7 @@ interface UploadItem {
   size: number
   progress: number
   state: 'uploading' | 'done' | 'error'
-  url?: string
+  path?: string
   error?: string
   controller: AbortController
 }
@@ -36,8 +36,10 @@ function formatSize(bytes: number): string {
   return bytes >= 1024 * 1024 ? `${(bytes / (1024 * 1024)).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`
 }
 
+// Keeps the original name for the download, minus path separators and control characters.
 function safeFileName(name: string): string {
-  return name.replace(/[^\w.\-]+/g, '_').slice(-120)
+  // eslint-disable-next-line no-control-regex
+  return name.replace(/[/\\\u0000-\u001f\u007f]+/g, '_').slice(-150)
 }
 
 export default function ContactForm({ product }: { product?: string }) {
@@ -92,14 +94,14 @@ export default function ContactForm({ product }: { product?: string }) {
         { id, name: file.name, size: file.size, progress: 0, state: 'uploading', controller },
       ])
 
-      upload(`${UPLOAD_PREFIX}${safeFileName(file.name)}`, file, {
-        access: 'public',
+      upload(`${UPLOAD_PREFIX}${crypto.randomUUID()}/${safeFileName(file.name)}`, file, {
+        access: 'private',
         handleUploadUrl: '/api/upload',
         multipart: file.size > 8 * 1024 * 1024,
         abortSignal: controller.signal,
         onUploadProgress: ({ percentage }) => updateUpload(id, { progress: Math.round(percentage) }),
       })
-        .then((blob) => updateUpload(id, { state: 'done', progress: 100, url: blob.url }))
+        .then((blob) => updateUpload(id, { state: 'done', progress: 100, path: blob.pathname }))
         .catch((err: unknown) => {
           if (controller.signal.aborted) return
           updateUpload(id, { state: 'error', error: err instanceof Error ? err.message : 'Upload failed.' })
@@ -136,7 +138,7 @@ export default function ContactForm({ product }: { product?: string }) {
     const form = e.currentTarget
     const data = new FormData(form)
     const attribution = readAttribution()
-    const fileUrls = uploads.filter((u) => u.state === 'done' && u.url).map((u) => u.url as string)
+    const filePaths = uploads.filter((u) => u.state === 'done' && u.path).map((u) => u.path as string)
 
     const payload = {
       name:        data.get('name') as string,
@@ -151,7 +153,7 @@ export default function ContactForm({ product }: { product?: string }) {
       material:    data.get('material') as string,
       timeline:    data.get('timeline') as string,
       fileLink:    fileLink.trim() || '',
-      fileUrls,
+      filePaths,
       referral:    data.get('referral') as string,
       product:     product ?? '',
       utmSource:   attribution.utmSource,
@@ -182,7 +184,7 @@ export default function ContactForm({ product }: { product?: string }) {
       }
 
       track('quote_submitted', { serviceArea: serviceArea || 'none' })
-      setFilesSubmitted(!!fileLink.trim() || fileUrls.length > 0)
+      setFilesSubmitted(!!fileLink.trim() || filePaths.length > 0)
       setStatus('success')
       form.reset()
       setServiceArea(product ? 'Shop product' : '')
@@ -470,7 +472,8 @@ export default function ContactForm({ product }: { product?: string }) {
             after submitting.
           </p>
           <p className="text-body-sm text-nm-text-t leading-relaxed border-t border-nm-border pt-3">
-            Uploaded files are stored at an unlisted link and used only for quote evaluation.
+            Uploaded files are stored privately, are only accessible to Northern Modulus, and are
+            used only for quote evaluation.
           </p>
         </div>
       </div>

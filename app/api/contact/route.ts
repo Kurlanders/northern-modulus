@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 import { NextResponse } from 'next/server'
-import { MATERIALS, MAX_FILES, SERVICE_AREAS, UPLOAD_PREFIX, isAllowedFileName } from '@/lib/enquiry'
+import { MATERIALS, MAX_FILES, SERVICE_AREAS } from '@/lib/enquiry'
+import { FILE_LINK_TTL_DAYS, createSignedFileUrl, fileNameFromPath, isValidUploadPath } from '@/lib/file-links'
 
 const TO_EMAIL = 'northernmodulus@gmail.com'
 const FROM_EMAIL = process.env.CONTACT_FROM || 'Northern Modulus <onboarding@resend.dev>'
@@ -10,7 +11,6 @@ const MAX_FIELD = 300
 const MAX_URL = 1000
 const EMAIL_PATTERN = /^[^\s@<>"',;]+@[^\s@<>"',;]+\.[^\s@<>"',;]+$/
 const QUANTITY_PATTERN = /^[1-9]\d{0,5}$/
-const BLOB_HOST_SUFFIX = '.public.blob.vercel-storage.com'
 
 function escapeHtml(value: string): string {
   return value
@@ -34,39 +34,34 @@ function isHttpUrl(value: string): boolean {
   }
 }
 
-// Only accept files uploaded through /api/upload to our Blob store; returns null if anything is off.
-function cleanFileUrls(value: unknown): string[] | null {
+// Only accept Blob pathnames in the shape /api/upload issues tokens for; returns null if anything is off.
+function cleanFilePaths(value: unknown): string[] | null {
   if (value === undefined || value === null) return []
   if (!Array.isArray(value) || value.length > MAX_FILES) return null
-  const urls: string[] = []
+  const paths: string[] = []
   for (const item of value) {
-    if (typeof item !== 'string' || item.length > MAX_URL) return null
-    let url: URL
-    try {
-      url = new URL(item)
-    } catch {
-      return null
-    }
-    if (
-      url.protocol !== 'https:' ||
-      !url.hostname.endsWith(BLOB_HOST_SUFFIX) ||
-      !url.pathname.startsWith(`/${UPLOAD_PREFIX}`) ||
-      !isAllowedFileName(url.pathname)
-    ) {
-      return null
-    }
-    urls.push(url.toString())
+    if (typeof item !== 'string' || !isValidUploadPath(item)) return null
+    paths.push(item)
   }
-  return urls
+  return paths
 }
 
-function fileNameFromUrl(url: string): string {
-  const last = new URL(url).pathname.split('/').pop() ?? url
-  try {
-    return decodeURIComponent(last)
-  } catch {
-    return last
-  }
+function siteBaseUrl(request: Request): string {
+  const production = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  return production ? `https://${production}` : new URL(request.url).origin
+}
+
+function fileListHtml(paths: string[], baseUrl: string): string {
+  const items = paths.map((path) => {
+    const name = escapeHtml(fileNameFromPath(path))
+    try {
+      return `<li style="margin-bottom: 4px;"><a href="${escapeHtml(createSignedFileUrl(baseUrl, path))}">${name}</a></li>`
+    } catch (err) {
+      console.error('File link signing failed:', err)
+      return `<li style="margin-bottom: 4px;">${name} — no download link (FILE_LINK_SECRET not set). Blob path: ${escapeHtml(path)}</li>`
+    }
+  })
+  return `<ul style="margin: 0; padding-left: 18px;">${items.join('')}</ul>`
 }
 
 const LABEL_CELL = 'padding: 8px 0; color: #666; width: 160px; vertical-align: top;'
@@ -124,8 +119,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Please choose an enquiry type from the list.' }, { status: 400 })
     }
 
-    const fileUrls = cleanFileUrls(body?.fileUrls)
-    if (fileUrls === null) {
+    const filePaths = cleanFilePaths(body?.filePaths)
+    if (filePaths === null) {
       return NextResponse.json({ error: 'One of the uploaded files is invalid. Please upload it again.' }, { status: 400 })
     }
 
@@ -133,9 +128,7 @@ export async function POST(request: Request) {
       Object.entries(raw).map(([key, value]) => [key, escapeHtml(value)])
     ) as typeof raw
 
-    const filesHtml = fileUrls
-      .map((url) => `<li style="margin-bottom: 4px;"><a href="${escapeHtml(url)}">${escapeHtml(fileNameFromUrl(url))}</a></li>`)
-      .join('')
+    const filesHtml = filePaths.length > 0 ? fileListHtml(filePaths, siteBaseUrl(request)) : ''
 
     const subject = [
       `New ${raw.product ? `product enquiry (${raw.product})` : 'enquiry'} from ${raw.name}`,
@@ -180,8 +173,9 @@ export async function POST(request: Request) {
           </table>
 
           ${filesHtml ? `
-          <h3 style="${HEADING}">Uploaded Files (${fileUrls.length})</h3>
-          <ul style="margin: 0; padding-left: 18px;">${filesHtml}</ul>
+          <h3 style="${HEADING}">Uploaded Files (${filePaths.length})</h3>
+          ${filesHtml}
+          <p style="margin: 8px 0 0; color: #666; font-size: 0.85rem;">Download links expire in ${FILE_LINK_TTL_DAYS} days.</p>
           ` : ''}
 
           <h3 style="${HEADING}">Source</h3>

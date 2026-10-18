@@ -38,9 +38,9 @@ export default function PrivacyPage() {
       <p>
         The website does not store form submissions in a database. Each enquiry is sent as an email
         through <strong>Resend</strong>, an email delivery service, to our Gmail inbox. Files you
-        upload are stored with <strong>Vercel Blob</strong> at an unlisted link that is included in
-        that email. Anyone with the exact link could open the file, but the link is not published
-        anywhere. The website is hosted on <strong>Vercel</strong>, which keeps standard server logs.
+        upload are stored privately with <strong>Vercel Blob</strong> and are only accessible to
+        Northern Modulus. The enquiry email contains signed download links that expire after 30
+        days. The website is hosted on <strong>Vercel</strong>, which keeps standard server logs.
         These providers may process data outside the EU under their own safeguards.
       </p>
       <p>
