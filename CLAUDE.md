@@ -13,7 +13,7 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
   - In JSX, write eyebrows as `{'// Label'}`. Bare `// Label` text fails lint (`react/jsx-no-comment-textnodes`).
   - Fonts: Outfit (sans) and JetBrains Mono, loaded via `next/font/google` in `app/layout.tsx`.
 - **3D hero:** `@react-three/fiber` + `@react-three/drei` + `three` in `components/sections/HeroModel.tsx`; model and Draco decoder files are in `public/models` and `public/draco`.
-- **Other deps:** `motion`, `resend`.
+- **Other deps:** `motion`, `resend`, `@vercel/blob` (file uploads), `@vercel/analytics`.
 - **`next.config.mjs` sets `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` to `true`.** `npm run build` will therefore pass even with type or lint errors, so run `npx tsc --noEmit` and `npm run lint` explicitly.
 - Images live in `public/pictures/`.
 - **Work entries** live in `lib/data/work.ts` (title, slug, images[], problem, material, quantity, result, status). Entries with `status: 'concept'` are hidden unless `showConcepts` is `true` (currently `false`). `/work` shows a "Recent work coming soon" state linking to Instagram when nothing is visible, and the homepage work section renders nothing.
@@ -26,12 +26,27 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 ### Contact form
 
 - UI: `components/sections/ContactForm.tsx` (client component), used only on `/contact`.
-- Submits with `fetch('POST /api/contact')` as JSON: name, company, email, phone, serviceArea, help, description, challenge, timeline, fileLink, referral, product. There is no file upload; users paste a share link or email files.
-- `/contact?product=<slug>` (published products only; other values are ignored) shows an "Enquiry about: <name>" banner above the form and sends the slug as `product`. The email gets a Product row, and the subject says "product enquiry". This makes `/contact` dynamically rendered.
-- Handler: `app/api/contact/route.ts`. Requires name, company, email, description, a valid email format and an http(s) file link if one is given (400 otherwise). Fields are HTML-escaped and truncated (description 5000 chars, others 300). Sends an HTML email through **Resend** to **northernmodulus@gmail.com**, with `replyTo` set to the submitter.
+- Submits with `fetch('POST /api/contact')` as JSON: name, company, email, phone, serviceArea, help, description, challenge, quantity, material, timeline, fileLink, fileUrls[], referral, product, utmSource, utmMedium, utmCampaign, referrer.
+- **Required: name, email, description.** Everything else is optional, including company and "What do you need?".
+- Option lists live in `lib/enquiry.ts`, shared by the form and the API: service areas ("Custom 3D print", "Jig / fixture / tooling", "Mould", "Shop product", "Other") and materials (PLA, PETG, ABS, ASA, TPU, PC, Not sure). The API rejects values that aren't in these lists. Quantity must be a whole number from 1 to 999999. Phone placeholder: `+371 2X XXX XXX`.
+- `/contact?product=<slug>` (published products only; other values are ignored) shows an "Enquiry about: <name>" banner above the form, pre-selects "Shop product", and sends the slug as `product`. This makes `/contact` dynamically rendered.
+- **File uploads (Vercel Blob, client uploads):**
+  - The browser asks `app/api/upload/route.ts` (`handleUpload`) for a token, then uploads directly to Blob, which shows progress; the user can remove a file before sending.
+  - Rules are in `lib/enquiry.ts`: up to 5 files, 50 MB each, extensions stl, step, stp, 3mf, obj, dxf, dwg, pdf, zip, jpg, png. They're checked in the browser, when issuing the token (extension, `enquiries/` prefix, size limit) and again in `/api/contact` (only https `*.public.blob.vercel-storage.com/enquiries/...` URLs with allowed extensions, max 5).
+  - Files are **public but unlisted** (random URL suffix) so the email links open directly. Removed or abandoned uploads stay in the Blob store until deleted manually.
+  - The file-link field remains as an alternative. `@vercel/blob/client` is lazy-loaded when a file is picked.
+- **Attribution:** `components/AttributionCapture.tsx` (in the root layout) stores utm_source, utm_medium, utm_campaign and `document.referrer` in sessionStorage (`nm_attribution`, via `lib/attribution.ts`) on the first page load of a session and never overwrites them. The form sends them with every submission, and the email lists them under "Source".
+- Handler: `app/api/contact/route.ts`. Validates as above (400 on failure). All fields are HTML-escaped and truncated (description 5000 chars, URLs 1000, others 300). Sends an HTML email through **Resend** to **northernmodulus@gmail.com**, with `replyTo` set to the submitter.
 - Sender is `CONTACT_FROM` env var, falling back to `onboarding@resend.dev` (no verified domain yet).
 - A failed send returns 500; the form then shows "Something went wrong — please email northernmodulus@gmail.com directly." The success screen only appears when the API returns `{ success: true }`.
-- Nothing is stored; the email is the only record. `RESEND_API_KEY` and `CONTACT_FROM` come from the environment (Vercel env vars / `.env*`, which are gitignored).
+- No database; the email is the record and uploaded files live in Vercel Blob. Env vars: `RESEND_API_KEY`, `CONTACT_FROM`, `BLOB_READ_WRITE_TOKEN` (Vercel env vars / `.env*`, which are gitignored).
+
+### Analytics
+
+- `@vercel/analytics` (`<Analytics />` from `@vercel/analytics/next` in `app/layout.tsx`): cookieless page views. Custom events via `track()`:
+  - `quote_submitted` `{ serviceArea }`, after a successful send.
+  - `enquiry_clicked` `{ product }` and `buy_clicked` `{ product }`, from `components/sections/ProductActions.tsx` on product pages.
+- **No cookies, no Meta Pixel or other ad trackers.** If tracking changes, update `/privacy` to match.
 
 ## Routes
 
@@ -48,6 +63,7 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 | `/privacy` | `app/privacy/page.tsx` | No | Yes (legal row) |
 | `/returns` | `app/returns/page.tsx` | No | Yes (legal row); also linked from product pages |
 | `POST /api/contact` | `app/api/contact/route.ts` | n/a | n/a |
+| `POST /api/upload` | `app/api/upload/route.ts` (Vercel Blob client-upload tokens) | n/a | n/a |
 | 404 | `app/not-found.tsx` | n/a | n/a |
 
 Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions`, `/solutions/*` → `/3d-printing`.
@@ -72,9 +88,7 @@ Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions
 
 ### Existing copy that breaks these rules
 
-Don't fix these unless asked, but don't copy their wording into new work:
-
-- `components/sections/ContactForm.tsx`: UK phone placeholder (`+44 (0)...`); service-area chips still list the old solution areas ("Tooling, Fixtures & Production Support", "Engineered Transport, Packaging & Handling", "Product Development & Prototyping", "Targeted Automation & Control Integration").
+None known. If you find copy that breaks the rules above, list it here rather than copying its wording.
 
 ## Workflow rules
 

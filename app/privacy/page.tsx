@@ -21,10 +21,14 @@ export default function PrivacyPage() {
       <ul>
         <li>your name, company and email address (required)</li>
         <li>your phone number (optional)</li>
-        <li>the details you write about your project: what you need, description, goal and timeline</li>
-        <li>a file-sharing link, if you add one</li>
+        <li>the details you write about your project: enquiry type, what you need, description, goal, quantity, material and timeline</li>
+        <li>files you upload, and a file-sharing link if you add one</li>
         <li>how you heard about us, if you say</li>
         <li>the shop product you are asking about, if you came from a product page</li>
+        <li>
+          how you arrived at the site: the campaign tags in the link you first opened (utm_source,
+          utm_medium, utm_campaign) and the referring page, if any
+        </li>
       </ul>
       <p>
         We use this only to reply to your enquiry, prepare a quote and handle any resulting order.
@@ -33,9 +37,11 @@ export default function PrivacyPage() {
       <h2>How your enquiry is sent and stored</h2>
       <p>
         The website does not store form submissions in a database. Each enquiry is sent as an email
-        through <strong>Resend</strong>, an email delivery service, to our Gmail inbox. The website is
-        hosted on <strong>Vercel</strong>, which keeps standard server logs. These providers may
-        process data outside the EU under their own safeguards.
+        through <strong>Resend</strong>, an email delivery service, to our Gmail inbox. Files you
+        upload are stored with <strong>Vercel Blob</strong> at an unlisted link that is included in
+        that email. Anyone with the exact link could open the file, but the link is not published
+        anywhere. The website is hosted on <strong>Vercel</strong>, which keeps standard server logs.
+        These providers may process data outside the EU under their own safeguards.
       </p>
       <p>
         If you buy through a payment link, the payment is handled by <strong>Stripe</strong> under
@@ -46,10 +52,20 @@ export default function PrivacyPage() {
         only where accounting law requires it.
       </p>
 
-      <h2>Cookies</h2>
+      <h2>Analytics and cookies</h2>
       <p>
-        This website does not use tracking or analytics cookies, and does not use advertising or
-        social-media tracking.
+        This website does not set cookies and does not use advertising or social-media tracking
+        such as the Meta Pixel.
+      </p>
+      <p>
+        We use <strong>Vercel Web Analytics</strong>, which works without cookies and does not
+        identify you. It counts page views and a few actions: sending a quote request, and clicking
+        a product&apos;s order or buy button.
+      </p>
+      <p>
+        When you first open the site, your browser&apos;s session storage keeps the campaign tags
+        and referring page described above, so they can be included if you send an enquiry. Nothing
+        is sent unless you submit the form, and session storage is cleared when you close the tab.
       </p>
 
       <h2>Your rights and deleting your data</h2>
@@ -57,7 +73,8 @@ export default function PrivacyPage() {
         You can ask to see, correct or delete the personal data we hold about you, or object to how
         it is used. To request deletion, email{' '}
         <a href={`mailto:${company.email}`}>{company.email}</a> from the address you used and say
-        which enquiry it concerns. We will confirm once it is done.
+        which enquiry it concerns. We will delete the email and any files you uploaded, and
+        confirm once it is done.
       </p>
       <p>
         If you think your data has been handled incorrectly, you can complain to the Data State

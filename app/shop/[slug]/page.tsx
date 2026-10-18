@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import ProductGallery from '@/components/sections/ProductGallery'
+import ProductActions from '@/components/sections/ProductActions'
 import { pageMetadata } from '@/lib/metadata'
 import { publishedProducts, getPublishedProduct, formatPrice } from '@/lib/data/products'
 
@@ -57,21 +58,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               Price includes all applicable taxes. Shipping quoted separately.
             </p>
 
-            {product.stripePaymentLink ? (
-              <a
-                href={product.stripePaymentLink}
-                className="block w-full sm:w-auto sm:inline-block text-center bg-nm-green-text text-white px-10 py-4 text-[14px] font-semibold hover:opacity-85 transition-opacity"
-              >
-                Buy now →
-              </a>
-            ) : (
-              <Link
-                href={`/contact?product=${encodeURIComponent(product.slug)}`}
-                className="block w-full sm:w-auto sm:inline-block text-center bg-nm-green-text text-white px-10 py-4 text-[14px] font-semibold hover:opacity-85 transition-opacity"
-              >
-                Order via enquiry →
-              </Link>
-            )}
+            <ProductActions slug={product.slug} stripePaymentLink={product.stripePaymentLink} />
 
             <p className="mt-5 text-[13px] text-nm-text-s">
               Need a different size or material?{' '}
