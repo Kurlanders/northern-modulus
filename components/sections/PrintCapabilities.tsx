@@ -5,7 +5,7 @@ const capabilities = [
   {
     index: '01',
     title: 'Premium FDM Printing',
-    description: 'Industrial-grade hardware. Tighter tolerances, cleaner surfaces, more consistent results.',
+    description: 'One custom-built 350 mm Voron, modified and tuned in-house. Tight tolerances, clean surfaces, repeatable results.',
   },
   {
     index: '02',
@@ -29,7 +29,7 @@ const capabilities = [
   },
   {
     index: '06',
-    title: 'Small Batch 1–500+',
+    title: 'Small Batch 1–100+ Parts',
     description: 'No minimum order. Clear quotes so you can decide with confidence.',
   },
 ]
@@ -43,7 +43,7 @@ export default function PrintCapabilities() {
           {/* Left sidebar */}
           <div>
             <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-              // Capabilities
+              {'// Capabilities'}
             </p>
             <h2
               id="capabilities-heading"
@@ -86,13 +86,14 @@ export default function PrintCapabilities() {
           {/* Caption panel */}
           <div className="bg-nm-s1 px-12 py-14 flex flex-col justify-center border-b border-nm-border lg:border-b-0 lg:border-r lg:border-nm-border">
             <p className="text-[12px] font-medium text-nm-green-text tracking-[2.5px] uppercase mb-5">
-              // Our Machine
+              {'// The Machine'}
             </p>
             <h3 className="text-[clamp(22px,2.5vw,34px)] font-bold text-nm-text-p leading-[1.2] tracking-[-0.02em] mb-5">
               Custom-built.<br />Modified in-house.
             </h3>
             <p className="text-[14px] text-nm-text-s leading-[1.85] max-w-[420px]">
-              Tuned for precision, consistency, and the kind of results that off-the-shelf hardware doesn't produce. Every print runs on this machine.
+              A 350 mm Voron, built and modified in-house and tuned for precision and
+              consistency. It&apos;s the only printer here — every part is made on this machine.
             </p>
           </div>
 

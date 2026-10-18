@@ -3,7 +3,8 @@ import Link from 'next/link'
 import Button from '@/components/ui/Button'
 
 export const metadata: Metadata = {
-  title: '404 — Page Not Found',
+  title: 'Page Not Found',
+  robots: { index: false },
 }
 
 export default function NotFound() {
@@ -38,21 +39,20 @@ export default function NotFound() {
             <Button href="/" variant="primary" size="lg" withArrow>
               Return Home
             </Button>
-            <Button href="/solutions" variant="secondary" size="lg">
-              View Solutions
+            <Button href="/3d-printing" variant="secondary" size="lg">
+              Custom Printing
             </Button>
           </div>
 
-          {/* Quick links */}
           <div className="mt-16 pt-8 border-t border-nm-border">
             <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.14em] mb-5">
               Useful Pages
             </p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
               {[
-                { label: 'Solutions', href: '/solutions' },
-                { label: 'Projects', href: '/projects' },
-                { label: 'Process', href: '/process' },
+                { label: 'Shop', href: '/shop' },
+                { label: 'Custom Printing', href: '/3d-printing' },
+                { label: 'Work', href: '/work' },
                 { label: 'About', href: '/about' },
                 { label: 'Contact', href: '/contact' },
               ].map((link) => (

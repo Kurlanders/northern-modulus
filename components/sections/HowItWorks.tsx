@@ -12,7 +12,7 @@ const steps = [
     index: '02',
     title: 'We review\nand quote',
     description:
-      'We check geometry, recommend material, and send a clear quote. Most quotes within 24 hours.',
+      'We check geometry, recommend material, and send a clear quote. Most quotes within one business day.',
     isLast: false,
   },
   {
@@ -39,7 +39,7 @@ export default function HowItWorks() {
         {/* Header */}
         <div className="mb-18">
           <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-            // Process
+            {'// Process'}
           </p>
           <h2
             id="how-it-works-heading"

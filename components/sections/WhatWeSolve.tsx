@@ -21,7 +21,7 @@ const services = [
     index: '03',
     title: 'Small-Batch Production',
     description:
-      '1 to 500+ parts. Short-run FDM is often faster and cheaper than cutting tooling. Consistent quality across the batch.',
+      '1–100+ parts. Short-run FDM is often faster and cheaper than cutting tooling. Consistent quality across the batch.',
     link: 'Small-Batch',
     href: '/3d-printing#batch',
   },
@@ -36,7 +36,7 @@ export default function WhatWeSolve() {
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end pb-12 border-b border-nm-border gap-6">
           <div>
             <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-              // What We Print
+              {'// What We Print'}
             </p>
             <h2
               id="what-we-print-heading"

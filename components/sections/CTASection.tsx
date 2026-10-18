@@ -12,7 +12,7 @@ interface CTASectionProps {
 
 export default function CTASection({
   headline = 'Ready to get a quote?',
-  subtext = "Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within 24 hours.",
+  subtext = "Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within one business day.",
   primaryCTA = 'Get a Quote',
   primaryHref = '/contact',
   secondaryCTA,
@@ -25,7 +25,7 @@ export default function CTASection({
 
           <div>
             <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-              // Get Started
+              {'// Get Started'}
             </p>
             <h2 className="text-[clamp(28px,3.5vw,50px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em] mb-5">
               {headline}

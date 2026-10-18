@@ -1,13 +1,12 @@
-import type { Metadata } from 'next'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
 import CTASection from '@/components/sections/CTASection'
+import { pageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'Custom 3D Printing — Prototypes, Functional Parts & Small-Batch Production',
-  description:
-    'Premium custom 3D printing with engineering-led file review. Prototypes, functional parts, and small-batch production in a wide range of materials. Fast quoting, clear pricing.',
-}
+export const metadata = pageMetadata(
+  'Custom 3D Printing — Prototypes, Parts, Jigs & Moulds',
+  'Custom FDM printing with engineering review on every part: prototypes, functional parts, small batches of 1–100+, jigs and fixtures, and moulds.'
+)
 
 const materials = [
   {
@@ -81,14 +80,46 @@ const useCases = [
     title: 'Small-Batch Production',
     headline: 'Short runs where tooling does not make sense.',
     description:
-      'When you need 1 to 500+ parts and the volume does not justify tooling investment, FDM 3D printing is often the most practical and cost-effective option. We provide consistent quality across the batch, with repeat orders matched to saved settings.',
+      'When you need 1–100+ parts and the volume does not justify tooling investment, FDM 3D printing is often the most practical and cost-effective option. We provide consistent quality across the batch, with repeat orders matched to saved settings.',
     detail:
       'Batch pricing scales with quantity. We quote clearly so you can make the right decision for your volume. Repeat orders are processed efficiently once settings are established.',
     points: [
-      'Quantities from 1 to 500+',
+      'Quantities from 1 to 100+ parts',
       'Consistent quality across the batch',
       'Repeat orders matched to saved settings',
       'Sensible batch pricing — quoted per job',
+    ],
+  },
+  {
+    id: 'jigs-fixtures',
+    index: '04',
+    title: 'Jigs & Fixtures',
+    headline: 'Holding, locating and guiding parts in your process.',
+    description:
+      'Drilling guides, assembly jigs, locating fixtures, soft jaws and check gauges — printed to match your part geometry. They can be designed from your CAD, or from a sample part and its measurements.',
+    detail:
+      'Fixtures are reviewed for stiffness, wear surfaces and fastener interfaces before printing. When your part changes, the fixture can be revised and reprinted quickly.',
+    points: [
+      'Designed around your part geometry',
+      'Material chosen for stiffness, wear, and temperature',
+      'Inserts and fastener interfaces considered',
+      'Quick to revise and reprint',
+    ],
+  },
+  {
+    id: 'moulds',
+    index: '05',
+    title: 'Moulds',
+    headline: 'Moulds and patterns for short runs.',
+    description:
+      'Printed moulds and patterns for composite layup, silicone and resin casting, and other low-volume forming. A background in composites manufacturing means draft, release, and split lines are checked before anything is printed.',
+    detail:
+      'Material and wall design are chosen for the process temperature and pressure. Surface finish and post-processing needs are discussed per job.',
+    points: [
+      'Draft, release, and split lines reviewed',
+      'Material matched to cure temperature and process',
+      'Single moulds or short runs',
+      'Post-processing discussed per job',
     ],
   },
 ]
@@ -115,8 +146,9 @@ export default function ThreeDPrintingPage() {
                 parts that need to work.
               </h1>
               <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[54ch]">
-                Prototypes, functional parts, and small-batch production — with engineering-led
-                file review, practical material guidance, and premium print quality on every order.
+                Prototypes, functional parts, small batches, jigs and fixtures, and moulds — with
+                engineering-led file review, practical material guidance, and premium print quality
+                on every order.
               </p>
             </div>
             <div className="lg:col-span-4 lg:text-right flex flex-col items-start lg:items-end gap-3">
@@ -135,11 +167,11 @@ export default function ThreeDPrintingPage() {
       </section>
 
       {/* Use cases */}
-      <section className="pb-20 md:pb-28 bg-nm-bg" id="how-it-works">
+      <section className="pb-20 md:pb-28 bg-nm-bg" id="services">
         <div className="site-container">
           <div className="space-y-px bg-nm-border">
             {useCases.map((uc) => (
-              <div key={uc.id} id={uc.id} className="bg-nm-bg hover:bg-nm-s1 transition-colors duration-300">
+              <div key={uc.id} id={uc.id} className="bg-nm-bg hover:bg-nm-s1 transition-colors duration-300 scroll-mt-[68px]">
                 <div className="py-12 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
                   <div className="md:col-span-2">
                     <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em] block mb-2">
@@ -183,7 +215,7 @@ export default function ThreeDPrintingPage() {
       </section>
 
       {/* Materials */}
-      <section className="section-py bg-nm-s1 border-y border-nm-border" id="capabilities">
+      <section className="section-py bg-nm-s1 border-y border-nm-border" id="materials">
         <div className="site-container">
           <div className="mb-14 md:mb-18">
             <SectionLabel className="mb-6">Materials</SectionLabel>
@@ -220,13 +252,13 @@ export default function ThreeDPrintingPage() {
       </section>
 
       {/* How it works */}
-      <section className="section-py bg-nm-bg">
+      <section className="section-py bg-nm-bg" id="how-it-works">
         <div className="site-container">
           <SectionLabel className="mb-8">How It Works</SectionLabel>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-nm-border">
             {[
               { index: '01', title: 'Send your file', detail: 'Upload a STEP, STL, or OBJ — or describe what you need and we will advise on the geometry.' },
-              { index: '02', title: 'We review and quote', detail: 'Engineering review, material recommendation, and a clear quote — price, lead time, and any notes. Within 24 hours.' },
+              { index: '02', title: 'We review and quote', detail: 'Engineering review, material recommendation, and a clear quote — price, lead time, and any notes. Within one business day.' },
               { index: '03', title: 'We print and finish', detail: 'Parts go into production, are cleaned and inspected, then packed to protect finish in transit.' },
               { index: '04', title: 'You receive the part', detail: 'Dispatched with tracking. Repeat orders use saved settings for consistent results every batch.' },
             ].map((step) => (
@@ -245,7 +277,7 @@ export default function ThreeDPrintingPage() {
 
       <CTASection
         headline="Ready to get a quote?"
-        subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within 24 hours."
+        subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within one business day."
         primaryCTA="Get a Quote"
         primaryHref="/contact"
         secondaryCTA="Email Us Directly"

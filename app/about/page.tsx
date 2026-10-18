@@ -1,256 +1,167 @@
-import type { Metadata } from 'next'
-import SectionLabel from '@/components/ui/SectionLabel'
-import Button from '@/components/ui/Button'
+import Link from 'next/link'
 import CTASection from '@/components/sections/CTASection'
 import TeamSection from '@/components/sections/TeamSection'
+import { pageMetadata } from '@/lib/metadata'
 
-export const metadata: Metadata = {
-  title: 'About Northern Modulus — Engineering-Led Industrial Solutions',
-  description:
-    'Northern Modulus is an industrial engineering company focused on solving practical physical problems for manufacturers through custom design, prototyping, tooling, and automation.',
-}
+export const metadata = pageMetadata(
+  'About',
+  'Northern Modulus is a one-founder engineering 3D printing business in Riga, Latvia. Composites manufacturing background, engineering review on every part, one machine tuned for precision.'
+)
 
 const principles = [
   {
     index: '01',
-    title: 'Engineering is the answer to most manufacturing problems.',
+    title: 'Engineering review on every part.',
     description:
-      'Most production inefficiencies, transit damage incidents, and development delays have an engineering root cause. We apply engineering rigour — not procurement logic, not consultancy frameworks — to solve them.',
+      'Before anything is printed, the file is checked: wall thickness, orientation, load paths, tolerances and fit. If something will cause a problem, you hear about it in the quote — not after the print.',
   },
   {
     index: '02',
-    title: 'A solution that does not work in the operating environment is not a solution.',
+    title: 'One machine, tuned for precision.',
     description:
-      'We design for the real environment: the production floor, the logistics chain, the operator with gloves on. Theoretical correctness is not enough. We deliver hardware and systems that function where they are used.',
+      'Every part is printed on a single custom-built 350 mm Voron, modified and tuned in-house. One machine means known behaviour, repeatable settings and direct control over quality.',
   },
   {
     index: '03',
-    title: 'Scope precision prevents cost overrun.',
+    title: 'Honest scope.',
     description:
-      'Vague scope is the most consistent driver of project failure. We invest time at the front end to define what is actually needed — which allows us to deliver it without surprise cost, rework, or misaligned output.',
+      'If a part would be better machined, moulded or bought off the shelf, I will say so. Quotes state material, settings, lead time and price.',
   },
   {
     index: '04',
-    title: 'Manufacturers need partners with industrial fluency.',
+    title: 'Direct contact.',
     description:
-      'Working effectively with manufacturers requires understanding of production environments, material behaviour, operator practicality, and the commercial weight of production downtime. We bring that fluency to every project.',
+      'You deal with the person who reviews, prints and checks your part. No account managers and no hand-offs.',
   },
 ]
 
-const capabilities = [
-  'Mechanical design and CAD (SolidWorks)',
-  'Structural and component calculation',
-  'Design for manufacture review',
-  'Prototype build and validation',
-  '3D printing (FDM)',
-  'Fixture and jig design',
-  'Fabrication design (welded, bonded, bolted)',
-  'Composite structure and sandwich panel design',
-  'Engineered packaging and transport system design',
-  'PLC and HMI programming',
-  'Beckhoff TwinCAT 3 control systems',
-  'Pneumatic and servo system integration',
-  'Machine safety design (BS EN ISO 13849)',
-  'Small automation system design and build',
-  'Test rig design and integration',
+const offers = [
+  {
+    title: 'Shop',
+    description: 'Standard printed parts, ready to order. First products launching soon.',
+    href: '/shop',
+    cta: 'Go to shop',
+  },
+  {
+    title: 'Custom printing',
+    description: 'Prototypes, functional parts, small batches, jigs and fixtures, and moulds — made to your file.',
+    href: '/3d-printing',
+    cta: 'Custom printing',
+  },
 ]
 
 export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        <div className="absolute inset-0 line-grid opacity-30" aria-hidden="true" />
+      <section className="relative pt-[140px] pb-[80px] bg-nm-bg border-b border-nm-border overflow-hidden">
+        <div className="absolute inset-0 line-grid opacity-20 pointer-events-none" aria-hidden="true" />
         <div className="site-container relative">
-          <SectionLabel className="mb-6">About</SectionLabel>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-            <div className="lg:col-span-8">
-              <h1 className="text-disp-xl text-nm-text-p font-light tracking-tight mb-6">
-                Industrial engineering<br />
-                with practical intent.
-              </h1>
-              <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[54ch]">
-                We are a focused industrial engineering company. Our purpose is straightforward:
-                to identify physical engineering problems inside manufacturing businesses and
-                deliver solutions that work in the operating environment.
-              </p>
-            </div>
-          </div>
+          <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-6">
+            {'// About'}
+          </p>
+          <h1 className="text-[clamp(32px,4.5vw,64px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.025em] mb-7">
+            One engineer.<br />
+            <span className="text-nm-text-s font-medium">One machine tuned for precision.</span>
+          </h1>
+          <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[560px]">
+            Northern Modulus is a one-founder engineering 3D printing business in Riga, Latvia,
+            run by Rihards Vašuks. Every part is reviewed before it is printed, and every part is
+            printed on the same in-house machine.
+          </p>
         </div>
       </section>
 
       <TeamSection />
 
-      {/* Company story */}
-      <section className="section-py bg-nm-s1 border-y border-nm-border">
+      {/* Background */}
+      <section className="py-[100px] bg-nm-bg border-b border-nm-border">
         <div className="site-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-            <div className="lg:col-span-5">
-              <SectionLabel className="mb-6">The Company</SectionLabel>
-              <h2 className="text-disp-md text-nm-text-p font-light tracking-tight">
-                Engineering capacity<br />
-                where it is needed.
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-12 lg:gap-20">
+            <div>
+              <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+                {'// Background'}
+              </p>
+              <h2 className="text-[clamp(26px,3vw,42px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em]">
+                From composites manufacturing<br />
+                <span className="text-nm-text-s font-medium">to printed parts.</span>
               </h2>
             </div>
-            <div className="lg:col-span-7 space-y-6">
-              <p className="text-body-lg text-nm-text-s leading-relaxed">
-                Northern Modulus was established to serve a specific gap in the industrial
-                engineering market: the space between what a manufacturer can solve internally
-                and what a large contractor will price and deliver practically.
+            <div className="space-y-6">
+              <p className="text-[15px] text-nm-text-s leading-[1.85]">
+                Rihards&apos; background is in composites manufacturing — an environment where
+                moulds, tooling and process control decide whether a part is right first time.
+                That experience shapes how every job here is approached.
               </p>
-              <p className="text-body-lg text-nm-text-s leading-relaxed">
-                Most manufacturing businesses have engineering problems that are high-value but
-                not large-scale. A fixture that needs re-engineering. A crate system that keeps
-                failing in transit. A prototype that nobody internally has capacity to properly
-                develop. A specific production step that would benefit from automation if someone
-                could scope and deliver it properly.
+              <p className="text-[15px] text-nm-text-s leading-[1.85]">
+                Design work is done in CAD with a mechanical design focus: how a part is
+                loaded, how it fits the assembly, and how it will be made. A print is treated as a
+                manufactured part, not just a file sent to a machine.
               </p>
-              <p className="text-body-lg text-nm-text-s leading-relaxed">
-                Large contractors move slowly and price these jobs poorly. Internal engineering
-                teams are busy with live production priorities. The result is that the problem
-                persists — often for years — at real operational cost.
-              </p>
-              <p className="text-body-lg text-nm-text-s leading-relaxed">
-                We occupy this space deliberately. Our scale allows us to price and scope these
-                projects accurately, move at the pace manufacturers expect, and deliver results
-                without the overhead structure of a large organisation.
+              <p className="text-[15px] text-nm-text-s leading-[1.85]">
+                Production runs on one custom-built 350 mm Voron, modified and tuned in-house. It is
+                a deliberately small setup: one machine that is understood in detail, rather than a
+                fleet nobody knows well.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Principles */}
-      <section className="section-py bg-nm-bg">
+      {/* How I work */}
+      <section className="py-[100px] bg-nm-s1 border-b border-nm-border">
         <div className="site-container">
-          <div className="mb-14 md:mb-18">
-            <SectionLabel className="mb-6">How We Think</SectionLabel>
-            <h2 className="text-disp-md text-nm-text-p font-light tracking-tight max-w-[24ch]">
-              The principles that define how we work.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-            {principles.map((principle) => (
-              <div key={principle.index}>
-                <div className="flex items-center gap-4 mb-5">
-                  <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em]">
-                    {principle.index}
-                  </span>
-                  <div className="h-px flex-1 bg-nm-border" aria-hidden="true" />
-                </div>
-                <h3 className="text-h1 text-nm-text-p font-medium tracking-tight mb-4">
-                  {principle.title}
-                </h3>
-                <p className="text-body-md text-nm-text-s leading-relaxed">
-                  {principle.description}
-                </p>
+          <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+            {'// How I Work'}
+          </p>
+          <h2 className="text-[clamp(26px,3vw,42px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em] mb-14">
+            Small setup.<br />
+            <span className="text-nm-text-s font-medium">Careful work.</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-nm-border border border-nm-border">
+            {principles.map((p) => (
+              <div key={p.index} className="bg-nm-s1 p-9">
+                <p className="text-[11px] font-semibold text-nm-green-text tracking-[2px] mb-4">{p.index}</p>
+                <h3 className="text-[17px] font-bold text-nm-text-p mb-3 leading-[1.4]">{p.title}</h3>
+                <p className="text-[13px] text-nm-text-s leading-[1.85]">{p.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Capabilities */}
-      <section className="section-py bg-nm-s1 border-y border-nm-border">
+      {/* What I offer */}
+      <section className="py-[100px] bg-nm-bg">
         <div className="site-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            <div className="lg:col-span-4">
-              <SectionLabel className="mb-6">Capabilities</SectionLabel>
-              <h2 className="text-disp-md text-nm-text-p font-light tracking-tight mb-5">
-                Technical depth<br />
-                behind the solutions.
-              </h2>
-              <p className="text-body-md text-nm-text-s leading-relaxed">
-                Our capability spans mechanical design, fabrication engineering, composite
-                structures, control systems, and automation integration. This breadth exists
-                because industrial problems rarely stay neatly within one discipline.
-              </p>
-            </div>
-            <div className="lg:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-nm-border">
-                {capabilities.map((cap) => (
-                  <div
-                    key={cap}
-                    className="bg-nm-s1 px-6 py-4 flex items-center gap-3 hover:bg-nm-s2 transition-colors duration-200"
-                  >
-                    <span
-                      className="w-1 h-1 rounded-full bg-nm-green-accent flex-shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="text-body-sm text-nm-text-s">{cap}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Who we work with */}
-      <section className="section-py bg-nm-bg">
-        <div className="site-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-5">
-              <SectionLabel className="mb-6">Who We Work With</SectionLabel>
-              <h2 className="text-disp-md text-nm-text-p font-light tracking-tight mb-5">
-                Manufacturers with<br />
-                real engineering needs.
-              </h2>
-              <p className="text-body-md text-nm-text-s leading-relaxed">
-                Our clients are typically small to mid-sized manufacturers and product-based
-                businesses with recurring physical workflow problems — particularly those that
-                handle non-standard parts, build custom or semi-custom products, or lack the
-                internal engineering capacity to solve their own problems.
-              </p>
-              <div className="mt-8">
-                <Button href="/contact" variant="outline" size="md" withArrow>
-                  Start a Conversation
-                </Button>
-              </div>
-            </div>
-            <div className="lg:col-span-7">
-              <div className="space-y-4">
-                {[
-                  {
-                    type: 'Contract manufacturers',
-                    detail: 'Businesses that produce custom or semi-custom products for other companies and need production support hardware to handle product variation efficiently.',
-                  },
-                  {
-                    type: 'Industrial product companies',
-                    detail: 'Manufacturers developing new products who need mechanical engineering depth at the prototype and pre-production stage without building internal teams.',
-                  },
-                  {
-                    type: 'Precision engineering businesses',
-                    detail: 'Machining, fabrication, and specialist manufacturing companies with complex part handling, transport, or fixture requirements.',
-                  },
-                  {
-                    type: 'Machine builders and system integrators',
-                    detail: 'Engineering businesses building industrial machinery or systems who need additional mechanical design, structural work, or control integration support.',
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.type}
-                    className="p-6 bg-nm-s1 border border-nm-border rounded-sm2 hover:border-nm-border-mid transition-colors duration-200"
-                  >
-                    <p className="text-h3 text-nm-text-p font-medium mb-2">{item.type}</p>
-                    <p className="text-body-sm text-nm-text-s leading-relaxed">{item.detail}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
+            {'// What I Offer'}
+          </p>
+          <h2 className="text-[clamp(26px,3vw,42px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em] mb-14">
+            Two ways to get a part.
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-nm-border border border-nm-border">
+            {offers.map((offer) => (
+              <Link
+                key={offer.href}
+                href={offer.href}
+                className="group bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 p-9 flex flex-col"
+              >
+                <span className="text-[20px] font-bold text-nm-text-p mb-3">{offer.title}</span>
+                <span className="text-[13px] text-nm-text-s leading-[1.8] mb-6 flex-1">{offer.description}</span>
+                <span className="text-[13px] font-semibold text-nm-green-text">{offer.cta} →</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       <CTASection
-        headline="Ready to discuss a project?"
-        subtext="We work best with clients who have a clear operational problem and a practical commercial goal. If that sounds like your situation, we should talk."
-        primaryCTA="Start a Project"
+        headline="Have a part in mind?"
+        subtext="Send a file, a sketch or a description. I'll review it and come back with a clear quote — material, lead time and price."
+        primaryCTA="Get a Quote"
         primaryHref="/contact"
-        secondaryCTA="View Our Process"
-        secondaryHref="/process"
-        variant="green"
+        secondaryCTA="Custom Printing"
+        secondaryHref="/3d-printing"
       />
     </>
   )

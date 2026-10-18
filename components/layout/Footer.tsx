@@ -28,11 +28,27 @@ const socials = [
   },
 ]
 
+const footerLinks = [
+  { label: 'Shop',            href: '/shop' },
+  { label: 'Custom Printing', href: '/3d-printing' },
+  { label: 'Work',            href: '/work' },
+  { label: 'About',           href: '/about' },
+  { label: 'Contact',         href: '/contact' },
+]
+
+const legal = {
+  name: 'NORTHERN MODULUS SIA',
+  registrationNumber: '50203734921',
+  address: 'Marijas iela 16–17, Rīga, Latvia',
+}
+
+const legalComplete = Object.values(legal).every((v) => v.trim() !== '' && !v.startsWith('TODO'))
+
 export default function Footer() {
   return (
     <footer className="bg-nm-bg border-t border-nm-border">
       <div className="site-container">
-        <div className="py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="py-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
 
           {/* Logo + copyright */}
           <div className="flex flex-col gap-2.5">
@@ -46,9 +62,21 @@ export default function Footer() {
               />
             </Link>
             <p className="text-[12px] text-nm-text-t">
-              © {new Date().getFullYear()} Northern Modulus. All rights reserved.
+              © {new Date().getFullYear()} NORTHERN MODULUS SIA. All rights reserved.
             </p>
           </div>
+
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-3">
+            {footerLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[13px] text-nm-text-s hover:text-nm-text-p transition-colors duration-200"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
           {/* Right: socials */}
           <div className="flex items-center gap-5">
@@ -67,6 +95,14 @@ export default function Footer() {
           </div>
 
         </div>
+
+        {legalComplete && (
+          <div className="border-t border-nm-border py-6 flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5 text-[12px] text-nm-text-t">
+            <span>{legal.name}</span>
+            <span>Reg. no. {legal.registrationNumber}</span>
+            <span>{legal.address}</span>
+          </div>
+        )}
       </div>
     </footer>
   )

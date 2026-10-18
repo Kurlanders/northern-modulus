@@ -9,12 +9,17 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 - **Styling: Tailwind CSS 3.4** with custom `nm-*` design tokens.
   - Tokens live in `tailwind.config.ts` (colors such as `nm-bg`, `nm-s1`–`nm-s3`, `nm-border`, `nm-text-p/s/t`, `nm-green-text`) and are mirrored as CSS custom properties in `app/globals.css`. Change both together.
   - `site-container` utility = `max-w-[1440px] mx-auto px-6 md:px-12`. Every section uses it for left-edge alignment.
-  - Newer sections (homepage, `/projects`, Footer, Header, TeamSection) use explicit pixel sizes (`text-[13px]`, `text-[clamp(...)]`) and `// Label` eyebrows. Older pages (`/about` body, `/process`, `/solutions`, `/contact`, ContactForm) still use legacy tokens like `text-disp-xl`, `text-body-md`, `section-py`, `rounded-sm2` and `SectionLabel`. Prefer the newer style for new work.
+  - Newer pages and sections (homepage, `/shop`, `/work`, `/about`, Footer, Header) use explicit pixel sizes (`text-[13px]`, `text-[clamp(...)]`) and `// Label` eyebrows. Older pages (`/3d-printing`, `/contact`, 404, ContactForm) still use legacy tokens like `text-disp-xl`, `text-body-md`, `section-py`, `rounded-sm2` and `SectionLabel`. Prefer the newer style for new work.
+  - In JSX, write eyebrows as `{'// Label'}`. Bare `// Label` text fails lint (`react/jsx-no-comment-textnodes`).
   - Fonts: Outfit (sans) and JetBrains Mono, loaded via `next/font/google` in `app/layout.tsx`.
 - **3D hero:** `@react-three/fiber` + `@react-three/drei` + `three` in `components/sections/HeroModel.tsx`; model and Draco decoder files are in `public/models` and `public/draco`.
 - **Other deps:** `motion`, `resend`.
 - **`next.config.mjs` sets `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` to `true`.** `npm run build` will therefore pass even with type or lint errors, so run `npx tsc --noEmit` and `npm run lint` explicitly.
-- Images live in `public/pictures/`. Project content lives in `lib/data/projects.ts`; solution-page content in `lib/data/solutions.ts`.
+- Images live in `public/pictures/`.
+- **Work entries** live in `lib/data/work.ts` (title, slug, images[], problem, material, quantity, result, status). Entries with `status: 'concept'` are hidden unless `showConcepts` is `true` (currently `false`). `/work` shows a "Recent work coming soon" state linking to Instagram when nothing is visible, and the homepage work section renders nothing.
+- **Recent prints strip** (`components/sections/RecentPrints.tsx`, homepage) lists every image in `public/pictures/prints/` (jpg, png, webp, avif, gif), sorted by filename, with alt text taken from the filename. It is read at build time, so new images appear after the next deploy. The section is hidden when the folder has no images.
+- **Page metadata:** use `pageMetadata(title, description)` from `lib/metadata.ts`. The layout template adds " — Northern Modulus", so don't put the brand in page titles. The homepage uses `title.absolute`.
+- **Redirects** (301) are in `next.config.mjs`: `/projects` → `/work`; `/process`, `/solutions`, `/solutions/*` → `/3d-printing`.
 
 ### Contact form
 
@@ -30,29 +35,24 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
 | Route | File | Linked from nav (Header) | Linked from footer |
 |---|---|---|---|
 | `/` | `app/page.tsx` | Logo | Logo |
-| `/3d-printing` | `app/3d-printing/page.tsx` | Yes ("3D Printing" dropdown + Overview) | No |
-| `/projects` | `app/projects/page.tsx` | Yes ("Portfolio") | No |
-| `/about` | `app/about/page.tsx` | Yes ("About") | No |
-| `/contact` | `app/contact/page.tsx` | Yes ("Get a Quote" button) | No |
-| `/process` | `app/process/page.tsx` | No | No |
-| `/solutions` | `app/solutions/page.tsx` | No | No |
-| `/solutions/product-development` | `app/solutions/product-development/page.tsx` | No | No |
-| `/solutions/tooling-fixtures` | `app/solutions/tooling-fixtures/page.tsx` | No | No |
-| `/solutions/transport-handling` | `app/solutions/transport-handling/page.tsx` | No | No |
-| `/solutions/automation-control` | `app/solutions/automation-control/page.tsx` | No | No |
+| `/shop` | `app/shop/page.tsx` (placeholder: "First products launching soon") | Yes ("Shop") | Yes |
+| `/3d-printing` | `app/3d-printing/page.tsx` | Yes ("Custom Printing") | Yes ("Custom Printing") |
+| `/work` | `app/work/page.tsx` | Yes ("Work") | Yes |
+| `/about` | `app/about/page.tsx` | Yes ("About") | Yes |
+| `/contact` | `app/contact/page.tsx` | Yes ("Get a Quote" button) | Yes ("Contact") |
 | `POST /api/contact` | `app/api/contact/route.ts` | n/a | n/a |
 | 404 | `app/not-found.tsx` | n/a | n/a |
 
-- The footer (`components/layout/Footer.tsx`) only links the logo to `/` plus external Instagram and LinkedIn.
-- The 3D Printing dropdown links to `/3d-printing#how-it-works`, `#capabilities`, `#prototypes`, `#functional`, `#batch`. Only `how-it-works` and `capabilities` exist as ids on that page; the other three anchors go nowhere.
-- `/process` is reachable only from the `/about` CTA and the 404 page. `/solutions` and its subpages are reachable only from the 404 page, the `/process` CTA and each other. These pages are leftovers from an earlier "industrial engineering services" positioning.
-- There is **no Shop route yet**.
-- Unused components (not imported anywhere): `AboutSection`, `ProcessSection`, `SolutionsOverview`, `PositioningStrip`, `WhyClients`, `ui/Divider`.
+Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions`, `/solutions/*` → `/3d-printing`.
+
+- The nav has no dropdowns. The footer also links Instagram and LinkedIn, and has a legal-details row (company legal name, registration number, address) driven by the `legal` constant in `components/layout/Footer.tsx`. A guard hides the whole row if any value is empty or starts with "TODO".
+- In-page anchors on `/3d-printing`: `#prototypes`, `#functional`, `#batch`, `#jigs-fixtures`, `#moulds` (one per service, from `useCases[].id`), plus `#services`, `#materials`, `#how-it-works`. The homepage links to the first three. `/work#<slug>` anchors come from `lib/data/work.ts`. When you add an anchor link, check the id exists. Ids set from data (`id={x.id}`) don't show up in a search for `id="`.
 
 ## Brand rules (apply to all future work)
 
 - **Who we are:** Northern Modulus is a **one-founder** engineering-led 3D printing business in **Riga, Latvia**.
-- **Founder:** Rihards Vašuks. Background in composites manufacturing, mechanical design and SolidWorks.
+- **Company legal details:** NORTHERN MODULUS SIA, registration number 50203734921, Marijas iela 16–17, Rīga, Latvia. Copyright line: "© {year} NORTHERN MODULUS SIA. All rights reserved."
+- **Founder:** Rihards Vašuks. Industrial Engineering master's student; day-to-day background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in CAD). Don't mention flood prevention manufacturing or claim a mechanical engineering degree. Say "CAD", never "SolidWorks".
 - **Production:** one custom-built, in-house-modified **350 mm Voron**. That is the entire print fleet.
 - **Two equal offers.** Give them equal weight; neither is a footnote to the other:
   1. **Shop**: standard parts.
@@ -61,18 +61,13 @@ Marketing site for Northern Modulus, a one-founder engineering 3D printing busin
   - Never claim scale, a team, or industrial hardware we don't have. No "industrial-grade machines", "print farm", "our engineers", "industrial engineering company".
   - "I" and "we" are fine. **"The team" is not.**
   - Don't invent capabilities, certifications, clients, lead times or statistics.
+- **Quote turnaround = 1 business day.** Write "within one business day" (hero stat: "1 day"). **Never promise 24h.**
 
 ### Existing copy that breaks these rules
 
 Don't fix these unless asked, but don't copy their wording into new work:
 
-- `components/sections/TeamSection.tsx`: "// The Team", "The people behind every project".
-- `components/sections/MeetTheTeamBanner.tsx`: "Meet the team →".
-- `components/sections/PrintCapabilities.tsx`: "Industrial-grade hardware".
-- `app/about/page.tsx`: "industrial engineering company" positioning; capabilities list includes PLC/HMI, Beckhoff TwinCAT 3, ISO 13849 machine safety and automation build.
-- `lib/data/solutions.ts` and all `/solutions/*` pages: automation and PLC integration, "industrial-grade integration".
-- `components/sections/ContactForm.tsx`: UK phone placeholder (`+44 (0)...`); service-area chips still list the old solution areas.
-- `app/layout.tsx` metadata keywords include "industrial 3D printing".
+- `components/sections/ContactForm.tsx`: UK phone placeholder (`+44 (0)...`); service-area chips still list the old solution areas ("Tooling, Fixtures & Production Support", "Engineered Transport, Packaging & Handling", "Product Development & Prototyping", "Targeted Automation & Control Integration").
 
 ## Workflow rules
 
