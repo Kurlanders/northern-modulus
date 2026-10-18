@@ -94,7 +94,7 @@ export default function AboutPage() {
                 That experience shapes how every job here is approached.
               </p>
               <p className="text-[15px] text-nm-text-s leading-[1.85]">
-                Design work is done in SolidWorks with a mechanical design focus: how a part is
+                Design work is done in CAD with a mechanical design focus: how a part is
                 loaded, how it fits the assembly, and how it will be made. A print is treated as a
                 manufactured part, not just a file sent to a machine.
               </p>

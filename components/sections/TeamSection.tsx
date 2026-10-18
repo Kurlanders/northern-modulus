@@ -1,7 +1,7 @@
 const founder = {
   name: 'Rihards Vašuks',
   role: 'Founder & Engineer',
-  bio: "Founder of Northern Modulus and the engineer behind every part. Industrial Engineering master's student with a hands-on background in composites manufacturing — prepreg, autoclave, CNC tooling and mould design in SolidWorks. Every file gets the same review as a production part.",
+  bio: "Founder of Northern Modulus and the engineer behind every part. Industrial Engineering master's student with a hands-on background in composites manufacturing — prepreg, autoclave, CNC tooling and mould design in CAD. Every file gets the same review as a production part.",
   initials: 'RV',
 }
 

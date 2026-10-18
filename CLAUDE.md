@@ -51,7 +51,7 @@ Redirected (301, no page file): `/projects` → `/work`; `/process`, `/solutions
 ## Brand rules (apply to all future work)
 
 - **Who we are:** Northern Modulus is a **one-founder** engineering-led 3D printing business in **Riga, Latvia**.
-- **Founder:** Rihards Vašuks. Industrial Engineering master's student; hands-on background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in SolidWorks).
+- **Founder:** Rihards Vašuks. Industrial Engineering master's student; hands-on background in composites manufacturing (prepreg, autoclave, CNC tooling, mould design in CAD). Say "CAD", not "SolidWorks".
 - **Production:** one custom-built, in-house-modified **350 mm Voron**. That is the entire print fleet.
 - **Two equal offers.** Give them equal weight; neither is a footnote to the other:
   1. **Shop**: standard parts.
