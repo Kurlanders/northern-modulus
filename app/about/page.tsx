@@ -5,7 +5,7 @@ import { pageMetadata } from '@/lib/metadata'
 
 export const metadata = pageMetadata(
   'About',
-  'Northern Modulus is a one-founder engineering 3D printing business in Riga, Latvia. Composites manufacturing background, engineering review on every part, one machine tuned for precision.'
+  'Northern Modulus is an engineering-led 3D printing company in Riga, Latvia, founded by Rihards Vašuks. Composites manufacturing background, engineering review on every part, in-house production.'
 )
 
 const principles = [
@@ -17,15 +17,15 @@ const principles = [
   },
   {
     index: '02',
-    title: 'One machine, tuned for precision.',
+    title: 'In-house production.',
     description:
-      'Every part is printed on a single custom-built 350 mm Voron, modified and tuned in-house. One machine means known behaviour, repeatable settings and direct control over quality.',
+      'Every part is printed, checked and packed in-house, with settings saved for repeat orders.',
   },
   {
     index: '03',
     title: 'Honest scope.',
     description:
-      'If a part would be better machined, moulded or bought off the shelf, I will say so. Quotes state material, settings, lead time and price.',
+      'If a part would be better machined, moulded or bought off the shelf, we will say so. Quotes state material, settings, lead time and price.',
   },
   {
     index: '04',
@@ -61,13 +61,12 @@ export default function AboutPage() {
             {'// About'}
           </p>
           <h1 className="text-[clamp(32px,4.5vw,64px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.025em] mb-7">
-            One engineer.<br />
-            <span className="text-nm-text-s font-medium">One machine tuned for precision.</span>
+            Engineering first.<br />
+            <span className="text-nm-text-s font-medium">Then printing.</span>
           </h1>
           <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[560px]">
-            Northern Modulus is a one-founder engineering 3D printing business in Riga, Latvia,
-            run by Rihards Vašuks. Every part is reviewed before it is printed, and every part is
-            printed on the same in-house machine.
+            Northern Modulus is an engineering-led 3D printing company in Riga, Latvia, founded by
+            Rihards Vašuks.
           </p>
         </div>
       </section>
@@ -99,24 +98,24 @@ export default function AboutPage() {
                 manufactured part, not just a file sent to a machine.
               </p>
               <p className="text-[15px] text-nm-text-s leading-[1.85]">
-                Production runs on one custom-built 350 mm Voron, modified and tuned in-house. It is
-                a deliberately small setup: one machine that is understood in detail, rather than a
-                fleet nobody knows well.
+                Rihards is an engineer who leads projects end to end: from requirements and design
+                to production. He is building Northern Modulus to grow into a team of engineers
+                working to the same standard.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How I work */}
+      {/* How we work */}
       <section className="py-[100px] bg-nm-s1 border-b border-nm-border">
         <div className="site-container">
           <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-            {'// How I Work'}
+            {'// How We Work'}
           </p>
           <h2 className="text-[clamp(26px,3vw,42px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em] mb-14">
-            Small setup.<br />
-            <span className="text-nm-text-s font-medium">Careful work.</span>
+            Careful work.<br />
+            <span className="text-nm-text-s font-medium">On every part.</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-nm-border border border-nm-border">
             {principles.map((p) => (
@@ -130,11 +129,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* What I offer */}
+      {/* What we offer */}
       <section className="py-[100px] bg-nm-bg">
         <div className="site-container">
           <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-            {'// What I Offer'}
+            {'// What We Offer'}
           </p>
           <h2 className="text-[clamp(26px,3vw,42px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em] mb-14">
             Two ways to get a part.
@@ -157,7 +156,7 @@ export default function AboutPage() {
 
       <CTASection
         headline="Have a part in mind?"
-        subtext="Send a file, a sketch or a description. I'll review it and come back with a clear quote — material, lead time and price."
+        subtext="Send a file, a sketch or a description. We'll review it and come back with a clear quote — material, lead time and price."
         primaryCTA="Get a Quote"
         primaryHref="/contact"
         secondaryCTA="Custom Printing"

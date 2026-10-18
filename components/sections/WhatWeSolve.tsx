@@ -19,11 +19,11 @@ const services = [
   },
   {
     index: '03',
-    title: 'Small-Batch Production',
+    title: 'Moulds & Tooling',
     description:
-      '1–100+ parts. Short-run FDM is often faster and cheaper than cutting tooling. Consistent quality across the batch.',
-    link: 'Small-Batch',
-    href: '/3d-printing#batch',
+      'Printed moulds, forms and tooling for composites, casting and forming. Designed with real composites manufacturing experience, so they work on the shop floor, not just on screen.',
+    link: 'Moulds',
+    href: '/3d-printing#moulds',
   },
 ]
 
@@ -35,9 +35,6 @@ export default function WhatWeSolve() {
         {/* Section header */}
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end pb-12 border-b border-nm-border gap-6">
           <div>
-            <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-5">
-              {'// What We Print'}
-            </p>
             <h2
               id="what-we-print-heading"
               className="text-[clamp(30px,3.5vw,50px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em]"
@@ -48,7 +45,7 @@ export default function WhatWeSolve() {
           </div>
           <Link
             href="/contact"
-            className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity whitespace-nowrap self-start lg:self-auto"
+            className="bg-nm-green-text text-white px-9 py-4 text-[15px] font-semibold hover:opacity-85 transition-opacity whitespace-nowrap self-start lg:self-auto"
           >
             Get a Quote →
           </Link>
