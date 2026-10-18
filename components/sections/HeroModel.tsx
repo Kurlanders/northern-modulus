@@ -1,18 +1,33 @@
 'use client'
 
-import { useRef, useEffect, Suspense } from 'react'
+import { Component, useRef, useEffect, Suspense, type ReactNode } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { Box3, Vector3 } from 'three'
 import type { Group } from 'three'
 
-const DRACO_PATH = '/draco/'
+// Simplified (~190k triangles) and meshopt-compressed: the original 1.16M-triangle Draco mesh rendered as shards in Safari on macOS.
+const MODEL_PATH = '/models/hero-object.glb'
 const MODEL_SCALE_MULTIPLIER = 1.5
 const SPIN_DURATION = 1.5
 
+// If WebGL or the model fails, leave the area empty rather than breaking the hero.
+class SceneErrorBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  componentDidCatch(error: unknown) {
+    console.error('Hero model failed to render:', error)
+  }
+  render() {
+    return this.state.failed ? null : this.props.children
+  }
+}
+
 function Model({ scrollY }: { scrollY: React.MutableRefObject<number> }) {
   const ref = useRef<Group>(null)
-  const { scene } = useGLTF('/models/hero-object.glb', DRACO_PATH)
+  const { scene } = useGLTF(MODEL_PATH, false, true)
   const loadedAt   = useRef(0)
   const baseScale  = useRef(1)
   const initialized = useRef(false)
@@ -79,18 +94,20 @@ export default function HeroModel() {
   }, [])
 
   return (
-    <Canvas
-      camera={{ position: [0, 0, 6.5], fov: 32, near: 0.1, far: 100 }}
-      gl={{ antialias: true, alpha: true }}
-      style={{ background: 'transparent', width: '100%', height: '100%' }}
-      dpr={[1, 2]}
-    >
-      <Lights />
-      <Suspense fallback={null}>
-        <Model scrollY={scrollY} />
-      </Suspense>
-    </Canvas>
+    <SceneErrorBoundary>
+      <Canvas
+        camera={{ position: [0, 0, 6.5], fov: 32, near: 0.1, far: 100 }}
+        gl={{ antialias: true, alpha: true }}
+        style={{ background: 'transparent', width: '100%', height: '100%' }}
+        dpr={[1, 1.5]}
+      >
+        <Lights />
+        <Suspense fallback={null}>
+          <Model scrollY={scrollY} />
+        </Suspense>
+      </Canvas>
+    </SceneErrorBoundary>
   )
 }
 
-useGLTF.preload('/models/hero-object.glb', DRACO_PATH)
+useGLTF.preload(MODEL_PATH, false, true)

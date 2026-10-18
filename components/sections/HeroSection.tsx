@@ -13,7 +13,7 @@ const stats = [
   { value: 'FDM',    label: 'Print Method',     accent: false },
   { value: '1 day',  label: 'Quote Turnaround', accent: false },
   { value: '1–100+', label: 'Parts per Order',  accent: false },
-  { value: 'Eng.',   label: 'Led Review',       accent: true  },
+  { value: 'Engineering', label: 'Led Review',  accent: true  },
 ]
 
 const offers = [
@@ -102,17 +102,17 @@ export default function HeroSection() {
           </div>
 
           {/* Stats strip */}
-          {/* Below lg: 2x2 grid with a centre vertical and horizontal divider. lg+: single row. */}
-          <div className="border-t border-nm-border grid grid-cols-2 lg:flex lg:items-start lg:pt-10">
+          {/* Below 1440px: 2x2 grid with a centre vertical and horizontal divider. 1440px+: single row (it needs ~680px). */}
+          <div className="border-t border-nm-border grid grid-cols-2 min-[1440px]:flex min-[1440px]:items-start min-[1440px]:pt-10">
             {stats.map((stat, i) => (
               <div
                 key={stat.value}
                 className={[
-                  'flex flex-col gap-1.5 py-6 lg:py-0',
+                  'flex flex-col gap-1.5 py-6 min-[1440px]:py-0',
                   i % 2 === 1 ? 'border-l border-nm-border pl-6' : 'pr-6',
-                  i >= 2 ? 'border-t border-nm-border lg:border-t-0' : '',
-                  i > 0 ? 'lg:border-l lg:pl-10' : 'lg:pl-0',
-                  i < stats.length - 1 ? 'lg:pr-10' : 'lg:pr-0',
+                  i >= 2 ? 'border-t border-nm-border min-[1440px]:border-t-0' : '',
+                  i > 0 ? 'min-[1440px]:border-l min-[1440px]:pl-7' : 'min-[1440px]:pl-0',
+                  i < stats.length - 1 ? 'min-[1440px]:pr-7' : 'min-[1440px]:pr-0',
                 ].join(' ')}
               >
                 <span className={`text-[30px] font-bold leading-none tracking-[-1px] ${stat.accent ? 'text-nm-green-text' : 'text-nm-text-p'}`}>

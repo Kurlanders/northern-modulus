@@ -12,7 +12,11 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
   - Newer pages and sections (homepage, `/shop`, `/work`, `/about`, Footer, Header) use explicit pixel sizes (`text-[13px]`, `text-[clamp(...)]`) and `// Label` eyebrows. Older pages (`/3d-printing`, `/contact`, 404, ContactForm) still use legacy tokens like `text-disp-xl`, `text-body-md`, `section-py`, `rounded-sm2` and `SectionLabel`. Prefer the newer style for new work.
   - In JSX, write eyebrows as `{'// Label'}`. Bare `// Label` text fails lint (`react/jsx-no-comment-textnodes`).
   - Fonts: Outfit (sans) and JetBrains Mono, loaded via `next/font/google` in `app/layout.tsx`.
-- **3D hero:** `@react-three/fiber` + `@react-three/drei` + `three` in `components/sections/HeroModel.tsx`; model and Draco decoder files are in `public/models` and `public/draco`.
+- **3D hero:** `@react-three/fiber` + `@react-three/drei` + `three` in `components/sections/HeroModel.tsx`; model is `public/models/hero-object.glb`.
+  - It's simplified to ~190k triangles, with 1024px WebP textures and meshopt compression (`useGLTF(path, false, true)`; the decoder is bundled, there's no `public/draco`).
+  - The original 1.16M-triangle Draco mesh rendered as shards in Safari on macOS. Keep hero models under ~200k triangles and use meshopt, not Draco. Rebuild with `npx @gltf-transform/cli weld → simplify → resize → meshopt`.
+  - The canvas is wrapped in an error boundary (renders nothing on failure), and `dpr` is capped at 1.5.
+- **Hero stats:** 2x2 grid below 1440px, single row at 1440px and up (`min-[1440px]:`). The row needs ~680px, so re-measure if you change a stat's text.
 - **Other deps:** `motion`, `resend`, `@vercel/blob` (file uploads), `@vercel/analytics`.
 - **`next.config.mjs` sets `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` to `true`.** `npm run build` will therefore pass even with type or lint errors, so run `npx tsc --noEmit` and `npm run lint` explicitly.
 - Images live in `public/pictures/`.
