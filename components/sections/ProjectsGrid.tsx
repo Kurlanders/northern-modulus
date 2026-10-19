@@ -25,7 +25,7 @@ export default function ProjectsGrid() {
           </div>
           <Link
             href="/work"
-            className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity whitespace-nowrap self-start lg:self-auto"
+            className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors whitespace-nowrap self-start lg:self-auto"
           >
             All Work →
           </Link>
@@ -47,10 +47,10 @@ export default function ProjectsGrid() {
                 <h3 className="text-[17px] font-bold text-nm-text-p tracking-[-0.01em] mb-3 leading-[1.4]">
                   {entry.title}
                 </h3>
-                <p className="text-[13px] text-nm-text-s leading-[1.8] mb-6 flex-1">
+                <p className="text-[15px] text-nm-text-s leading-[1.8] mb-6 flex-1">
                   {entry.result}
                 </p>
-                <p className="text-[11px] font-medium text-nm-text-t tracking-[1.5px] uppercase">
+                <p className="text-[12px] font-medium text-nm-text-t tracking-[1.5px] uppercase">
                   {entry.material} · {entry.quantity}
                 </p>
               </div>

@@ -40,7 +40,7 @@ export default function RecentPrints() {
             href="https://instagram.com/northernmodulus"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity whitespace-nowrap"
+            className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors whitespace-nowrap"
           >
             More on Instagram →
           </a>

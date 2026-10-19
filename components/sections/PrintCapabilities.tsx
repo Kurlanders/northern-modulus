@@ -51,12 +51,12 @@ export default function PrintCapabilities() {
             >
               What you get<br />with every order.
             </h2>
-            <p className="text-[13px] text-nm-text-s leading-[1.8] mb-9">
+            <p className="text-[15px] text-nm-text-s leading-[1.8] mb-9">
               Consistent engineering input and premium print quality — prototype or repeat production run.
             </p>
             <Link
               href="/3d-printing"
-              className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity"
+              className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors"
             >
               Full Capabilities →
             </Link>
@@ -79,11 +79,11 @@ export default function PrintCapabilities() {
                 key={cap.index}
                 className="bg-nm-bg p-8 hover:bg-nm-s1 transition-colors duration-300"
               >
-                <p className="text-[11px] font-semibold text-nm-green-text tracking-[2px] mb-3.5 opacity-70">
+                <p className="text-[12px] font-semibold text-nm-green-text tracking-[2px] mb-3.5">
                   {cap.index}
                 </p>
                 <h3 className="text-[15px] font-semibold text-nm-text-p mb-2.5">{cap.title}</h3>
-                <p className="text-[13px] text-nm-text-s leading-[1.8]">{cap.description}</p>
+                <p className="text-[15px] text-nm-text-s leading-[1.8]">{cap.description}</p>
               </div>
             ))}
           </div>

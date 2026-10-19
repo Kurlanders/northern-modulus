@@ -22,7 +22,7 @@ export default function WorkPage() {
               Real parts.<br />
               <span className="text-nm-text-s font-medium">Real problems solved.</span>
             </h1>
-            <p className="text-[14px] text-nm-text-s leading-[1.8] max-w-[400px] lg:pb-2">
+            <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[400px] lg:pb-2">
               Each entry shows the problem, the material and quantity, and what the part achieved.
             </p>
           </div>
@@ -36,14 +36,14 @@ export default function WorkPage() {
               <p className="text-[18px] font-bold text-nm-text-p tracking-[-0.01em] mb-3">
                 Recent work coming soon.
               </p>
-              <p className="text-[14px] text-nm-text-s leading-[1.8] mb-6">
+              <p className="text-[15px] text-nm-text-s leading-[1.8] mb-6">
                 In the meantime, see recent prints on Instagram.
               </p>
               <a
                 href="https://instagram.com/northernmodulus"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity"
+                className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors"
               >
                 @northernmodulus on Instagram →
               </a>
@@ -86,27 +86,27 @@ export default function WorkPage() {
 
                 <dl className="flex flex-wrap gap-x-12 gap-y-4 mb-12">
                   <div>
-                    <dt className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-1.5">Material</dt>
-                    <dd className="text-[14px] text-nm-text-p">{entry.material}</dd>
+                    <dt className="text-[12px] font-medium text-nm-text-t tracking-[2px] uppercase mb-1.5">Material</dt>
+                    <dd className="text-[15px] text-nm-text-p">{entry.material}</dd>
                   </div>
                   <div>
-                    <dt className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-1.5">Quantity</dt>
-                    <dd className="text-[14px] text-nm-text-p">{entry.quantity}</dd>
+                    <dt className="text-[12px] font-medium text-nm-text-t tracking-[2px] uppercase mb-1.5">Quantity</dt>
+                    <dd className="text-[15px] text-nm-text-p">{entry.quantity}</dd>
                   </div>
                 </dl>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-nm-border border border-nm-border">
                   <div className="bg-nm-bg p-8 lg:p-10">
-                    <p className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
+                    <p className="text-[12px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
                       {'// The Problem'}
                     </p>
-                    <p className="text-[13px] text-nm-text-s leading-[1.85]">{entry.problem}</p>
+                    <p className="text-[15px] text-nm-text-s leading-[1.85]">{entry.problem}</p>
                   </div>
                   <div className="bg-nm-s1 p-8 lg:p-10">
-                    <p className="text-[11px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
+                    <p className="text-[12px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
                       {'// The Result'}
                     </p>
-                    <p className="text-[13px] text-nm-text-s leading-[1.85]">{entry.result}</p>
+                    <p className="text-[15px] text-nm-text-s leading-[1.85]">{entry.result}</p>
                   </div>
                 </div>
               </div>

@@ -29,7 +29,7 @@ interface UploadItem {
 }
 
 const inputClass =
-  'w-full bg-nm-s1 border border-nm-border rounded-sm2 px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none focus:border-nm-green-accent transition-colors duration-200'
+  'w-full bg-nm-s1 border border-nm-field rounded-sm2 px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none focus:border-nm-green-accent focus:ring-2 focus:ring-nm-green-accent/25 transition-colors duration-200'
 const labelClass = 'block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2'
 const optionalTag = <span className="text-nm-text-t font-normal normal-case tracking-normal">(optional)</span>
 
@@ -201,8 +201,8 @@ export default function ContactForm({ product }: { product?: string }) {
     return (
       <div className="py-16 flex flex-col items-start gap-5">
         <div className="w-12 h-12 rounded-full bg-nm-green-deep border border-nm-green-mid flex items-center justify-center flex-shrink-0">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M4 10L8 14L16 6" stroke="#4D8F6A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-nm-green-text" aria-hidden="true">
+            <path d="M4 10L8 14L16 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <div>
@@ -305,7 +305,7 @@ export default function ContactForm({ product }: { product?: string }) {
                 className={`px-3.5 py-2 rounded-sm2 text-body-sm border transition-colors duration-200 ${
                   serviceArea === area
                     ? 'border-nm-green-accent bg-nm-green-deep text-nm-text-p'
-                    : 'border-nm-border bg-nm-s1 text-nm-text-s hover:border-nm-border-mid hover:bg-nm-s2'
+                    : 'border-nm-border-light bg-nm-s1 text-nm-text-s hover:border-nm-field hover:bg-nm-s2'
                 }`}
               >
                 {area}
@@ -397,7 +397,7 @@ export default function ContactForm({ product }: { product?: string }) {
             className={`flex flex-col items-center justify-center gap-1.5 px-6 py-7 border border-dashed rounded-sm2 text-center transition-colors duration-200 ${
               uploads.length >= MAX_FILES
                 ? 'border-nm-border text-nm-text-t cursor-not-allowed'
-                : 'border-nm-border-mid bg-nm-s1 text-nm-text-s hover:border-nm-green-accent cursor-pointer'
+                : 'border-nm-field bg-nm-s1 text-nm-text-s hover:border-nm-green-accent cursor-pointer'
             }`}
           >
             <span className="text-body-md text-nm-text-p">
@@ -407,7 +407,7 @@ export default function ContactForm({ product }: { product?: string }) {
               Up to {MAX_FILES} files, {MAX_FILE_BYTES / (1024 * 1024)} MB each — {ALLOWED_EXTENSIONS.map((e) => e.toUpperCase()).join(', ')}
             </span>
           </label>
-          {uploadError && <p className="mt-1.5 text-body-sm text-red-400">{uploadError}</p>}
+          {uploadError && <p className="mt-1.5 text-body-sm text-nm-error">{uploadError}</p>}
         </div>
 
         {uploads.length > 0 && (
@@ -417,7 +417,7 @@ export default function ContactForm({ product }: { product?: string }) {
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-body-sm text-nm-text-p truncate">{u.name}</p>
-                    <p className={`text-[12px] ${u.state === 'error' ? 'text-red-400' : 'text-nm-text-t'}`}>
+                    <p className={`text-body-sm ${u.state === 'error' ? 'text-nm-error' : 'text-nm-text-t'}`}>
                       {formatSize(u.size)} ·{' '}
                       {u.state === 'uploading' ? `Uploading ${u.progress}%` : u.state === 'done' ? 'Uploaded' : u.error}
                     </p>
@@ -452,10 +452,10 @@ export default function ContactForm({ product }: { product?: string }) {
             value={fileLink}
             onChange={(e) => { setFileLink(e.target.value); setFileLinkError('') }}
             placeholder="https://..."
-            className={`${inputClass} ${fileLinkError ? '!border-red-700 focus:!border-red-600' : ''}`}
+            className={`${inputClass} ${fileLinkError ? '!border-nm-error focus:!border-nm-error' : ''}`}
           />
           {fileLinkError ? (
-            <p className="mt-1.5 text-body-sm text-red-400">{fileLinkError}</p>
+            <p className="mt-1.5 text-body-sm text-nm-error">{fileLinkError}</p>
           ) : (
             <p className="mt-1.5 text-body-sm text-nm-text-t">
               For larger files or folders, paste a Google Drive, WeTransfer, Dropbox, OneDrive, or similar link.
@@ -487,12 +487,12 @@ export default function ContactForm({ product }: { product?: string }) {
       </div>
 
       {status === 'error' && (
-        <div className="p-4 bg-red-950/40 border border-red-900/60 rounded-sm2">
-          <p className="text-body-sm text-red-400">
+        <div className="p-4 bg-nm-error-bg border border-nm-error-border rounded-sm2">
+          <p className="text-body-sm text-nm-error">
             {errorMessage || (
               <>
                 Something went wrong — please email{' '}
-                <a href={`mailto:${company.email}`} className="underline hover:text-red-300">
+                <a href={`mailto:${company.email}`} className="underline hover:no-underline">
                   {company.email}
                 </a>{' '}
                 directly.

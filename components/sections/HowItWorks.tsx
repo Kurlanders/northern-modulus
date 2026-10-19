@@ -63,7 +63,7 @@ export default function HowItWorks() {
             >
               <div
                 className={`text-[48px] font-extrabold leading-none tracking-[-2px] mb-7 ${
-                  step.isLast ? 'text-nm-green-text opacity-30' : 'text-nm-border'
+                  step.isLast ? 'text-nm-green-text' : 'text-nm-steel dark:text-nm-steel-l'
                 }`}
               >
                 {step.index}
@@ -71,7 +71,7 @@ export default function HowItWorks() {
               <h3 className="text-[15px] font-bold text-nm-text-p mb-3.5 leading-[1.4] whitespace-pre-line">
                 {step.title}
               </h3>
-              <p className="text-[13px] text-nm-text-s leading-[1.8]">{step.description}</p>
+              <p className="text-[15px] text-nm-text-s leading-[1.8]">{step.description}</p>
             </div>
           ))}
         </div>
@@ -80,7 +80,7 @@ export default function HowItWorks() {
         <div className="mt-18 pt-14 border-t border-nm-border flex justify-center">
           <Link
             href="/contact"
-            className="bg-nm-green-text text-white px-14 py-4 text-[13px] font-semibold hover:opacity-85 transition-opacity"
+            className="bg-nm-green-text text-nm-on-green px-14 py-4 text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
           >
             Get a Quote →
           </Link>

@@ -26,8 +26,7 @@ export default function TeamSection() {
           {/* Photo placeholder */}
           <div className="bg-nm-s2 flex items-center justify-center sm:min-h-[300px] py-12 sm:py-0 border-b border-nm-border sm:border-b-0 sm:border-r">
             <div
-              className="w-[96px] h-[96px] flex items-center justify-center border border-nm-border"
-              style={{ background: 'rgba(30,187,110,0.06)' }}
+              className="w-[96px] h-[96px] flex items-center justify-center border border-nm-border bg-nm-green-accent/[0.06]"
               aria-hidden="true"
             >
               <span className="text-[22px] font-bold text-nm-green-text tracking-[-0.02em]">
@@ -40,10 +39,10 @@ export default function TeamSection() {
             <h3 className="text-[clamp(18px,2vw,26px)] font-bold text-nm-text-p tracking-[-0.02em] leading-[1.2] mb-1.5">
               {founder.name}
             </h3>
-            <p className="text-[13px] font-medium text-nm-green-text mb-5">
+            <p className="text-[15px] font-medium text-nm-green-text mb-5">
               {founder.role}
             </p>
-            <p className="text-[13px] text-nm-text-s leading-[1.85] max-w-[480px]">
+            <p className="text-[15px] text-nm-text-s leading-[1.85] max-w-[480px]">
               {founder.bio}
             </p>
           </div>

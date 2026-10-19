@@ -9,8 +9,7 @@ export default function FounderBanner() {
           {/* Left: avatar + identity */}
           <div className="flex items-center gap-6">
             <div
-              className="w-[64px] h-[64px] flex-shrink-0 flex items-center justify-center border border-nm-border"
-              style={{ background: 'rgba(30,187,110,0.06)' }}
+              className="w-[64px] h-[64px] flex-shrink-0 flex items-center justify-center border border-nm-border bg-nm-green-accent/[0.06]"
               aria-hidden="true"
             >
               <span className="text-[15px] font-bold text-nm-green-text tracking-[-0.01em]">RV</span>
@@ -27,12 +26,12 @@ export default function FounderBanner() {
 
           {/* Right: copy + link */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
-            <p className="text-[14px] text-nm-text-s leading-[1.7] max-w-[340px]">
+            <p className="text-[15px] text-nm-text-s leading-[1.7] max-w-[340px]">
               Want to know who&apos;s behind every print?
             </p>
             <Link
               href="/about"
-              className="text-[13px] font-semibold text-nm-green-text border border-nm-green-text px-7 py-3.5 hover:bg-nm-green-text hover:text-white transition-colors duration-200 whitespace-nowrap"
+              className="text-[13px] font-semibold text-nm-green-text border border-nm-green-text px-7 py-3.5 hover:bg-nm-green-text hover:text-nm-on-green transition-colors duration-200 whitespace-nowrap"
             >
               About the founder →
             </Link>

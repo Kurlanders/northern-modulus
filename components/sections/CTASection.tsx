@@ -30,7 +30,7 @@ export default function CTASection({
             <h2 className="text-[clamp(28px,3.5vw,50px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.02em] mb-5">
               {headline}
             </h2>
-            <p className="text-[14px] text-nm-text-s leading-[1.8] max-w-[480px]">
+            <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[480px]">
               {subtext}
             </p>
           </div>
@@ -38,7 +38,7 @@ export default function CTASection({
           <div className="flex flex-col gap-3 min-w-[220px]">
             <Link
               href={primaryHref}
-              className="bg-nm-green-text text-white px-10 py-4 text-[13px] font-semibold text-center block hover:opacity-85 transition-opacity whitespace-nowrap"
+              className="bg-nm-green-text text-nm-on-green px-10 py-4 text-[13px] font-semibold text-center block hover:bg-nm-green-bright transition-colors whitespace-nowrap"
             >
               {primaryCTA} →
             </Link>

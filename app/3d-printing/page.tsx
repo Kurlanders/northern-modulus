@@ -134,7 +134,7 @@ export default function ThreeDPrintingPage() {
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse 70% 60% at 50% 30%, rgb(46 102 66 / 0.05) 0%, transparent 60%)',
+            background: 'radial-gradient(ellipse 70% 60% at 50% 30%, rgb(var(--nm-green-accent) / 0.05) 0%, transparent 60%)',
           }}
           aria-hidden="true"
         />

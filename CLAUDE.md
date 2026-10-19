@@ -6,8 +6,29 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
 
 - **Next.js 14.2.35, App Router** (`app/` directory, no `pages/`). React 18, TypeScript.
 - **Node 24.x** (pinned in `package.json` `engines`; Vercel no longer supports Node 20). No `.nvmrc` / `.node-version`.
-- **Styling: Tailwind CSS 3.4** with custom `nm-*` design tokens.
-  - Tokens live in `tailwind.config.ts` (colors such as `nm-bg`, `nm-s1`–`nm-s3`, `nm-border`, `nm-text-p/s/t`, `nm-green-text`) and are mirrored as CSS custom properties in `app/globals.css`. Change both together.
+- **Styling: Tailwind CSS 3.4** with custom `nm-*` design tokens. `darkMode: 'class'`.
+- **Themes (light + dark):** `next-themes@0.4.6` (pinned) in `components/theme/ThemeProvider.tsx`.
+  - Setup: `attribute="class"` on `<html>`, `defaultTheme="system"`, `enableSystem`, `storageKey="nm-theme"`. The default follows `prefers-color-scheme`; a visitor's toggle choice persists in localStorage.
+  - No flash: next-themes' blocking script sets the class before paint. `<html>` has `suppressHydrationWarning`.
+  - Toggle: `components/theme/ThemeToggle.tsx` (sun/moon, 40x40, `aria-label` "Switch to light/dark mode"). It sits in the Header before "Get a Quote" and in the mobile menu, and renders a same-size placeholder until mounted.
+  - `<meta name="theme-color">` comes from `THEME_COLOR_META` in `lib/theme.ts` (must match `--nm-bg`). `ThemeColorSync` updates it after a manual switch.
+  - Logo: `new-logo-light.svg` (dark lettering, no background box) and `new-logo_svg.svg` (dark mode) are both rendered in the Header/Footer; `dark:hidden` / `hidden dark:block` pick one, so there's no layout shift.
+  - The 3D hero reads `useTheme().resolvedTheme` and scales its lights by 0.55 in light mode. It uses the dark rig while the theme is still `undefined`. The canvas is transparent.
+- **Color tokens: single source of truth in `app/globals.css`.** RGB channels: light values on `:root`, dark values on `.dark`.
+  - `tailwind.config.ts` maps each `nm-*` color to `rgb(var(--nm-…) / <alpha-value>)`, so opacity modifiers work (`bg-nm-bg/95`, `bg-nm-green-accent/[0.06]`).
+  - Tokens:
+    - surfaces: `bg`, `s1`–`s3`
+    - borders: `border`, `border-mid`, `border-light`, `field` (input borders, ≥3:1)
+    - green: `green-deep/mid/accent/bright/text/dim`
+    - text: `on-green` (text on green buttons), `text-p/s/t`
+    - other: `steel`, `steel-l`, `error`, `error-bg`, `error-border`
+  - **Never hard-code colors** in `app/` or `components/`: no hex, `rgb()/rgba()` literals, `text-white` or Tailwind palette colors (`red-400` etc.). Use `nm-*` classes, or `rgb(var(--nm-…))` in inline styles. To add a color, add a token with values for both themes and check its contrast.
+  - Exceptions: the enquiry email HTML in `app/api/contact/route.ts` (email clients can't use CSS variables) and the 3D light colors in `HeroModel.tsx`.
+  - Green buttons: `bg-nm-green-text text-nm-on-green hover:bg-nm-green-bright transition-colors`. Green links hover with `hover:text-nm-green-bright`. Don't use opacity for hover or disabled states; it drops contrast below WCAG. Disabled buttons use `bg-nm-s3 text-nm-text-s`.
+- **Readability minimums (both themes):**
+  - Body and paragraph text ≥ **15px** (`text-[15px]` / `text-body-sm`+), with line-height 1.6–1.8.
+  - Labels and eyebrows ≥ **12px**; nothing below 12px anywhere. Buttons, nav links and fine print (footer copyright and legal row) are 13px.
+  - Contrast: body text ≥ 4.5:1 and large text (≥24px, or ≥18.66px bold) ≥ 3:1, in BOTH themes. Check new color pairs before shipping.
   - `site-container` utility = `max-w-[1440px] mx-auto px-6 md:px-12`. Every section uses it for left-edge alignment.
   - Newer pages and sections (homepage, `/shop`, `/work`, `/about`, Footer, Header) use explicit pixel sizes (`text-[13px]`, `text-[clamp(...)]`) and `// Label` eyebrows. Older pages (`/3d-printing`, `/contact`, 404, ContactForm) still use legacy tokens like `text-disp-xl`, `text-body-md`, `section-py`, `rounded-sm2` and `SectionLabel`. Prefer the newer style for new work.
   - In JSX, write eyebrows as `{'// Label'}`. Bare `// Label` text fails lint (`react/jsx-no-comment-textnodes`).

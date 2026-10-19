@@ -18,8 +18,8 @@ export default function NotFound() {
           <div className="flex items-center justify-center gap-4 mb-12" aria-hidden="true">
             <div className="h-px w-16 bg-nm-border" />
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="18" height="18" stroke="#245040" strokeWidth="1.2" />
-              <rect x="14" y="14" width="30" height="30" stroke="#4D8F6A" strokeWidth="1.2" strokeDasharray="3 3" fill="none" />
+              <rect x="4" y="4" width="18" height="18" className="stroke-nm-green-dim" strokeWidth="1.2" />
+              <rect x="14" y="14" width="30" height="30" className="stroke-nm-green-text" strokeWidth="1.2" strokeDasharray="3 3" fill="none" />
             </svg>
             <div className="h-px w-16 bg-nm-border" />
           </div>

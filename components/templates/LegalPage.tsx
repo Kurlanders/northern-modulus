@@ -20,7 +20,7 @@ export default function LegalPage({
           <h1 className="text-[clamp(32px,4vw,56px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.025em] mb-5">
             {title}
           </h1>
-          <p className="text-[13px] text-nm-text-t">Last updated: {LEGAL_LAST_UPDATED}</p>
+          <p className="text-[15px] text-nm-text-t">Last updated: {LEGAL_LAST_UPDATED}</p>
         </div>
       </section>
 
@@ -30,7 +30,7 @@ export default function LegalPage({
             className="max-w-[720px] text-[15px] text-nm-text-s leading-[1.85]
               [&_h2]:text-[20px] [&_h2]:font-bold [&_h2]:text-nm-text-p [&_h2]:tracking-[-0.01em] [&_h2]:mt-12 [&_h2]:mb-4 first:[&_h2]:mt-0
               [&_p]:mb-4 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-4 [&_li]:mb-1.5
-              [&_a]:text-nm-green-text [&_a:hover]:opacity-80 [&_strong]:text-nm-text-p"
+              [&_a]:text-nm-green-text [&_a:hover]:text-nm-green-bright [&_strong]:text-nm-text-p"
           >
             {children}
           </div>

@@ -45,7 +45,7 @@ export default function WhatWeSolve() {
           </div>
           <Link
             href="/contact"
-            className="bg-nm-green-text text-white px-9 py-4 text-[15px] font-semibold hover:opacity-85 transition-opacity whitespace-nowrap self-start lg:self-auto"
+            className="bg-nm-green-text text-nm-on-green px-9 py-4 text-[15px] font-semibold hover:bg-nm-green-bright transition-colors whitespace-nowrap self-start lg:self-auto"
           >
             Get a Quote →
           </Link>
@@ -64,12 +64,12 @@ export default function WhatWeSolve() {
               <h3 className="text-[20px] font-bold text-nm-text-p tracking-[-0.01em] mb-[18px]">
                 {service.title}
               </h3>
-              <p className="text-[13px] text-nm-text-s leading-[1.8] mb-9">
+              <p className="text-[15px] text-nm-text-s leading-[1.8] mb-9">
                 {service.description}
               </p>
               <Link
                 href={service.href}
-                className="text-[13px] font-semibold text-nm-green-text hover:opacity-80 transition-opacity"
+                className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors"
               >
                 {service.link} →
               </Link>
