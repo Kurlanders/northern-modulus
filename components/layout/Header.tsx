@@ -81,26 +81,29 @@ export default function Header() {
             </div>
 
             <div className="hidden lg:flex items-center gap-4">
-              <ThemeToggle />
+              <ThemeToggle variant="pill" />
               <Link
                 href="/contact"
-                className="bg-nm-green-text text-nm-on-green px-6 py-2.5 text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
+                className="inline-flex items-center h-10 bg-nm-green-text text-nm-on-green px-6 text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
               >
                 Get a Quote
               </Link>
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-expanded={mobileOpen}
-              aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
-            >
-              <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
-              <span className={`block h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'opacity-0 w-0' : 'w-4'}`} />
-              <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
-            </button>
+            {/* Mobile: theme toggle stays in the top bar, next to the hamburger */}
+            <div className="lg:hidden flex items-center gap-2">
+              <ThemeToggle variant="icon" />
+              <button
+                onClick={() => setMobileOpen((v) => !v)}
+                aria-expanded={mobileOpen}
+                aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+                className="flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
+              >
+                <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
+                <span className={`block h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'opacity-0 w-0' : 'w-4'}`} />
+                <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -136,13 +139,14 @@ export default function Header() {
             >
               Get a Quote
             </Link>
+
+            <ThemeToggle variant="menu" className="mt-3" />
           </nav>
 
-          <div className="pt-6 flex items-center justify-between gap-4">
+          <div className="pt-6">
             <p className="text-[12px] text-nm-text-t uppercase tracking-[1.5px]">
               Northern Modulus
             </p>
-            <ThemeToggle />
           </div>
         </div>
       </div>

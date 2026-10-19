@@ -6,7 +6,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AttributionCapture from '@/components/AttributionCapture'
 import ThemeProvider from '@/components/theme/ThemeProvider'
-import { THEME_COLOR_META } from '@/lib/theme'
+import { DEFAULT_THEME_COLOR } from '@/lib/theme'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -62,11 +62,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: THEME_COLOR_META.light },
-    { media: '(prefers-color-scheme: dark)', color: THEME_COLOR_META.dark },
-  ],
-  colorScheme: 'light dark',
+  themeColor: DEFAULT_THEME_COLOR,
+  colorScheme: 'dark light',
   width: 'device-width',
   initialScale: 1,
 }

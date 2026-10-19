@@ -8,10 +8,13 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
 - **Node 24.x** (pinned in `package.json` `engines`; Vercel no longer supports Node 20). No `.nvmrc` / `.node-version`.
 - **Styling: Tailwind CSS 3.4** with custom `nm-*` design tokens. `darkMode: 'class'`.
 - **Themes (light + dark):** `next-themes@0.4.6` (pinned) in `components/theme/ThemeProvider.tsx`.
-  - Setup: `attribute="class"` on `<html>`, `defaultTheme="system"`, `enableSystem`, `storageKey="nm-theme"`. The default follows `prefers-color-scheme`; a visitor's toggle choice persists in localStorage.
+  - Setup: `attribute="class"` on `<html>`, `defaultTheme="dark"`, `enableSystem={false}`, `storageKey="nm-theme"`. **Every first visit opens in dark, regardless of the OS setting.** A visitor's toggle choice persists in localStorage for that browser.
   - No flash: next-themes' blocking script sets the class before paint. `<html>` has `suppressHydrationWarning`.
-  - Toggle: `components/theme/ThemeToggle.tsx` (sun/moon, 40x40, `aria-label` "Switch to light/dark mode"). It sits in the Header before "Get a Quote" and in the mobile menu, and renders a same-size placeholder until mounted.
-  - `<meta name="theme-color">` comes from `THEME_COLOR_META` in `lib/theme.ts` (must match `--nm-bg`). `ThemeColorSync` updates it after a manual switch.
+  - Toggle: `components/theme/ThemeToggle.tsx`, `aria-label` "Switch to light/dark mode", green focus ring. It renders a same-size placeholder until mounted. Variants:
+    - `pill`: desktop Header, before "Get a Quote". Sun + "Light mode" when dark is active, moon + "Dark mode" when light is active. 40px tall, the same as the Get a Quote button (`h-10`), `min-w-[128px]` so the label swap doesn't shift layout.
+    - `icon`: mobile top bar next to the hamburger, visible without opening the menu, 40x40.
+    - `menu`: inside the mobile menu, full width with its label.
+  - `<meta name="theme-color">` is served as `DEFAULT_THEME_COLOR` (dark) from `lib/theme.ts` (must match the dark `--nm-bg`). `ThemeColorSync` sets it from the active `--nm-bg` one frame after the theme resolves or changes.
   - Logo: `new-logo-light.svg` (dark lettering, no background box) and `new-logo_svg.svg` (dark mode) are both rendered in the Header/Footer; `dark:hidden` / `hidden dark:block` pick one, so there's no layout shift.
   - The 3D hero reads `useTheme().resolvedTheme` and scales its lights by 0.55 in light mode. It uses the dark rig while the theme is still `undefined`. The canvas is transparent.
 - **Color tokens: single source of truth in `app/globals.css`.** RGB channels: light values on `:root`, dark values on `.dark`.
