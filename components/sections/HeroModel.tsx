@@ -3,6 +3,7 @@
 import { Component, useRef, useEffect, Suspense, type ReactNode } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
+import { useTheme } from 'next-themes'
 import { Box3, Vector3 } from 'three'
 import type { Group } from 'three'
 
@@ -71,21 +72,27 @@ function Model({ scrollY }: { scrollY: React.MutableRefObject<number> }) {
   return <primitive ref={ref} object={scene} />
 }
 
-function Lights() {
+// Light mode: the dark-tuned rig washes the model out against a light page.
+const LIGHT_MODE_INTENSITY = 0.55
+
+function Lights({ scale }: { scale: number }) {
   return (
     <>
-      <ambientLight intensity={3.5} color="#D0F0E4" />
-      <directionalLight position={[4, 8, 6]} intensity={6.0} color="#E8FFF4" />
-      <directionalLight position={[-4, 4, 4]} intensity={4.0} color="#1EBB6E" />
-      <pointLight position={[-5, 3, 4]} intensity={8.0} color="#1EBB6E" distance={28} />
-      <pointLight position={[4, -4, -3]} intensity={4.0} color="#0EA85E" distance={22} />
-      <directionalLight position={[-3, -2, -5]} intensity={2.5} color="#B8FFDC" />
+      <ambientLight intensity={3.5 * scale} color="#D0F0E4" />
+      <directionalLight position={[4, 8, 6]} intensity={6.0 * scale} color="#E8FFF4" />
+      <directionalLight position={[-4, 4, 4]} intensity={4.0 * scale} color="#1EBB6E" />
+      <pointLight position={[-5, 3, 4]} intensity={8.0 * scale} color="#1EBB6E" distance={28} />
+      <pointLight position={[4, -4, -3]} intensity={4.0 * scale} color="#0EA85E" distance={22} />
+      <directionalLight position={[-3, -2, -5]} intensity={2.5 * scale} color="#B8FFDC" />
     </>
   )
 }
 
 export default function HeroModel() {
   const scrollY = useRef(0)
+  const { resolvedTheme } = useTheme()
+  // resolvedTheme is undefined until next-themes knows the theme; use the dark rig until then.
+  const lightScale = resolvedTheme === 'light' ? LIGHT_MODE_INTENSITY : 1
 
   useEffect(() => {
     const onScroll = () => { scrollY.current = window.scrollY }
@@ -100,8 +107,9 @@ export default function HeroModel() {
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent', width: '100%', height: '100%' }}
         dpr={[1, 1.5]}
+        onCreated={({ gl }) => gl.setClearAlpha(0)}
       >
-        <Lights />
+        <Lights scale={lightScale} />
         <Suspense fallback={null}>
           <Model scrollY={scrollY} />
         </Suspense>

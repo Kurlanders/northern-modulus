@@ -5,6 +5,8 @@ import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AttributionCapture from '@/components/AttributionCapture'
+import ThemeProvider from '@/components/theme/ThemeProvider'
+import { DEFAULT_THEME_COLOR } from '@/lib/theme'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -60,8 +62,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0C0D0F',
-  colorScheme: 'dark',
+  themeColor: DEFAULT_THEME_COLOR,
+  colorScheme: 'dark light',
   width: 'device-width',
   initialScale: 1,
 }
@@ -72,11 +74,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="bg-nm-bg text-nm-text-p antialiased">
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </ThemeProvider>
         <AttributionCapture />
         <Analytics />
       </body>

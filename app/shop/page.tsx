@@ -28,7 +28,7 @@ function ComingSoon() {
         </p>
         <Link
           href="/contact"
-          className="inline-block bg-nm-green-text text-white px-9 py-[14px] text-[13px] font-semibold hover:opacity-85 transition-opacity"
+          className="inline-block bg-nm-green-text text-nm-on-green px-9 py-[14px] text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
         >
           Get a Quote →
         </Link>
@@ -53,10 +53,10 @@ export default function ShopPage() {
               Standard parts,<br />
               <span className="text-nm-text-s font-medium">ready to order.</span>
             </h1>
-            <p className="text-[14px] text-nm-text-s leading-[1.8] max-w-[400px] lg:pb-2">
+            <p className="text-[15px] text-nm-text-s leading-[1.8] max-w-[400px] lg:pb-2">
               Each part is printed in-house and checked before it ships. Need a
               different size or material?{' '}
-              <Link href="/contact" className="text-nm-green-text hover:opacity-80 transition-opacity">
+              <Link href="/contact" className="text-nm-green-text hover:text-nm-green-bright transition-colors">
                 Get a custom quote
               </Link>
               .
@@ -94,10 +94,10 @@ export default function ShopPage() {
                       {formatPrice(product.priceEur)}
                     </span>
                   </div>
-                  <p className="text-[11px] font-medium text-nm-green-text tracking-[1.5px] uppercase mb-3">
+                  <p className="text-[12px] font-medium text-nm-green-text tracking-[1.5px] uppercase mb-3">
                     {product.material}
                   </p>
-                  <p className="text-[13px] text-nm-text-s leading-[1.75]">
+                  <p className="text-[15px] text-nm-text-s leading-[1.75]">
                     {product.shortDescription}
                   </p>
                 </div>

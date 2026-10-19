@@ -120,9 +120,9 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-nm-border border border-nm-border">
             {principles.map((p) => (
               <div key={p.index} className="bg-nm-s1 p-9">
-                <p className="text-[11px] font-semibold text-nm-green-text tracking-[2px] mb-4">{p.index}</p>
+                <p className="text-[12px] font-semibold text-nm-green-text tracking-[2px] mb-4">{p.index}</p>
                 <h3 className="text-[17px] font-bold text-nm-text-p mb-3 leading-[1.4]">{p.title}</h3>
-                <p className="text-[13px] text-nm-text-s leading-[1.85]">{p.description}</p>
+                <p className="text-[15px] text-nm-text-s leading-[1.85]">{p.description}</p>
               </div>
             ))}
           </div>
@@ -146,7 +146,7 @@ export default function AboutPage() {
                 className="group bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 p-9 flex flex-col"
               >
                 <span className="text-[20px] font-bold text-nm-text-p mb-3">{offer.title}</span>
-                <span className="text-[13px] text-nm-text-s leading-[1.8] mb-6 flex-1">{offer.description}</span>
+                <span className="text-[15px] text-nm-text-s leading-[1.7] mb-6 flex-1">{offer.description}</span>
                 <span className="text-[13px] font-semibold text-nm-green-text">{offer.cta} →</span>
               </Link>
             ))}

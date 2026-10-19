@@ -18,7 +18,7 @@ interface ButtonProps {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-nm-green-text hover:opacity-85 text-white',
+    'bg-nm-green-text hover:bg-nm-green-bright text-nm-on-green',
   secondary:
     'bg-transparent hover:bg-nm-s2 text-nm-text-p border border-nm-border hover:border-nm-border-mid',
   ghost:
@@ -48,9 +48,11 @@ export default function Button({
   const base =
     'inline-flex items-center gap-2.5 font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 select-none'
 
-  const classes = `${base} ${variantClasses[variant]} ${sizeClasses[size]} ${
-    disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : 'cursor-pointer'
-  } ${className}`
+  // Disabled uses solid neutral colors rather than opacity, so its label (e.g. "Uploading files…") stays readable.
+  const stateClasses = disabled
+    ? 'bg-nm-s3 text-nm-text-s border border-nm-border cursor-not-allowed pointer-events-none'
+    : `${variantClasses[variant]} cursor-pointer`
+  const classes = `${base} ${stateClasses} ${sizeClasses[size]} ${className}`
 
   const content = (
     <>

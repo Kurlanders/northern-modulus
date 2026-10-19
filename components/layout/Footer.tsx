@@ -61,14 +61,21 @@ export default function Footer() {
           <div className="flex flex-col gap-2.5">
             <Link href="/" aria-label="Northern Modulus — Home">
               <Image
+                src="/pictures/new-logo-light.svg"
+                alt="Northern Modulus"
+                width={817}
+                height={273}
+                className="h-[70px] w-auto dark:hidden"
+              />
+              <Image
                 src="/pictures/new-logo_svg.svg"
                 alt="Northern Modulus"
                 width={817}
                 height={273}
-                className="h-[70px] w-auto"
+                className="h-[70px] w-auto hidden dark:block"
               />
             </Link>
-            <p className="text-[12px] text-nm-text-t">
+            <p className="text-[13px] text-nm-text-t">
               © {new Date().getFullYear()} {company.name}. All rights reserved.
             </p>
           </div>
@@ -103,7 +110,7 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-nm-border py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-[12px] text-nm-text-t">
+        <div className="border-t border-nm-border py-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-[13px] text-nm-text-t">
           {legalComplete && (
             <div className="flex flex-col sm:flex-row flex-wrap gap-x-8 gap-y-1.5">
               <span>{legal.name}</span>

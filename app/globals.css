@@ -10,18 +10,60 @@
   100% { top: 100%; opacity: 0; }
 }
 
-/* ─── CSS Custom Properties ───────────────────────────────────────────── */
+/* ─── Theme tokens (single source of truth) ───────────────────────────────
+   RGB channels so Tailwind opacity modifiers work: rgb(var(--nm-bg) / 0.95).
+   Light on :root, dark on .dark (set on <html> by next-themes). Use them via
+   the nm-* Tailwind colors; never hard-code colors in components. */
 :root {
-  --nm-bg:          #0C0D0F;
-  --nm-s1:          #101214;
-  --nm-s2:          #151719;
-  --nm-s3:          #1A1C1F;
-  --nm-border:      #252729;
-  --nm-border-mid:  #2E3236;
-  --nm-accent:      #1EBB6E;
-  --nm-text-p:      #F0EDE6;
-  --nm-text-s:      #D8D5CF;
-  --nm-text-t:      #B0ADA8;
+  --nm-bg:           247 246 242;  /* #F7F6F2 */
+  --nm-s1:           255 255 255;  /* #FFFFFF */
+  --nm-s2:           240 238 232;  /* #F0EEE8 */
+  --nm-s3:           232 229 222;  /* #E8E5DE */
+  --nm-border:       221 217 208;  /* #DDD9D0 */
+  --nm-border-mid:   207 202 192;  /* #CFCAC0 */
+  --nm-border-light: 189 184 173;  /* #BDB8AD */
+  --nm-field:        133 127 117;  /* #857F75 input borders, >=3:1 */
+  --nm-green-deep:   230 244 236;  /* #E6F4EC */
+  --nm-green-mid:    211 235 221;  /* #D3EBDD */
+  --nm-green-accent: 15 122 71;    /* #0F7A47 */
+  --nm-green-bright: 11 99 57;     /* #0B6339 hover */
+  --nm-green-text:   15 122 71;    /* #0F7A47 */
+  --nm-green-dim:    94 143 118;   /* #5E8F76 */
+  --nm-on-green:     255 255 255;  /* #FFFFFF text on green buttons, 5.4:1 */
+  --nm-text-p:       21 23 26;     /* #15171A */
+  --nm-text-s:       61 65 70;     /* #3D4146 */
+  --nm-text-t:       94 99 106;    /* #5E636A */
+  --nm-steel:        107 113 120;  /* #6B7178 */
+  --nm-steel-l:      138 144 151;  /* #8A9097 */
+  --nm-error:        180 35 24;    /* #B42318 */
+  --nm-error-bg:     254 243 242;  /* #FEF3F2 */
+  --nm-error-border: 244 184 178;  /* #F4B8B2 */
+}
+
+.dark {
+  --nm-bg:           12 13 15;     /* #0C0D0F */
+  --nm-s1:           16 18 20;     /* #101214 */
+  --nm-s2:           21 23 25;     /* #151719 */
+  --nm-s3:           26 28 31;     /* #1A1C1F */
+  --nm-border:       37 39 41;     /* #252729 */
+  --nm-border-mid:   46 50 54;     /* #2E3236 */
+  --nm-border-light: 56 60 64;     /* #383C40 */
+  --nm-field:        98 103 110;   /* #62676E input borders, >=3:1 */
+  --nm-green-deep:   14 31 24;     /* #0E1F18 */
+  --nm-green-mid:    22 43 31;     /* #162B1F */
+  --nm-green-accent: 30 187 110;   /* #1EBB6E */
+  --nm-green-bright: 25 163 98;    /* #19A362 hover */
+  --nm-green-text:   30 187 110;   /* #1EBB6E */
+  --nm-green-dim:    58 107 83;    /* #3A6B53 */
+  --nm-on-green:     12 13 15;     /* #0C0D0F text on green buttons, 7.8:1 */
+  --nm-text-p:       240 237 230;  /* #F0EDE6 */
+  --nm-text-s:       216 213 207;  /* #D8D5CF */
+  --nm-text-t:       176 173 168;  /* #B0ADA8 */
+  --nm-steel:        74 80 88;     /* #4A5058 */
+  --nm-steel-l:      104 110 118;  /* #686E76 */
+  --nm-error:        248 113 113;  /* #F87171 */
+  --nm-error-bg:     43 18 21;     /* #2B1215 */
+  --nm-error-border: 127 42 42;    /* #7F2A2A */
 }
 
 /* ─── Base reset & defaults ────────────────────────────────────────────── */
@@ -51,19 +93,19 @@
   }
 
   ::selection {
-    background-color: rgba(30, 187, 110, 0.25);
-    color: #F0EDE6;
+    background-color: rgb(var(--nm-green-accent) / 0.25);
+    color: rgb(var(--nm-text-p));
   }
 
   :focus-visible {
-    outline: 2px solid rgba(30, 187, 110, 0.6);
+    outline: 2px solid rgb(var(--nm-green-text));
     outline-offset: 3px;
   }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #0C0D0F; }
-  ::-webkit-scrollbar-thumb { background: #252729; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #2E3236; }
+  ::-webkit-scrollbar-track { background: rgb(var(--nm-bg)); }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--nm-border-mid)); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--nm-border-light)); }
 }
 
 /* ─── Utility layer ────────────────────────────────────────────────────── */
@@ -89,21 +131,21 @@
   }
 
   .text-green-gradient {
-    background: linear-gradient(135deg, #1EBB6E 0%, #19a362 100%);
+    background: linear-gradient(135deg, rgb(var(--nm-green-accent)) 0%, rgb(var(--nm-green-bright)) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .dot-grid {
-    background-image: radial-gradient(circle, rgba(30,187,110,0.15) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgb(var(--nm-green-accent) / 0.15) 1px, transparent 1px);
     background-size: 28px 28px;
   }
 
   .line-grid {
     background-image:
-      linear-gradient(rgba(37,39,41,0.6) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(37,39,41,0.6) 1px, transparent 1px);
+      linear-gradient(rgb(var(--nm-border) / 0.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--nm-border) / 0.6) 1px, transparent 1px);
     background-size: 72px 72px;
   }
 
@@ -114,7 +156,7 @@
     right: 0;
     height: 1px;
     top: 0;
-    background: linear-gradient(90deg, transparent, #1EBB6E, transparent);
+    background: linear-gradient(90deg, transparent, rgb(var(--nm-green-accent)), transparent);
     animation: scanDown 5s ease-in-out infinite;
     pointer-events: none;
     z-index: 2;

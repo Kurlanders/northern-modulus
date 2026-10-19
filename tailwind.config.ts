@@ -1,6 +1,21 @@
 import type { Config } from 'tailwindcss'
 
+// Values live in app/globals.css as RGB channels (light on :root, dark on .dark).
+const NM_TOKENS = [
+  'bg', 's1', 's2', 's3',
+  'border', 'border-mid', 'border-light', 'field',
+  'green-deep', 'green-mid', 'green-accent', 'green-bright', 'green-text', 'green-dim', 'on-green',
+  'text-p', 'text-s', 'text-t',
+  'steel', 'steel-l',
+  'error', 'error-bg', 'error-border',
+] as const
+
+const nmColors = Object.fromEntries(
+  NM_TOKENS.map((token) => [token, `rgb(var(--nm-${token}) / <alpha-value>)`])
+)
+
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,31 +24,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        nm: {
-          // Backgrounds
-          bg:  '#0C0D0F',
-          's1': '#101214',
-          's2': '#151719',
-          's3': '#1A1C1F',
-          // Borders
-          border:       '#252729',
-          'border-mid': '#2E3236',
-          'border-light':'#383C40',
-          // Green accent system
-          'green-deep':   '#0E1F18',
-          'green-mid':    '#162B1F',
-          'green-accent': '#1EBB6E',
-          'green-bright': '#19a362',
-          'green-text':   '#1EBB6E',
-          'green-dim':    '#3A6B53',
-          // Text hierarchy
-          'text-p': '#F0EDE6',
-          'text-s': '#D8D5CF',
-          'text-t': '#B0ADA8',
-          // Steel (keep for backward compat)
-          steel:    '#4A5058',
-          'steel-l':'#686E76',
-        },
+        nm: nmColors,
       },
       fontFamily: {
         sans: ['var(--font-outfit)', 'system-ui', '-apple-system', 'sans-serif'],
@@ -51,10 +42,11 @@ const config: Config = {
         'h4': ['1rem',     { lineHeight: '1.35', letterSpacing: '-0.003em' }],
         'body-lg': ['1.0625rem', { lineHeight: '1.65', letterSpacing: '0.005em' }],
         'body-md': ['0.9375rem', { lineHeight: '1.7',  letterSpacing: '0.005em' }],
-        'body-sm': ['0.875rem',  { lineHeight: '1.65', letterSpacing: '0.005em' }],
+        // Minimums: paragraph text 15px, labels/eyebrows 12px.
+        'body-sm': ['0.9375rem', { lineHeight: '1.65', letterSpacing: '0.005em' }],
         'label-lg': ['0.8125rem', { lineHeight: '1', letterSpacing: '0.14em' }],
         'label-md': ['0.75rem',   { lineHeight: '1', letterSpacing: '0.12em' }],
-        'label-sm': ['0.6875rem', { lineHeight: '1', letterSpacing: '0.1em'  }],
+        'label-sm': ['0.75rem',   { lineHeight: '1', letterSpacing: '0.1em'  }],
       },
       spacing: {
         '18': '4.5rem',

@@ -39,13 +39,12 @@ export default function HeroSection() {
 
       {/* Grid background */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-[0.22]"
         aria-hidden="true"
         style={{
           backgroundImage:
-            'linear-gradient(#252729 1px, transparent 1px), linear-gradient(90deg, #252729 1px, transparent 1px)',
+            'linear-gradient(rgb(var(--nm-border)) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--nm-border)) 1px, transparent 1px)',
           backgroundSize: '72px 72px',
-          opacity: 0.22,
         }}
       />
 
@@ -85,13 +84,13 @@ export default function HeroSection() {
                 href={offer.href}
                 className="group bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 p-7 flex flex-col"
               >
-                <span className="text-[11px] font-semibold text-nm-green-text tracking-[2px] mb-5">
+                <span className="text-[12px] font-semibold text-nm-green-text tracking-[2px] mb-5">
                   {offer.index}
                 </span>
                 <span className="text-[20px] font-bold text-nm-text-p tracking-[-0.01em] mb-2.5">
                   {offer.title}
                 </span>
-                <span className="text-[13px] text-nm-text-s leading-[1.7] mb-6 flex-1">
+                <span className="text-[15px] text-nm-text-s leading-[1.65] mb-6 flex-1">
                   {offer.description}
                 </span>
                 <span className="text-[13px] font-semibold text-nm-green-text group-hover:translate-x-1 transition-transform duration-200">
@@ -118,7 +117,7 @@ export default function HeroSection() {
                 <span className={`text-[30px] font-bold leading-none tracking-[-1px] ${stat.accent ? 'text-nm-green-text' : 'text-nm-text-p'}`}>
                   {stat.value}
                 </span>
-                <span className="text-[11px] font-medium text-nm-text-s tracking-[1.5px] uppercase whitespace-nowrap">
+                <span className="text-[12px] font-medium text-nm-text-s tracking-[1.5px] uppercase whitespace-nowrap">
                   {stat.label}
                 </span>
               </div>

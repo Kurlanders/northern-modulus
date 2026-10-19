@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import ThemeToggle from '@/components/theme/ThemeToggle'
 
 const navLinks = [
   { label: 'Shop',            href: '/shop' },
@@ -45,12 +46,21 @@ export default function Header() {
           <nav className="flex items-center justify-between h-[68px]">
 
             <Link href="/" className="flex-shrink-0" aria-label="Northern Modulus — Home">
+              {/* Both logos render; CSS hides one per theme, so there's no layout shift. */}
+              <Image
+                src="/pictures/new-logo-light.svg"
+                alt="Northern Modulus"
+                width={817}
+                height={273}
+                className="h-[62px] w-auto flex-shrink-0 dark:hidden"
+                priority
+              />
               <Image
                 src="/pictures/new-logo_svg.svg"
                 alt="Northern Modulus"
                 width={817}
                 height={273}
-                className="h-[62px] w-auto flex-shrink-0"
+                className="h-[62px] w-auto flex-shrink-0 hidden dark:block"
                 priority
               />
             </Link>
@@ -70,26 +80,30 @@ export default function Header() {
               ))}
             </div>
 
-            <div className="hidden lg:block">
+            <div className="hidden lg:flex items-center gap-4">
+              <ThemeToggle variant="pill" />
               <Link
                 href="/contact"
-                className="bg-nm-green-text text-white px-6 py-2.5 text-[13px] font-semibold hover:opacity-85 transition-opacity"
+                className="inline-flex items-center h-10 bg-nm-green-text text-nm-on-green px-6 text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
               >
                 Get a Quote
               </Link>
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMobileOpen((v) => !v)}
-              aria-expanded={mobileOpen}
-              aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-              className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
-            >
-              <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
-              <span className={`block h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'opacity-0 w-0' : 'w-4'}`} />
-              <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
-            </button>
+            {/* Mobile: theme toggle stays in the top bar, next to the hamburger */}
+            <div className="lg:hidden flex items-center gap-2">
+              <ThemeToggle variant="icon" />
+              <button
+                onClick={() => setMobileOpen((v) => !v)}
+                aria-expanded={mobileOpen}
+                aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+                className="flex flex-col justify-center items-center w-10 h-10 gap-[5px]"
+              >
+                <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
+                <span className={`block h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? 'opacity-0 w-0' : 'w-4'}`} />
+                <span className={`block w-5 h-[1.5px] bg-nm-text-s transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -121,10 +135,12 @@ export default function Header() {
 
             <Link
               href="/contact"
-              className="bg-nm-green-text text-white py-4 text-[13px] font-semibold block text-center hover:opacity-85 transition-opacity"
+              className="bg-nm-green-text text-nm-on-green py-4 text-[13px] font-semibold block text-center hover:bg-nm-green-bright transition-colors"
             >
               Get a Quote
             </Link>
+
+            <ThemeToggle variant="menu" className="mt-3" />
           </nav>
 
           <div className="pt-6">

@@ -47,7 +47,7 @@ export default function ContactPage({
             {/* Form */}
             <div className="lg:col-span-7">
               {product && (
-                <div className="mb-8 px-5 py-4 border border-nm-green-text text-[13px] text-nm-text-p" style={{ background: 'rgba(30,187,110,0.08)' }}>
+                <div className="mb-8 px-5 py-4 border border-nm-green-text bg-nm-green-accent/[0.08] text-[15px] text-nm-text-p">
                   <span className="text-nm-text-t">Enquiry about:</span>{' '}
                   <span className="font-semibold">{product.name}</span>
                 </div>
