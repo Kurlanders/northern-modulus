@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
 import { publishedProducts } from '@/lib/data/products'
 
 const HeroModel = dynamic(() => import('./HeroModel'), {
@@ -93,9 +94,9 @@ export default function HeroSection() {
                 <span className="text-[15px] text-nm-text-s leading-[1.65] mb-6 flex-1">
                   {offer.description}
                 </span>
-                <span className="text-[13px] font-semibold text-nm-green-text group-hover:translate-x-1 transition-transform duration-200">
-                  {offer.cta} →
-                </span>
+                <Button as="span" variant="text" size="sm" withArrow className="self-start">
+                  {offer.cta}
+                </Button>
               </Link>
             ))}
           </div>

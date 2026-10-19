@@ -1,5 +1,5 @@
-﻿import Link from 'next/link'
-import Image from 'next/image'
+﻿import Image from 'next/image'
+import Button from '@/components/ui/Button'
 
 const capabilities = [
   {
@@ -54,12 +54,9 @@ export default function PrintCapabilities() {
             <p className="text-[15px] text-nm-text-s leading-[1.8] mb-9">
               Consistent engineering input and premium print quality — prototype or repeat production run.
             </p>
-            <Link
-              href="/3d-printing"
-              className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors"
-            >
-              Full Capabilities →
-            </Link>
+            <Button href="/3d-printing" variant="text" size="sm" withArrow>
+              Full Capabilities
+            </Button>
             <div className="relative mt-10 aspect-[3/4] border border-nm-border overflow-hidden bg-nm-s1">
               <Image
                 src="/pictures/printer_picture.jpg"

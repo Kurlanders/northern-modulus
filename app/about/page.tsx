@@ -2,6 +2,7 @@ import Link from 'next/link'
 import CTASection from '@/components/sections/CTASection'
 import TeamSection from '@/components/sections/TeamSection'
 import { pageMetadata } from '@/lib/metadata'
+import Button from '@/components/ui/Button'
 
 export const metadata = pageMetadata(
   'About',
@@ -147,7 +148,9 @@ export default function AboutPage() {
               >
                 <span className="text-[20px] font-bold text-nm-text-p mb-3">{offer.title}</span>
                 <span className="text-[15px] text-nm-text-s leading-[1.7] mb-6 flex-1">{offer.description}</span>
-                <span className="text-[13px] font-semibold text-nm-green-text">{offer.cta} →</span>
+                <Button as="span" variant="text" size="sm" withArrow className="self-start">
+                  {offer.cta}
+                </Button>
               </Link>
             ))}
           </div>

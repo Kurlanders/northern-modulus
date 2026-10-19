@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
 import Image from 'next/image'
 import { pageMetadata } from '@/lib/metadata'
 import { publishedProducts, formatPrice } from '@/lib/data/products'
@@ -26,12 +27,9 @@ function ComingSoon() {
           Standard printed parts, ready to order, are on the way. Need a part now? Custom prints
           are available today — send a file or describe what you need.
         </p>
-        <Link
-          href="/contact"
-          className="inline-block bg-nm-green-text text-nm-on-green px-9 py-[14px] text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
-        >
-          Get a Quote →
-        </Link>
+        <Button href="/contact" size="lg" withArrow>
+          Get a Quote
+        </Button>
       </div>
     </section>
   )

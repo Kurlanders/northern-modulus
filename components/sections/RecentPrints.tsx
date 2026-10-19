@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import Image from 'next/image'
+import Button from '@/components/ui/Button'
 
 const PRINTS_DIR = path.join(process.cwd(), 'public', 'pictures', 'prints')
 const IMAGE_FILE = /\.(jpe?g|png|webp|avif|gif)$/i
@@ -36,14 +37,9 @@ export default function RecentPrints() {
               Fresh off the print bed.
             </h2>
           </div>
-          <a
-            href="https://instagram.com/northernmodulus"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors whitespace-nowrap"
-          >
-            More on Instagram →
-          </a>
+          <Button href="https://instagram.com/northernmodulus" external variant="text" size="sm" withArrow>
+            More on Instagram
+          </Button>
         </div>
 
         <div className="flex gap-px bg-nm-border border border-nm-border overflow-x-auto">

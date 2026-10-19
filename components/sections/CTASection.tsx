@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+﻿import Button from '@/components/ui/Button'
 
 interface CTASectionProps {
   headline?: string
@@ -35,20 +35,14 @@ export default function CTASection({
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 min-w-[220px]">
-            <Link
-              href={primaryHref}
-              className="bg-nm-green-text text-nm-on-green px-10 py-4 text-[13px] font-semibold text-center block hover:bg-nm-green-bright transition-colors whitespace-nowrap"
-            >
-              {primaryCTA} →
-            </Link>
+          <div className="flex flex-col gap-3 min-w-[240px]">
+            <Button href={primaryHref} size="lg" withArrow className="w-full">
+              {primaryCTA}
+            </Button>
             {secondaryCTA && secondaryHref && (
-              <Link
-                href={secondaryHref}
-                className="border border-nm-border text-nm-text-p px-10 py-4 text-[13px] font-medium text-center block hover:border-nm-green-text transition-colors whitespace-nowrap"
-              >
-                {secondaryCTA} →
-              </Link>
+              <Button href={secondaryHref} variant="secondary" size="lg" withArrow className="w-full">
+                {secondaryCTA}
+              </Button>
             )}
           </div>
 

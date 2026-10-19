@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import ThemeToggle from '@/components/theme/ThemeToggle'
+import Button from '@/components/ui/Button'
 
 const navLinks = [
   { label: 'Shop',            href: '/shop' },
@@ -82,12 +83,9 @@ export default function Header() {
 
             <div className="hidden lg:flex items-center gap-4">
               <ThemeToggle variant="pill" />
-              <Link
-                href="/contact"
-                className="inline-flex items-center h-10 bg-nm-green-text text-nm-on-green px-6 text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
-              >
+              <Button href="/contact" size="sm">
                 Get a Quote
-              </Link>
+              </Button>
             </div>
 
             {/* Mobile: theme toggle stays in the top bar, next to the hamburger */}
@@ -133,12 +131,9 @@ export default function Header() {
 
             <div className="h-px bg-nm-border mb-6" />
 
-            <Link
-              href="/contact"
-              className="bg-nm-green-text text-nm-on-green py-4 text-[13px] font-semibold block text-center hover:bg-nm-green-bright transition-colors"
-            >
+            <Button href="/contact" size="md" withArrow className="w-full">
               Get a Quote
-            </Link>
+            </Button>
 
             <ThemeToggle variant="menu" className="mt-3" />
           </nav>

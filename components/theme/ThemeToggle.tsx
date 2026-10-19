@@ -10,9 +10,9 @@ const base =
 
 const variantClasses: Record<Variant, string> = {
   // Same 40px height as the header "Get a Quote" button; min width so "Light mode"/"Dark mode" don't shift layout.
-  pill: 'h-10 min-w-[128px] px-4 rounded-full text-[13px] font-medium',
+  pill: 'h-10 min-w-[136px] px-4 rounded-full text-[14px] font-medium',
   icon: 'h-10 w-10 min-w-10 rounded-full',
-  menu: 'h-12 w-full px-4 text-[15px] font-medium',
+  menu: 'h-12 w-full px-4 rounded-full text-[15px] font-medium',
 }
 
 function SunIcon() {

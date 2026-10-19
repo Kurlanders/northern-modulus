@@ -1,6 +1,6 @@
 ﻿import Link from 'next/link'
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline'
+type ButtonVariant = 'primary' | 'secondary' | 'text'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 interface ButtonProps {
@@ -14,23 +14,48 @@ interface ButtonProps {
   className?: string
   external?: boolean
   withArrow?: boolean
+  // 'span' renders the same look without being interactive, for CTAs inside a card that is itself a link.
+  as?: 'span'
 }
+
+// Pill system shared with components/theme/ThemeToggle.tsx: rounded-full, 1px border, same focus ring.
+const base =
+  'group/btn inline-flex items-center justify-center gap-2 select-none whitespace-nowrap transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text'
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary:
-    'bg-nm-green-text hover:bg-nm-green-bright text-nm-on-green',
-  secondary:
-    'bg-transparent hover:bg-nm-s2 text-nm-text-p border border-nm-border hover:border-nm-border-mid',
-  ghost:
-    'bg-transparent hover:bg-nm-s1 text-nm-text-s hover:text-nm-text-p',
-  outline:
-    'bg-transparent hover:bg-nm-s1 text-nm-green-text border border-nm-border hover:border-nm-green-text',
+  primary: 'rounded-full border border-transparent bg-nm-green-text text-nm-on-green font-semibold hover:bg-nm-green-bright',
+  secondary: 'rounded-full border border-nm-border-light bg-transparent text-nm-text-p font-semibold hover:bg-nm-s2 hover:border-nm-field',
+  text: 'text-nm-green-text font-semibold hover:text-nm-green-bright underline-offset-4 decoration-1 hover:underline',
 }
 
+// Fixed heights so buttons line up with the theme toggle (h-10).
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'px-5 py-2.5 text-[13px]',
-  md: 'px-7 py-3 text-[13px]',
-  lg: 'px-9 py-[14px] text-[13px]',
+  sm: 'h-10 text-[14px]',
+  md: 'h-12 text-[15px]',
+  lg: 'h-[52px] text-[15px]',
+}
+const textSizeClasses: Record<ButtonSize, string> = {
+  sm: 'text-[14px]',
+  md: 'text-[15px]',
+  lg: 'text-[15px]',
+}
+
+const disabledClasses =
+  'rounded-full border border-nm-border bg-nm-s3 text-nm-text-s font-semibold px-6 cursor-not-allowed pointer-events-none'
+
+function Arrow({ nudgeWithCard }: { nudgeWithCard: boolean }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+      className={`flex-shrink-0 transition-transform duration-200 group-hover/btn:translate-x-[3px] ${nudgeWithCard ? 'group-hover:translate-x-[3px]' : ''}`}
+    >
+      <path d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
 }
 
 export default function Button({
@@ -44,52 +69,59 @@ export default function Button({
   className = '',
   external = false,
   withArrow = false,
+  as,
 }: ButtonProps) {
-  const base =
-    'inline-flex items-center gap-2.5 font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 select-none'
+  const nudgeWithCard = as === 'span'
+  const chip = variant === 'primary' && withArrow && !disabled
 
-  // Disabled uses solid neutral colors rather than opacity, so its label (e.g. "Uploading files…") stays readable.
-  const stateClasses = disabled
-    ? 'bg-nm-s3 text-nm-text-s border border-nm-border cursor-not-allowed pointer-events-none'
-    : `${variantClasses[variant]} cursor-pointer`
-  const classes = `${base} ${stateClasses} ${sizeClasses[size]} ${className}`
+  let classes: string
+  if (disabled) {
+    classes = `${base} ${sizeClasses[size]} ${disabledClasses}`
+  } else if (variant === 'text') {
+    classes = `${base} ${textSizeClasses[size]} ${variantClasses.text}`
+  } else {
+    // Primary with a chip: 24px left, 6px right so the 28px chip sits snug against the edge.
+    const padding = chip ? 'pl-6 pr-1.5' : 'px-6'
+    classes = `${base} ${sizeClasses[size]} ${padding} ${variantClasses[variant]}`
+  }
+  classes = `${classes} ${className}`
 
   const content = (
     <>
-      {children}
-      {withArrow && (
-        <svg
-          width="14" height="14" viewBox="0 0 14 14" fill="none"
-          className="transition-transform duration-300 group-hover:translate-x-0.5"
-          aria-hidden="true"
-        >
-          <path
-            d="M2.5 7H11.5M7.5 3L11.5 7L7.5 11"
-            stroke="currentColor" strokeWidth="1.4"
-            strokeLinecap="round" strokeLinejoin="round"
-          />
-        </svg>
-      )}
+      {/* With a chip, the label takes any spare width so the chip stays against the right edge on full-width buttons. */}
+      <span className={chip ? 'flex-1 text-center' : undefined}>{children}</span>
+      {withArrow &&
+        (chip ? (
+          <span className="ml-1 inline-flex items-center justify-center w-7 h-7 rounded-full bg-nm-on-green text-nm-green-text flex-shrink-0">
+            <Arrow nudgeWithCard={nudgeWithCard} />
+          </span>
+        ) : (
+          <Arrow nudgeWithCard={nudgeWithCard} />
+        ))}
     </>
   )
 
-  if (href) {
+  if (as === 'span') {
+    return <span className={classes}>{content}</span>
+  }
+
+  if (href && !disabled) {
     if (external) {
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className={`group ${classes}`}>
+        <a href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} className={classes}>
           {content}
         </a>
       )
     }
     return (
-      <Link href={href} className={`group ${classes}`}>
+      <Link href={href} onClick={onClick} className={classes}>
         {content}
       </Link>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={`group ${classes}`}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {content}
     </button>
   )

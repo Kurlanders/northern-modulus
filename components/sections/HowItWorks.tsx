@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+﻿import Button from '@/components/ui/Button'
 
 const steps = [
   {
@@ -78,12 +78,9 @@ export default function HowItWorks() {
 
         {/* CTA */}
         <div className="mt-18 pt-14 border-t border-nm-border flex justify-center">
-          <Link
-            href="/contact"
-            className="bg-nm-green-text text-nm-on-green px-14 py-4 text-[13px] font-semibold hover:bg-nm-green-bright transition-colors"
-          >
-            Get a Quote →
-          </Link>
+          <Button href="/contact" size="lg" withArrow>
+            Get a Quote
+          </Button>
         </div>
 
       </div>
