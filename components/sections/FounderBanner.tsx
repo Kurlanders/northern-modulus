@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Button from '@/components/ui/Button'
 
 export default function FounderBanner() {
   return (
@@ -29,12 +29,9 @@ export default function FounderBanner() {
             <p className="text-[15px] text-nm-text-s leading-[1.7] max-w-[340px]">
               Want to know who&apos;s behind every print?
             </p>
-            <Link
-              href="/about"
-              className="text-[13px] font-semibold text-nm-green-text border border-nm-green-text px-7 py-3.5 hover:bg-nm-green-text hover:text-nm-on-green transition-colors duration-200 whitespace-nowrap"
-            >
-              About the founder →
-            </Link>
+            <Button href="/about" variant="secondary" size="md" withArrow className="self-start sm:self-auto">
+              About the founder
+            </Button>
           </div>
 
         </div>

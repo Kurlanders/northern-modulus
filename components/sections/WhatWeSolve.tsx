@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+﻿import Button from '@/components/ui/Button'
 
 const services = [
   {
@@ -43,12 +43,9 @@ export default function WhatWeSolve() {
               <span className="text-nm-text-s font-medium">One consistent standard.</span>
             </h2>
           </div>
-          <Link
-            href="/contact"
-            className="bg-nm-green-text text-nm-on-green px-9 py-4 text-[15px] font-semibold hover:bg-nm-green-bright transition-colors whitespace-nowrap self-start lg:self-auto"
-          >
-            Get a Quote →
-          </Link>
+          <Button href="/contact" size="lg" withArrow className="self-start lg:self-auto">
+            Get a Quote
+          </Button>
         </div>
 
         {/* Cards grid */}
@@ -67,12 +64,9 @@ export default function WhatWeSolve() {
               <p className="text-[15px] text-nm-text-s leading-[1.8] mb-9">
                 {service.description}
               </p>
-              <Link
-                href={service.href}
-                className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors"
-              >
-                {service.link} →
-              </Link>
+              <Button href={service.href} variant="text" size="sm" withArrow>
+                {service.link}
+              </Button>
             </div>
           ))}
         </div>

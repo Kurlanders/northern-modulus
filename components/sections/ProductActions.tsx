@@ -1,27 +1,27 @@
 'use client'
 
-import Link from 'next/link'
 import { track } from '@vercel/analytics'
-
-const buttonClass =
-  'block w-full sm:w-auto sm:inline-block text-center bg-nm-green-text text-nm-on-green px-10 py-4 text-[14px] font-semibold hover:bg-nm-green-bright transition-colors'
+import Button from '@/components/ui/Button'
 
 export default function ProductActions({ slug, stripePaymentLink }: { slug: string; stripePaymentLink?: string }) {
+  // Stripe opens in the same tab, so it's not marked external.
   if (stripePaymentLink) {
     return (
-      <a href={stripePaymentLink} onClick={() => track('buy_clicked', { product: slug })} className={buttonClass}>
-        Buy now →
-      </a>
+      <Button href={stripePaymentLink} size="lg" withArrow onClick={() => track('buy_clicked', { product: slug })} className="w-full sm:w-auto">
+        Buy now
+      </Button>
     )
   }
 
   return (
-    <Link
+    <Button
       href={`/contact?product=${encodeURIComponent(slug)}`}
+      size="lg"
+      withArrow
       onClick={() => track('enquiry_clicked', { product: slug })}
-      className={buttonClass}
+      className="w-full sm:w-auto"
     >
-      Order via enquiry →
-    </Link>
+      Order via enquiry
+    </Button>
   )
 }

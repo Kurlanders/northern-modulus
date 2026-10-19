@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Button from '@/components/ui/Button'
 import { notFound } from 'next/navigation'
 import ProductGallery from '@/components/sections/ProductGallery'
 import ProductActions from '@/components/sections/ProductActions'
@@ -62,9 +63,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
             <p className="mt-5 text-[15px] text-nm-text-s">
               Need a different size or material?{' '}
-              <Link href="/contact" className="text-nm-green-text font-semibold hover:text-nm-green-bright transition-colors">
-                Get a custom quote →
-              </Link>
+              <Button href="/contact" variant="text" size="md" withArrow>
+                Get a custom quote
+              </Button>
             </p>
 
             <table className="mt-12 w-full border-t border-nm-border text-[15px]">

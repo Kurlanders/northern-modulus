@@ -156,12 +156,9 @@ export default function ThreeDPrintingPage() {
               <Button href="/contact" variant="primary" size="lg" withArrow>
                 Get a Quote
               </Button>
-              <a
-                href={`mailto:${company.email}`}
-                className="font-mono text-label-sm text-nm-text-t hover:text-nm-green-text transition-colors duration-200 uppercase tracking-[0.1em]"
-              >
+              <Button href={`mailto:${company.email}`} variant="text" size="sm">
                 {company.email}
-              </a>
+              </Button>
             </div>
           </div>
         </div>

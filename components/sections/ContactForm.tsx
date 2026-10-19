@@ -29,7 +29,7 @@ interface UploadItem {
 }
 
 const inputClass =
-  'w-full bg-nm-s1 border border-nm-field rounded-sm2 px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none focus:border-nm-green-accent focus:ring-2 focus:ring-nm-green-accent/25 transition-colors duration-200'
+  'w-full bg-nm-s1 border border-nm-field rounded-lg px-4 py-3 text-body-md text-nm-text-p placeholder:text-nm-text-t focus:outline-none focus:border-nm-green-accent focus:ring-2 focus:ring-nm-green-accent/25 transition-colors duration-200'
 const labelClass = 'block font-mono text-label-sm text-nm-text-s uppercase tracking-[0.12em] mb-2'
 const optionalTag = <span className="text-nm-text-t font-normal normal-case tracking-normal">(optional)</span>
 
@@ -233,12 +233,9 @@ export default function ContactForm({ product }: { product?: string }) {
             </p>
           </div>
         )}
-        <button
-          onClick={() => setStatus('idle')}
-          className="font-mono text-label-md uppercase tracking-[0.12em] text-nm-text-t hover:text-nm-text-s transition-colors duration-200 mt-2"
-        >
+        <Button variant="text" size="md" withArrow onClick={() => setStatus('idle')} className="mt-2">
           Send another enquiry
-        </button>
+        </Button>
       </div>
     )
   }
@@ -302,7 +299,7 @@ export default function ContactForm({ product }: { product?: string }) {
                 type="button"
                 aria-pressed={serviceArea === area}
                 onClick={() => setServiceArea(area === serviceArea ? '' : area)}
-                className={`px-3.5 py-2 rounded-sm2 text-body-sm border transition-colors duration-200 ${
+                className={`px-4 py-2 rounded-full text-body-sm border transition-colors duration-200 ${
                   serviceArea === area
                     ? 'border-nm-green-accent bg-nm-green-deep text-nm-text-p'
                     : 'border-nm-border-light bg-nm-s1 text-nm-text-s hover:border-nm-field hover:bg-nm-s2'
@@ -390,23 +387,26 @@ export default function ContactForm({ product }: { product?: string }) {
             accept={ALLOWED_EXTENSIONS.map((ext) => `.${ext}`).join(',')}
             onChange={(e) => handleFilesSelected(e.target.files)}
             disabled={uploads.length >= MAX_FILES}
+            tabIndex={-1}
+            aria-hidden="true"
             className="sr-only"
           />
-          <label
-            htmlFor="files"
-            className={`flex flex-col items-center justify-center gap-1.5 px-6 py-7 border border-dashed rounded-sm2 text-center transition-colors duration-200 ${
-              uploads.length >= MAX_FILES
-                ? 'border-nm-border text-nm-text-t cursor-not-allowed'
-                : 'border-nm-field bg-nm-s1 text-nm-text-s hover:border-nm-green-accent cursor-pointer'
+          <div
+            className={`flex flex-col items-center justify-center gap-3 px-6 py-7 border border-dashed rounded-lg text-center ${
+              uploads.length >= MAX_FILES ? 'border-nm-border' : 'border-nm-field bg-nm-s1'
             }`}
           >
-            <span className="text-body-md text-nm-text-p">
-              {uploads.length >= MAX_FILES ? `Maximum of ${MAX_FILES} files reached` : 'Choose files to upload'}
-            </span>
+            {uploads.length >= MAX_FILES ? (
+              <span className="text-body-md text-nm-text-t">Maximum of {MAX_FILES} files reached</span>
+            ) : (
+              <Button variant="secondary" size="md" onClick={() => fileInputRef.current?.click()}>
+                Choose files
+              </Button>
+            )}
             <span className="text-body-sm text-nm-text-t">
               Up to {MAX_FILES} files, {MAX_FILE_BYTES / (1024 * 1024)} MB each — {ALLOWED_EXTENSIONS.map((e) => e.toUpperCase()).join(', ')}
             </span>
-          </label>
+          </div>
           {uploadError && <p className="mt-1.5 text-body-sm text-nm-error">{uploadError}</p>}
         </div>
 
@@ -509,7 +509,7 @@ export default function ContactForm({ product }: { product?: string }) {
           size="lg"
           withArrow
           disabled={status === 'loading' || uploading}
-          className="w-full sm:w-auto justify-center"
+          className="w-full sm:w-auto"
         >
           {status === 'loading' ? 'Sending…' : uploading ? 'Uploading files…' : 'Send Enquiry'}
         </Button>

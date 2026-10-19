@@ -27,7 +27,18 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
     - other: `steel`, `steel-l`, `error`, `error-bg`, `error-border`
   - **Never hard-code colors** in `app/` or `components/`: no hex, `rgb()/rgba()` literals, `text-white` or Tailwind palette colors (`red-400` etc.). Use `nm-*` classes, or `rgb(var(--nm-…))` in inline styles. To add a color, add a token with values for both themes and check its contrast.
   - Exceptions: the enquiry email HTML in `app/api/contact/route.ts` (email clients can't use CSS variables) and the 3D light colors in `HeroModel.tsx`.
-  - Green buttons: `bg-nm-green-text text-nm-on-green hover:bg-nm-green-bright transition-colors`. Green links hover with `hover:text-nm-green-bright`. Don't use opacity for hover or disabled states; it drops contrast below WCAG. Disabled buttons use `bg-nm-s3 text-nm-text-s`.
+  - Don't use opacity for hover or disabled states; it drops contrast below WCAG. Plain inline links hover with `hover:text-nm-green-bright`.
+- **Buttons: all buttons use `components/ui/Button.tsx` (primary / secondary / text). Never hand-style a button. Cards and panels stay square.**
+  - It's a pill system matching `ThemeToggle` (rounded-full, 1px border, same focus ring: `focus-visible:outline-2 outline-offset-2 outline-nm-green-text`).
+  - `primary`: `bg-nm-green-text text-nm-on-green`, hover `nm-green-bright`. With `withArrow`, the arrow sits in a 28px chip (`bg-nm-on-green`, arrow `nm-green-text`) against the right edge, with padding 24px left and 6px right.
+  - `secondary`: transparent, `border-nm-border-light`, `text-nm-text-p`, hover `bg-nm-s2`. Plain arrow.
+  - `text`: green text, underline (offset 4px) on hover, no box.
+  - Arrows nudge 3px right on hover (transform, 200ms).
+  - Sizes: `sm` = h-10 / 14px (header, level with the toggle), `md` = h-12 / 15px, `lg` = h-[52px] / 15px. The `text` variant has no fixed height.
+  - Disabled = solid `bg-nm-s3 text-nm-text-s`, never opacity.
+  - `href` renders a `Link` (`external` gives a new-tab `<a>`), otherwise a `<button>`; `onClick` works for both. Use `as="span"` for a CTA inside a card that is itself a link. Make a button full width on mobile with `className="w-full sm:w-auto"`.
+  - Not `Button`, on purpose: nav links, whole-card links, links inline in sentences, `ThemeToggle`, the hamburger, contact-form selection chips (`rounded-full`, `aria-pressed`), the upload "Remove" action, gallery thumbnails.
+- **Form fields** (inputs, selects, textareas, the upload drop zone) are `rounded-lg` (8px). Panels, cards and info/error boxes stay square.
 - **Readability minimums (both themes):**
   - Body and paragraph text ≥ **15px** (`text-[15px]` / `text-body-sm`+), with line-height 1.6–1.8.
   - Labels and eyebrows ≥ **12px**; nothing below 12px anywhere. Buttons, nav links and fine print (footer copyright and legal row) are 13px.

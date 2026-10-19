@@ -2,6 +2,7 @@ import Image from 'next/image'
 import CTASection from '@/components/sections/CTASection'
 import { visibleWork } from '@/lib/data/work'
 import { pageMetadata } from '@/lib/metadata'
+import Button from '@/components/ui/Button'
 
 export const metadata = pageMetadata(
   'Work',
@@ -39,14 +40,9 @@ export default function WorkPage() {
               <p className="text-[15px] text-nm-text-s leading-[1.8] mb-6">
                 In the meantime, see recent prints on Instagram.
               </p>
-              <a
-                href="https://instagram.com/northernmodulus"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors"
-              >
-                @northernmodulus on Instagram →
-              </a>
+              <Button href="https://instagram.com/northernmodulus" external variant="text" size="md" withArrow>
+                @northernmodulus on Instagram
+              </Button>
             </div>
           </div>
         </section>

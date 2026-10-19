@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { visibleWork } from '@/lib/data/work'
+import Button from '@/components/ui/Button'
 
 export default function ProjectsGrid() {
   const entries = visibleWork.slice(0, 3)
@@ -23,12 +24,9 @@ export default function ProjectsGrid() {
               <span className="text-nm-text-s font-medium">Real problems solved.</span>
             </h2>
           </div>
-          <Link
-            href="/work"
-            className="text-[13px] font-semibold text-nm-green-text hover:text-nm-green-bright transition-colors whitespace-nowrap self-start lg:self-auto"
-          >
-            All Work →
-          </Link>
+          <Button href="/work" variant="text" size="sm" withArrow className="self-start lg:self-auto">
+            All Work
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-nm-border border border-nm-border">
