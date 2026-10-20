@@ -26,7 +26,7 @@ class SceneErrorBoundary extends Component<{ children: ReactNode }, { failed: bo
   }
 }
 
-function Model({ scrollY }: { scrollY: React.MutableRefObject<number> }) {
+function Model({ scrollY, onReady }: { scrollY: React.MutableRefObject<number>; onReady?: () => void }) {
   const ref = useRef<Group>(null)
   const { scene } = useGLTF(MODEL_PATH, false, true)
   const loadedAt   = useRef(0)
@@ -50,6 +50,7 @@ function Model({ scrollY }: { scrollY: React.MutableRefObject<number> }) {
       ref.current.rotation.y = Math.PI * 1.6
       loadedAt.current = performance.now()
       initialized.current = true
+      onReady?.()
       return
     }
 
@@ -88,7 +89,7 @@ function Lights({ scale }: { scale: number }) {
   )
 }
 
-export default function HeroModel() {
+export default function HeroModel({ onReady }: { onReady?: () => void } = {}) {
   const scrollY = useRef(0)
   const { resolvedTheme } = useTheme()
   // resolvedTheme is undefined until next-themes knows the theme; use the dark rig until then.
@@ -111,7 +112,7 @@ export default function HeroModel() {
       >
         <Lights scale={lightScale} />
         <Suspense fallback={null}>
-          <Model scrollY={scrollY} />
+          <Model scrollY={scrollY} onReady={onReady} />
         </Suspense>
       </Canvas>
     </SceneErrorBoundary>

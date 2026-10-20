@@ -56,22 +56,25 @@ export default function WorkPage() {
             >
               {entry.images.length > 0 && (
                 <div
-                  className={`grid ${entry.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} border-b border-nm-border overflow-hidden`}
-                  style={{ height: '580px' }}
+                  className={`grid ${entry.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} h-[320px] md:h-[580px] bg-nm-s2 border-b border-nm-border overflow-hidden`}
                 >
-                  {entry.images.slice(0, 2).map((src, i) => (
-                    <div key={src} className={`relative overflow-hidden ${i === 0 && entry.images.length > 1 ? 'border-r border-nm-border' : ''}`}>
-                      <Image
-                        src={src}
-                        alt={`${entry.title} — image ${i + 1}`}
-                        fill
-                        sizes="50vw"
-                        className="object-cover"
-                        style={{ objectPosition: 'center 8%' }}
-                        priority={idx === 0 && i === 0}
-                      />
-                    </div>
-                  ))}
+                  {entry.images.slice(0, 2).map((src, i) => {
+                    // Placeholder SVGs are shown whole; photos fill the banner.
+                    const isSvg = src.endsWith('.svg')
+                    return (
+                      <div key={src} className={`relative overflow-hidden ${i === 0 && entry.images.length > 1 ? 'border-r border-nm-border' : ''}`}>
+                        <Image
+                          src={src}
+                          alt={`${entry.title} — image ${i + 1}`}
+                          fill
+                          sizes="50vw"
+                          className={isSvg ? 'object-contain p-8' : 'object-cover'}
+                          style={isSvg ? undefined : { objectPosition: 'center 8%' }}
+                          priority={idx === 0 && i === 0}
+                        />
+                      </div>
+                    )
+                  })}
                 </div>
               )}
 

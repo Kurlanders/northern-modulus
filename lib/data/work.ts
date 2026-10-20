@@ -15,6 +15,17 @@ export const showConcepts = false
 
 export const work: WorkEntry[] = [
   {
+    // Replace placeholder.svg with the real photo at /public/pictures/work/<slug>.jpg
+    title: '[FILL]',
+    slug: '[FILL-kebab-case]',
+    images: ['/pictures/work/placeholder.svg'],
+    problem: '[FILL]',
+    material: '[FILL]',
+    quantity: '[FILL]',
+    result: '[FILL]',
+    status: 'published',
+  },
+  {
     title: 'Smart Window Ventilation',
     slug: 'smart-window-ventilation',
     images: ['/pictures/Window_front.png', '/pictures/Window_side.png'],

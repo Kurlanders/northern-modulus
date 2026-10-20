@@ -170,16 +170,16 @@ export default function ThreeDPrintingPage() {
           <div className="space-y-px bg-nm-border">
             {useCases.map((uc) => (
               <div key={uc.id} id={uc.id} className="bg-nm-bg hover:bg-nm-s1 transition-colors duration-300 scroll-mt-[68px]">
-                <div className="py-12 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
-                  <div className="md:col-span-2">
-                    <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em] block mb-2">
+                <div className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                  <div className="lg:col-span-3">
+                    <span className="font-mono text-[16px] font-semibold text-nm-green-text tracking-[0.08em] block mb-2">
                       {uc.index}
                     </span>
-                    <span className="text-h3 text-nm-text-p font-medium block">
+                    <span className="text-[20px] lg:text-[24px] leading-[1.25] tracking-[-0.01em] text-nm-text-p font-semibold block">
                       {uc.title}
                     </span>
                   </div>
-                  <div className="md:col-span-5">
+                  <div className="lg:col-span-5">
                     <h2 className="text-h1 text-nm-text-p font-medium tracking-tight mb-4">
                       {uc.headline}
                     </h2>
@@ -190,7 +190,7 @@ export default function ThreeDPrintingPage() {
                       {uc.detail}
                     </p>
                   </div>
-                  <div className="md:col-span-5">
+                  <div className="lg:col-span-4">
                     <div className="p-6 bg-nm-s1 border border-nm-border rounded-sm2">
                       <p className="font-mono text-label-sm text-nm-text-t uppercase tracking-[0.14em] mb-4">
                         What this includes
@@ -253,7 +253,7 @@ export default function ThreeDPrintingPage() {
       <section className="section-py bg-nm-bg" id="how-it-works">
         <div className="site-container">
           <SectionLabel className="mb-8">How It Works</SectionLabel>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-nm-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-nm-border">
             {[
               { index: '01', title: 'Send your file', detail: 'Upload a STEP, STL, or OBJ — or describe what you need and we will advise on the geometry.' },
               { index: '02', title: 'We review and quote', detail: 'Engineering review, material recommendation, and a clear quote — price, lead time, and any notes. Within one business day.' },
@@ -262,10 +262,10 @@ export default function ThreeDPrintingPage() {
             ].map((step) => (
               <div key={step.index} className="bg-nm-bg hover:bg-nm-s1 transition-colors duration-300 p-7 group">
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="font-mono text-label-sm text-nm-green-text tracking-[0.14em]">{step.index}</span>
+                  <span className="font-mono text-[16px] font-semibold text-nm-green-text tracking-[0.08em]">{step.index}</span>
                   <div className="h-px flex-1 bg-nm-border group-hover:bg-nm-green-mid transition-colors duration-500" aria-hidden="true" />
                 </div>
-                <h3 className="text-h3 text-nm-text-p font-medium tracking-tight mb-3">{step.title}</h3>
+                <h3 className="text-[22px] leading-[1.25] text-nm-text-p font-semibold tracking-[-0.01em] mb-3">{step.title}</h3>
                 <p className="text-body-sm text-nm-text-s leading-relaxed">{step.detail}</p>
               </div>
             ))}

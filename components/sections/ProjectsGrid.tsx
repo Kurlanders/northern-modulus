@@ -6,6 +6,7 @@ import Button from '@/components/ui/Button'
 export default function ProjectsGrid() {
   const entries = visibleWork.slice(0, 3)
   if (entries.length === 0) return null
+  const single = entries.length === 1
 
   return (
     <section className="py-[120px] bg-nm-s1 border-t border-nm-border" aria-labelledby="work-heading">
@@ -29,19 +30,26 @@ export default function ProjectsGrid() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-nm-border border border-nm-border">
+        {/* One entry spans the row as a wide card (image left, text right); 2–3 entries share a grid. */}
+        <div className={`grid grid-cols-1 ${entries.length === 2 ? 'lg:grid-cols-2' : entries.length >= 3 ? 'lg:grid-cols-3' : ''} gap-px bg-nm-border border border-nm-border`}>
           {entries.map((entry) => (
             <Link
               key={entry.slug}
               href={`/work#${entry.slug}`}
-              className="bg-nm-s1 hover:bg-nm-s2 transition-colors duration-300 flex flex-col"
+              className={`bg-nm-s1 hover:bg-nm-s2 transition-colors duration-300 flex flex-col ${single ? 'lg:flex-row' : ''}`}
             >
-              <div className="relative h-[240px] overflow-hidden border-b border-nm-border bg-nm-s2">
+              <div className={`relative overflow-hidden bg-nm-s2 border-nm-border ${single ? 'aspect-[4/3] lg:aspect-auto lg:w-1/2 lg:min-h-[340px] border-b lg:border-b-0 lg:border-r' : 'h-[240px] border-b'}`}>
                 {entry.images[0] && (
-                  <Image src={entry.images[0]} alt={entry.title} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
+                  <Image
+                    src={entry.images[0]}
+                    alt={entry.title}
+                    fill
+                    sizes={single ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 33vw, 100vw'}
+                    className={entry.images[0].endsWith('.svg') ? 'object-contain p-6' : 'object-cover'}
+                  />
                 )}
               </div>
-              <div className="p-8 flex flex-col flex-1">
+              <div className={`p-8 flex flex-col flex-1 ${single ? 'lg:p-12 lg:justify-center' : ''}`}>
                 <h3 className="text-[17px] font-bold text-nm-text-p tracking-[-0.01em] mb-3 leading-[1.4]">
                   {entry.title}
                 </h3>
