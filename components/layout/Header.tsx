@@ -85,7 +85,7 @@ export default function Header() {
                     key={link.href}
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
-                    className={`${navPill} h-10 text-[16px] ${active ? navPillActive : navPillIdle}`}
+                    className={`${navPill} h-11 text-[16px] ${active ? navPillActive : navPillIdle}`}
                   >
                     {link.label}
                     {active && <ActiveBar />}

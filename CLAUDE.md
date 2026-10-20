@@ -11,7 +11,7 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
   - Setup: `attribute="class"` on `<html>`, `defaultTheme="dark"`, `enableSystem={false}`, `storageKey="nm-theme"`. **Every first visit opens in dark, regardless of the OS setting.** A visitor's toggle choice persists in localStorage for that browser.
   - No flash: next-themes' blocking script sets the class before paint. `<html>` has `suppressHydrationWarning`.
   - Toggle: `components/theme/ThemeToggle.tsx`, `aria-label` "Switch to light/dark mode", green focus ring. It renders a same-size placeholder until mounted. Variants:
-    - `pill`: desktop Header, before "Get a Quote". Sun + "Light mode" when dark is active, moon + "Dark mode" when light is active. 40px tall, the same as the Get a Quote button (`h-10`), `min-w-[128px]` so the label swap doesn't shift layout.
+    - `pill`: desktop Header, before "Get a Quote". Sun + "Light mode" when dark is active, moon + "Dark mode" when light is active. 44px tall (`h-11`), the same as the Get a Quote button and nav pills, `min-w-[128px]` so the label swap doesn't shift layout.
     - `icon`: mobile top bar next to the hamburger, visible without opening the menu, 40x40.
     - `menu`: inside the mobile menu, full width with its label.
   - `<meta name="theme-color">` is served as `DEFAULT_THEME_COLOR` (dark) from `lib/theme.ts` (must match the dark `--nm-bg`). `ThemeColorSync` sets it from the active `--nm-bg` one frame after the theme resolves or changes.
@@ -34,13 +34,13 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
   - `secondary`: transparent, `border-nm-border-light`, `text-nm-text-p`, hover `bg-nm-s2`. Plain arrow.
   - `text`: green text, underline (offset 4px) on hover, no box.
   - Arrows nudge 3px right on hover (transform, 200ms).
-  - Sizes: `sm` = h-10 / 14px (header, level with the toggle), `md` = h-12 / 15px, `lg` = h-[52px] / 15px. The `text` variant has no fixed height.
+  - Sizes: `sm` = h-11 / 15px, px-7 (header, level with the toggle and nav pills), `md` = h-12 / 15px, `lg` = h-[52px] / 15px. The `text` variant has no fixed height.
   - Disabled = solid `bg-nm-s3 text-nm-text-s`, never opacity.
   - `href` renders a `Link` (`external` gives a new-tab `<a>`), otherwise a `<button>`; `onClick` works for both. Use `as="span"` for a CTA inside a card that is itself a link. Make a button full width on mobile with `className="w-full sm:w-auto"`.
   - Not `Button`, on purpose: nav links, whole-card links, links inline in sentences, `ThemeToggle`, the hamburger, contact-form selection chips (`rounded-full`, `aria-pressed`), the upload "Remove" action, gallery thumbnails.
 - **Form fields** (inputs, selects, textareas, the upload drop zone) are `rounded-lg` (8px). Panels, cards and info/error boxes stay square.
 - **Header nav:**
-  - Links are pills: `rounded-full px-4`, 16px medium, `h-10` (level with the toggle and Get a Quote), `gap-2`. Hover is `bg-nm-s2 text-nm-text-p`.
+  - Links are pills: `rounded-full px-4`, 16px medium, `h-11` (level with the toggle and Get a Quote), `gap-2`. Hover is `bg-nm-s2 text-nm-text-p`.
   - The active page keeps `bg-nm-s2`, adds a 2px green bar under the label, and sets `aria-current="page"`. Focus ring as on buttons.
   - Mobile menu links: the same pills at 18px, `h-12`.
 - **Shop empty state** (`/shop` with no published products): two columns on lg+. `components/sections/ShopVisual.tsx` shows the `HeroModel` in a 480px gridded box on desktop, with the caption "Standard parts, designed and printed in-house."

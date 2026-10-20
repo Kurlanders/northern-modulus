@@ -9,8 +9,8 @@ const base =
   'inline-flex items-center justify-center gap-2 border border-nm-border-light text-nm-text-p bg-transparent hover:bg-nm-s2 hover:border-nm-field transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text'
 
 const variantClasses: Record<Variant, string> = {
-  // Same 40px height as the header "Get a Quote" button; min width so "Light mode"/"Dark mode" don't shift layout.
-  pill: 'h-10 min-w-[136px] px-4 rounded-full text-[14px] font-medium',
+  // Same 44px height as the header "Get a Quote" button and nav pills; min width so "Light mode"/"Dark mode" don't shift layout.
+  pill: 'h-11 min-w-[136px] px-4 rounded-full text-[14px] font-medium',
   icon: 'h-10 w-10 min-w-10 rounded-full',
   menu: 'h-12 w-full px-4 rounded-full text-[15px] font-medium',
 }
