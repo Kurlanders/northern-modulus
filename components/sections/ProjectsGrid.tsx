@@ -38,27 +38,30 @@ export default function ProjectsGrid() {
               href={`/work#${entry.slug}`}
               className={`bg-nm-s1 hover:bg-nm-s2 transition-colors duration-300 flex flex-col ${single ? 'lg:flex-row' : ''}`}
             >
-              <div className={`relative overflow-hidden bg-nm-s2 border-nm-border ${single ? 'aspect-[4/3] lg:aspect-auto lg:w-1/2 lg:min-h-[340px] border-b lg:border-b-0 lg:border-r' : 'h-[240px] border-b'}`}>
+              <div className={`relative overflow-hidden bg-nm-s2 border-nm-border ${single ? 'aspect-[4/5] lg:w-[40%] lg:flex-shrink-0 border-b lg:border-b-0 lg:border-r' : 'h-[240px] border-b'}`}>
                 {entry.images[0] && (
                   <Image
                     src={entry.images[0]}
                     alt={entry.title}
                     fill
-                    sizes={single ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 33vw, 100vw'}
+                    sizes={single ? '(min-width: 1024px) 40vw, 100vw' : '(min-width: 1024px) 33vw, 100vw'}
                     className={entry.images[0].endsWith('.svg') ? 'object-contain p-6' : 'object-cover'}
                   />
                 )}
               </div>
               <div className={`p-8 flex flex-col flex-1 ${single ? 'lg:p-12 lg:justify-center' : ''}`}>
-                <h3 className="text-[17px] font-bold text-nm-text-p tracking-[-0.01em] mb-3 leading-[1.4]">
+                <p className="text-[12px] font-medium text-nm-text-t tracking-[1.5px] uppercase mb-3">
+                  {entry.material} · Qty {entry.quantity}
+                </p>
+                <h3 className={`font-bold text-nm-text-p tracking-[-0.01em] mb-3 leading-[1.3] ${single ? 'text-[clamp(22px,2.2vw,30px)]' : 'text-[17px]'}`}>
                   {entry.title}
                 </h3>
-                <p className="text-[15px] text-nm-text-s leading-[1.8] mb-6 flex-1">
+                <p className={`text-[15px] text-nm-text-s leading-[1.8] ${single ? 'mb-8 max-w-[520px]' : 'mb-6 flex-1'}`}>
                   {entry.result}
                 </p>
-                <p className="text-[12px] font-medium text-nm-text-t tracking-[1.5px] uppercase">
-                  {entry.material} · {entry.quantity}
-                </p>
+                <Button as="span" variant="text" size="sm" withArrow className="self-start">
+                  View the part
+                </Button>
               </div>
             </Link>
           ))}

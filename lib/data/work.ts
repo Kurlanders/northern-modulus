@@ -15,14 +15,15 @@ export const showConcepts = false
 
 export const work: WorkEntry[] = [
   {
-    // Replace placeholder.svg with the real photo at /public/pictures/work/<slug>.jpg
-    title: '[FILL]',
-    slug: '[FILL-kebab-case]',
-    images: ['/pictures/work/placeholder.svg'],
-    problem: '[FILL]',
-    material: '[FILL]',
-    quantity: '[FILL]',
-    result: '[FILL]',
+    title: 'Split Ventilation Duct',
+    slug: 'asa-ventilation-duct',
+    images: ['/pictures/work/asa-ventilation-duct.jpg'],
+    problem:
+      'A ventilation duct with a tight bend that splits into two outlets underneath, needed at short notice. It had to handle heat, so standard PLA was ruled out, and the shape would have meant several joined pieces if made conventionally.',
+    material: 'ASA',
+    quantity: '1',
+    result:
+      'Printed in ASA as a single piece: mounting flange, bend and twin outlets together, with no joins to seal. ASA keeps its shape at higher temperatures than PLA or PETG, and the four mounting holes were printed in place, so the duct was ready to fit.',
     status: 'published',
   },
   {
