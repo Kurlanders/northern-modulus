@@ -14,6 +14,16 @@ const navLinks = [
   { label: 'About',           href: '/about' },
 ]
 
+// Nav links are pills like the theme toggle; the active page keeps the pill and adds a green bar under the label.
+const navPill =
+  'relative inline-flex items-center rounded-full px-4 font-medium cursor-pointer transition-colors duration-200 hover:bg-nm-s2 hover:text-nm-text-p focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text'
+const navPillActive = 'bg-nm-s2 text-nm-text-p'
+const navPillIdle = 'text-nm-text-s'
+
+function ActiveBar() {
+  return <span aria-hidden="true" className="absolute left-1/2 -translate-x-1/2 bottom-1 h-[2px] w-4 rounded-full bg-nm-green-text" />
+}
+
 export default function Header() {
   const [scrolled,   setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -67,18 +77,21 @@ export default function Header() {
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden lg:flex items-center gap-9">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-[13px] font-medium transition-colors duration-200 ${
-                    isActive(link.href) ? 'text-nm-text-p' : 'text-nm-text-s hover:text-nm-text-p'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <div className="hidden lg:flex items-center gap-2">
+              {navLinks.map((link) => {
+                const active = isActive(link.href)
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`${navPill} h-11 text-[16px] ${active ? navPillActive : navPillIdle}`}
+                  >
+                    {link.label}
+                    {active && <ActiveBar />}
+                  </Link>
+                )
+              })}
             </div>
 
             <div className="hidden lg:flex items-center gap-4">
@@ -115,18 +128,21 @@ export default function Header() {
       >
         <div className="flex flex-col h-full pt-20 pb-8 px-6 overflow-y-auto">
           <nav className="flex-1">
-            <div className="space-y-1 mb-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block py-3 text-[22px] font-bold tracking-tight transition-colors duration-200 ${
-                    isActive(link.href) ? 'text-nm-text-p' : 'text-nm-text-s hover:text-nm-text-p'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <div className="flex flex-col items-start gap-1 mb-6">
+              {navLinks.map((link) => {
+                const active = isActive(link.href)
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={`${navPill} h-12 text-[18px] ${active ? navPillActive : navPillIdle}`}
+                  >
+                    {link.label}
+                    {active && <ActiveBar />}
+                  </Link>
+                )
+              })}
             </div>
 
             <div className="h-px bg-nm-border mb-6" />

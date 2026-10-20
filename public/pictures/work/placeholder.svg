@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Photo coming soon">
+  <!-- Transparent background on purpose: the page shows it on an nm-s2 surface, so it works in both themes.
+       #7A8088 is >=3.4:1 against every light and dark surface token. -->
+  <g fill="none" stroke="#7A8088" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+    <!-- L-bracket part outline -->
+    <path d="M310 170 H390 V300 H520 V380 H310 Z" />
+    <circle cx="350" cy="215" r="16" />
+    <circle cx="350" cy="340" r="16" />
+    <circle cx="470" cy="340" r="16" />
+    <!-- Dimension ticks -->
+    <path d="M290 170 V380 M282 170 H298 M282 380 H298" stroke-width="3" />
+    <path d="M310 400 H520 M310 392 V408 M520 392 V408" stroke-width="3" />
+  </g>
+  <text x="400" y="480" text-anchor="middle" font-family="Outfit, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="44" font-weight="700" fill="#7A8088">Photo coming soon</text>
+</svg>

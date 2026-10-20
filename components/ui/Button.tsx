@@ -28,9 +28,9 @@ const variantClasses: Record<ButtonVariant, string> = {
   text: 'text-nm-green-text font-semibold hover:text-nm-green-bright underline-offset-4 decoration-1 hover:underline',
 }
 
-// Fixed heights so buttons line up with the theme toggle (h-10).
+// Fixed heights so buttons line up: sm matches the header's theme toggle and nav pills (h-11).
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-10 text-[14px]',
+  sm: 'h-11 text-[15px]',
   md: 'h-12 text-[15px]',
   lg: 'h-[52px] text-[15px]',
 }
@@ -81,7 +81,7 @@ export default function Button({
     classes = `${base} ${textSizeClasses[size]} ${variantClasses.text}`
   } else {
     // Primary with a chip: 24px left, 6px right so the 28px chip sits snug against the edge.
-    const padding = chip ? 'pl-6 pr-1.5' : 'px-6'
+    const padding = chip ? 'pl-6 pr-1.5' : size === 'sm' ? 'px-7' : 'px-6'
     classes = `${base} ${sizeClasses[size]} ${padding} ${variantClasses[variant]}`
   }
   classes = `${classes} ${className}`

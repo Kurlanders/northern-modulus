@@ -11,7 +11,7 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
   - Setup: `attribute="class"` on `<html>`, `defaultTheme="dark"`, `enableSystem={false}`, `storageKey="nm-theme"`. **Every first visit opens in dark, regardless of the OS setting.** A visitor's toggle choice persists in localStorage for that browser.
   - No flash: next-themes' blocking script sets the class before paint. `<html>` has `suppressHydrationWarning`.
   - Toggle: `components/theme/ThemeToggle.tsx`, `aria-label` "Switch to light/dark mode", green focus ring. It renders a same-size placeholder until mounted. Variants:
-    - `pill`: desktop Header, before "Get a Quote". Sun + "Light mode" when dark is active, moon + "Dark mode" when light is active. 40px tall, the same as the Get a Quote button (`h-10`), `min-w-[128px]` so the label swap doesn't shift layout.
+    - `pill`: desktop Header, before "Get a Quote". Sun + "Light mode" when dark is active, moon + "Dark mode" when light is active. 44px tall (`h-11`), the same as the Get a Quote button and nav pills, `min-w-[128px]` so the label swap doesn't shift layout.
     - `icon`: mobile top bar next to the hamburger, visible without opening the menu, 40x40.
     - `menu`: inside the mobile menu, full width with its label.
   - `<meta name="theme-color">` is served as `DEFAULT_THEME_COLOR` (dark) from `lib/theme.ts` (must match the dark `--nm-bg`). `ThemeColorSync` sets it from the active `--nm-bg` one frame after the theme resolves or changes.
@@ -34,11 +34,18 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
   - `secondary`: transparent, `border-nm-border-light`, `text-nm-text-p`, hover `bg-nm-s2`. Plain arrow.
   - `text`: green text, underline (offset 4px) on hover, no box.
   - Arrows nudge 3px right on hover (transform, 200ms).
-  - Sizes: `sm` = h-10 / 14px (header, level with the toggle), `md` = h-12 / 15px, `lg` = h-[52px] / 15px. The `text` variant has no fixed height.
+  - Sizes: `sm` = h-11 / 15px, px-7 (header, level with the toggle and nav pills), `md` = h-12 / 15px, `lg` = h-[52px] / 15px. The `text` variant has no fixed height.
   - Disabled = solid `bg-nm-s3 text-nm-text-s`, never opacity.
   - `href` renders a `Link` (`external` gives a new-tab `<a>`), otherwise a `<button>`; `onClick` works for both. Use `as="span"` for a CTA inside a card that is itself a link. Make a button full width on mobile with `className="w-full sm:w-auto"`.
   - Not `Button`, on purpose: nav links, whole-card links, links inline in sentences, `ThemeToggle`, the hamburger, contact-form selection chips (`rounded-full`, `aria-pressed`), the upload "Remove" action, gallery thumbnails.
 - **Form fields** (inputs, selects, textareas, the upload drop zone) are `rounded-lg` (8px). Panels, cards and info/error boxes stay square.
+- **Header nav:**
+  - Links are pills: `rounded-full px-4`, 16px medium, `h-11` (level with the toggle and Get a Quote), `gap-2`. Hover is `bg-nm-s2 text-nm-text-p`.
+  - The active page keeps `bg-nm-s2`, adds a 2px green bar under the label, and sets `aria-current="page"`. Focus ring as on buttons.
+  - Mobile menu links: the same pills at 18px, `h-12`.
+- **Shop empty state** (`/shop` with no published products): two columns on lg+. `components/sections/ShopVisual.tsx` shows the `HeroModel` in a 480px gridded box on desktop, with the caption "Standard parts, designed and printed in-house."
+  - Fallback: transparent model snapshots `public/pictures/hero-model-static-{light,dark}.png` (swapped by `dark:` classes). They show on mobile, where no 3D is loaded, and on desktop until the model reports `onReady`, then fade out.
+  - Don't use `public/pictures/hero-clean.png` / `hero-full.png`: they're AI-generated workshop images (with a visible watermark) showing equipment we don't have.
 - **Readability minimums (both themes):**
   - Body and paragraph text ≥ **15px** (`text-[15px]` / `text-body-sm`+), with line-height 1.6–1.8.
   - Labels and eyebrows ≥ **12px**; nothing below 12px anywhere. Buttons, nav links and fine print (footer copyright and legal row) are 13px.
@@ -56,6 +63,10 @@ Marketing site for Northern Modulus, an engineering-led 3D printing company in R
 - **`next.config.mjs` sets `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` to `true`.** `npm run build` will therefore pass even with type or lint errors, so run `npx tsc --noEmit` and `npm run lint` explicitly.
 - Images live in `public/pictures/`.
 - **Work entries** live in `lib/data/work.ts` (title, slug, images[], problem, material, quantity, result, status). Entries with `status: 'concept'` are hidden unless `showConcepts` is `true` (currently `false`). `/work` shows a "Recent work coming soon" state linking to Instagram when nothing is visible, and the homepage work section renders nothing.
+  - First real entry: **Split Ventilation Duct** (`asa-ventilation-duct`, ASA, qty 1), photo `public/pictures/work/asa-ventilation-duct.jpg` (1080x1440 portrait). Put real photos at `/public/pictures/work/<slug>.jpg`, and only write what's known about a job: no invented lead times, quantities or outcomes.
+  - `/work` layout: each entry has its main photo in a 3:4 portrait frame on the left (extra photos as thumbnails below), with title, material/quantity and problem/result on the right; it stacks on mobile.
+  - `public/pictures/work/placeholder.svg` ("Photo coming soon") is available for entries without a photo yet. It's transparent with neutral `#7A8088` lines and text: images can't read the theme's CSS variables, so the `nm-s2` box behind it provides the theme color. SVG images are shown `object-contain`; photos are `object-cover`.
+  - Homepage work section: 1 entry renders as a full-width card (4:5 photo at 40% width on the left, text centered on the right on lg+), 2 entries as two columns, 3 as three. Cards show "Material · Qty N".
 - **Recent prints strip** (`components/sections/RecentPrints.tsx`, homepage) lists every image in `public/pictures/prints/` (jpg, png, webp, avif, gif), sorted by filename, with alt text taken from the filename. It is read at build time, so new images appear after the next deploy. The section is hidden when the folder has no images.
 - **Shop** (no backend): products live in `lib/data/products.ts` (slug, name, shortDescription, description, priceEur, images[], material, dimensions, leadTimeDays, inStock, optional stripePaymentLink, draft). Entries with `draft: true` never render; the `example-product` entry is a draft template to copy. Use `formatPrice()` ("€12.00"). With no published products, `/shop` shows "First products launching soon" and the homepage Shop card says "Coming soon"; both switch automatically once one is published. Product pages are statically generated (`dynamicParams = false`), so a new product appears after the next deploy. A product with `stripePaymentLink` shows "Buy now" (same tab). One without it shows "Order via enquiry", linking to `/contact?product=<slug>`. Prices are final: not VAT-registered, "Price includes all applicable taxes. Shipping quoted separately." Product images go in `public/pictures/products/`.
 - **Company details** (legal name, reg. no., address, email) live in `lib/company.ts`, used by the footer and the legal pages. `LEGAL_LAST_UPDATED` there sets the "Last updated" date on `/terms`, `/privacy` and `/returns`. Update it when you change those pages.

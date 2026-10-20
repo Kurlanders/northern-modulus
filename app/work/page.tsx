@@ -54,28 +54,41 @@ export default function WorkPage() {
               id={entry.slug}
               className={`scroll-mt-[68px] ${idx > 0 ? 'border-t border-nm-border' : ''}`}
             >
-              {entry.images.length > 0 && (
-                <div
-                  className={`grid ${entry.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} border-b border-nm-border overflow-hidden`}
-                  style={{ height: '580px' }}
-                >
-                  {entry.images.slice(0, 2).map((src, i) => (
-                    <div key={src} className={`relative overflow-hidden ${i === 0 && entry.images.length > 1 ? 'border-r border-nm-border' : ''}`}>
-                      <Image
-                        src={src}
-                        alt={`${entry.title} — image ${i + 1}`}
-                        fill
-                        sizes="50vw"
-                        className="object-cover"
-                        style={{ objectPosition: 'center 8%' }}
-                        priority={idx === 0 && i === 0}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="site-container py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 lg:gap-16 items-start">
+                {/* Photos keep a portrait 3:4 frame (product shots are usually upright); placeholder SVGs are shown whole. */}
+                {entry.images.length > 0 && (
+                  <div className="space-y-3">
+                    {entry.images.slice(0, 1).map((src) => (
+                      <div key={src} className="relative aspect-[3/4] bg-nm-s2 border border-nm-border overflow-hidden">
+                        <Image
+                          src={src}
+                          alt={`${entry.title} — photo`}
+                          fill
+                          sizes="(min-width: 1024px) 40vw, 100vw"
+                          className={src.endsWith('.svg') ? 'object-contain p-8' : 'object-cover'}
+                          priority={idx === 0}
+                        />
+                      </div>
+                    ))}
+                    {entry.images.length > 1 && (
+                      <div className="grid grid-cols-2 gap-3">
+                        {entry.images.slice(1, 3).map((src, i) => (
+                          <div key={src} className="relative aspect-[3/4] bg-nm-s2 border border-nm-border overflow-hidden">
+                            <Image
+                              src={src}
+                              alt={`${entry.title} — photo ${i + 2}`}
+                              fill
+                              sizes="(min-width: 1024px) 20vw, 50vw"
+                              className={src.endsWith('.svg') ? 'object-contain p-6' : 'object-cover'}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
 
-              <div className="site-container py-16 lg:py-20">
+              <div>
                 <h2 className="text-[clamp(24px,3vw,44px)] font-bold text-nm-text-p tracking-[-0.02em] leading-[1.15] mb-8">
                   {entry.title}
                 </h2>
@@ -91,7 +104,7 @@ export default function WorkPage() {
                   </div>
                 </dl>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-nm-border border border-nm-border">
+                <div className="grid grid-cols-1 gap-px bg-nm-border border border-nm-border">
                   <div className="bg-nm-bg p-8 lg:p-10">
                     <p className="text-[12px] font-medium text-nm-text-t tracking-[2px] uppercase mb-5">
                       {'// The Problem'}
@@ -105,6 +118,7 @@ export default function WorkPage() {
                     <p className="text-[15px] text-nm-text-s leading-[1.85]">{entry.result}</p>
                   </div>
                 </div>
+              </div>
               </div>
             </article>
           ))}
