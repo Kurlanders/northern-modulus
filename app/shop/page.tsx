@@ -1,18 +1,18 @@
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import ShopVisual from '@/components/sections/ShopVisual'
-import Illustration from '@/components/shop/Illustrations'
+import Image from 'next/image'
 import ProductGrid from '@/components/shop/ProductGrid'
 import ShopTrack from '@/components/shop/ShopTrack'
 import { pageMetadata } from '@/lib/metadata'
-import { SHOP_COPY, SHOP_HERO, TRUST_POINTS, USE_CASES, catalogue, publishedProducts } from '@/lib/data/products'
+import { HERO_RENDER, SHOP_COPY, SHOP_HERO, TRUST_POINTS, USE_CASES, catalogue, imageAlt, publishedProducts } from '@/lib/data/products'
 
 export const metadata = pageMetadata(
   publishedProducts.length > 0 ? 'Shop: NM Mast System' : 'Shop',
   publishedProducts.length > 0
     ? "Telescoping glass-fibre masts and printed parts, engineered and made in Riga. For festoon lighting, flags, shade sails, camera rigs and metal-free antenna masts. Pre-orders open."
     : 'Standard 3D printed parts from Northern Modulus, ready to order. First products launching soon.',
-  publishedProducts.length > 0 ? '/pictures/shop/og/shop.png' : undefined
+  publishedProducts.length > 0 ? '/pictures/shop/og/shop.jpg' : undefined
 )
 
 function ComingSoon() {
@@ -50,17 +50,24 @@ export default function ShopPage() {
       <ShopTrack event="shop_view" />
 
       {/* Hero: always dark, because it is a dusk scene. The 'dark' class re-scopes the tokens in light mode too. */}
-      <section className="dark relative bg-nm-bg overflow-hidden flex flex-col lg:block lg:min-h-[760px]">
-        <div className="order-2 relative hidden md:block aspect-[16/9] lg:aspect-auto lg:absolute lg:inset-0">
-          <Illustration name="scene-hero" slice />
+      <section className="dark relative bg-nm-bg overflow-hidden md:min-h-[640px] lg:min-h-[760px] md:flex md:items-center">
+        <div className="relative mt-[68px] aspect-[4/5] md:mt-0 md:aspect-auto md:absolute md:inset-0">
+          <Image
+            src={HERO_RENDER}
+            alt={imageAlt(HERO_RENDER, 'NM Event Mast')}
+            fill
+            priority
+            sizes="(max-width: 767px) 222vw, 100vw"
+            className="object-cover object-[50%_50%] md:object-[22%_40%]"
+          />
           <div
-            className="hidden lg:block absolute inset-0 pointer-events-none"
+            className="hidden md:block absolute inset-0 pointer-events-none"
             aria-hidden="true"
-            style={{ background: 'linear-gradient(90deg, rgb(var(--nm-bg)) 18%, rgb(var(--nm-bg) / 0.82) 40%, transparent 62%)' }}
+            style={{ background: 'linear-gradient(90deg, rgb(var(--nm-bg)) 0%, rgb(var(--nm-bg) / 0.92) 30%, rgb(var(--nm-bg) / 0.72) 40%, transparent 50%)' }}
           />
         </div>
-        <div className="order-1 site-container relative w-full pt-[116px] pb-10 lg:pt-[180px] lg:pb-[100px]">
-          <div className="max-w-[620px]">
+        <div className="site-container relative w-full pt-8 pb-10 md:pt-[100px] md:pb-16">
+          <div className="md:max-w-[400px] xl:max-w-[560px]">
             <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-6">
               {`// ${SHOP_HERO.eyebrow}`}
             </p>
@@ -69,11 +76,8 @@ export default function ShopPage() {
               <br />
               <span className="text-nm-green-text">{SHOP_HERO.headlineBottom}</span>
             </h1>
-            <p className="text-[17px] text-nm-text-s leading-[1.7] max-w-[520px] mb-6 md:mb-9">{SHOP_HERO.subline}</p>
-            <div className="md:hidden aspect-[16/9] mb-6 border border-nm-border overflow-hidden">
-              <Illustration name="scene-hero" bare slice />
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <p className="text-[17px] text-nm-text-s leading-[1.7] mb-9">{SHOP_HERO.subline}</p>
+            <div className="flex flex-col sm:flex-row md:flex-col xl:flex-row gap-3">
               <Button href="/shop/nm-mast-event" size="lg" withArrow>
                 Reserve the Event Mast
               </Button>
@@ -81,7 +85,7 @@ export default function ShopPage() {
                 See all parts
               </Button>
             </div>
-            <p className="mt-5 text-[13px] text-nm-text-t">{SHOP_COPY.illustrationNote}</p>
+            <p className="mt-5 text-[13px] text-nm-text-t">{SHOP_COPY.renderNote}</p>
           </div>
         </div>
       </section>
@@ -93,19 +97,21 @@ export default function ShopPage() {
           <h2 className="text-[clamp(28px,3.4vw,44px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.025em] mb-10">
             One mast. Many jobs.
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px bg-nm-border border border-nm-border">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {USE_CASES.map((useCase) => (
               <Link
                 key={useCase.id}
                 href={useCase.href}
-                className="group bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-nm-green-text"
+                className="group border border-nm-border bg-nm-s1 hover:border-nm-green-text transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text"
               >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <Illustration
-                    name={useCase.illustration}
-                    slice
-                    decorative
-                    className="motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.03]"
+                <div className="relative aspect-[4/3] overflow-hidden border-b border-nm-border bg-nm-s3">
+                  <Image
+                    src={useCase.image}
+                    alt={imageAlt(useCase.image, useCase.title)}
+                    fill
+                    sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
+                    style={{ objectPosition: useCase.imageFocus?.[useCase.image] ?? 'center' }}
+                    className="object-cover motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:scale-[1.03]"
                   />
                 </div>
                 <div className="p-5 flex-1">
@@ -115,6 +121,7 @@ export default function ShopPage() {
               </Link>
             ))}
           </div>
+          <p className="mt-4 text-[13px] text-nm-text-t">{SHOP_COPY.renderNote}</p>
         </div>
       </section>
 
@@ -131,7 +138,7 @@ export default function ShopPage() {
             </p>
           </div>
           <ProductGrid products={catalogue} />
-          <p className="mt-4 text-[13px] text-nm-text-t">{SHOP_COPY.illustrationNote}</p>
+          <p className="mt-4 text-[13px] text-nm-text-t">{SHOP_COPY.renderNote}</p>
         </div>
       </section>
 

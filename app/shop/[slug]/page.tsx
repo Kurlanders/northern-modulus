@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
@@ -16,6 +17,7 @@ import {
   SHOP_COPY,
   USE_CASES,
   getPublishedProduct,
+  imageAlt,
   hasStandardReturns,
   leadTimeLabel,
   priceLabel,
@@ -36,7 +38,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const product = getPublishedProduct(params.slug)
   if (!product) return {}
-  return pageMetadata(product.name, `${product.shortDescription} ${priceLabel(product)}. ${stockLabel(product)}, made in Riga.`, `/pictures/shop/og/${product.slug}.png`)
+  return pageMetadata(product.name, `${product.shortDescription} ${priceLabel(product)}. ${stockLabel(product)}, made in Riga.`, `/pictures/shop/og/${product.slug}.jpg`)
 }
 
 const AVAILABILITY_SCHEMA = {
@@ -54,7 +56,7 @@ function productJsonLd(product: Product) {
     sku: product.slug,
     material: product.material,
     url: `${SITE_URL}/shop/${product.slug}`,
-    image: `${SITE_URL}/pictures/shop/og/${product.slug}.png`,
+    image: `${SITE_URL}${product.images[0]}`,
     brand: { '@type': 'Brand', name: 'Northern Modulus' },
     offers: {
       '@type': 'Offer',
@@ -139,11 +141,8 @@ function FlagshipSections() {
     <>
       <Section label="How it works" title="Base, tube, collar, tube, top, guy line.">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          <figure className="relative border border-nm-border bg-nm-s1">
-            <div className="absolute inset-0 line-grid opacity-40 pointer-events-none" aria-hidden="true" />
-            <div className="relative aspect-[7/10] p-4">
-              <Illustration name="exploded" />
-            </div>
+          <figure className="border border-nm-border bg-nm-s1 aspect-[7/10]">
+            <Illustration name="exploded" />
           </figure>
           <div>
             <ol className="space-y-2.5 mb-8">
@@ -168,15 +167,22 @@ function FlagshipSections() {
       </Section>
 
       <Section label="Use cases" title="One mast. Many jobs.">
-        <div className="grid grid-cols-1 sm:grid-cols-2 border-l border-t border-nm-border">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {USE_CASES.map((useCase) => (
             <Link
               key={useCase.id}
               href={useCase.href}
-              className="border-r border-b border-nm-border bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-nm-green-text"
+              className="group border border-nm-border bg-nm-s1 hover:border-nm-green-text transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text"
             >
-              <div className="aspect-[16/9] overflow-hidden">
-                <Illustration name={useCase.illustration} slice decorative />
+              <div className="relative aspect-[4/3] overflow-hidden border-b border-nm-border bg-nm-s3">
+                <Image
+                  src={useCase.image}
+                  alt={imageAlt(useCase.image, useCase.title)}
+                  fill
+                  sizes="(min-width: 1024px) 28vw, (min-width: 640px) 50vw, 100vw"
+                  style={{ objectPosition: useCase.imageFocus?.[useCase.image] ?? 'center' }}
+                  className="object-cover motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:scale-[1.03]"
+                />
               </div>
               <div className="p-5">
                 <h3 className="text-[17px] font-bold text-nm-text-p mb-1.5">{useCase.title}</h3>
@@ -185,6 +191,7 @@ function FlagshipSections() {
             </Link>
           ))}
         </div>
+        <p className="mt-4 text-[13px] text-nm-text-t">{SHOP_COPY.renderNote}</p>
       </Section>
 
       <Section label="Why GFRP" title="Why glass fibre, not steel or aluminium.">
@@ -263,7 +270,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-x-12 xl:gap-x-16 gap-y-8 lg:grid-rows-[auto_1fr]">
             <div className="lg:col-start-1 lg:row-start-1 min-w-0">
-              <ShopGallery images={product.images} name={product.name} />
+              <ShopGallery product={{ images: product.images, imageFocus: product.imageFocus, imageNotes: product.imageNotes, name: product.name }} />
             </div>
 
             <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
@@ -341,7 +348,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             <section className="pt-12 mt-12 border-t border-nm-border">
               <p className="text-[12px] font-medium text-nm-text-s tracking-[2.5px] uppercase mb-4">{'// Related'}</p>
               <h2 className="text-[clamp(24px,2.6vw,34px)] font-bold text-nm-text-p leading-[1.15] tracking-[-0.02em] mb-7">Works with this.</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-nm-border">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {related.map((item) => (
                   <ProductCard key={item.slug} product={item} />
                 ))}

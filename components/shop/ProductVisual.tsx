@@ -1,30 +1,32 @@
 import Image from 'next/image'
-import Illustration, { illustrationIsScene } from '@/components/shop/Illustrations'
+import { imageAlt, type Product } from '@/lib/data/products'
 
-// Resolves a products.ts images[] entry: 'illustration:<key>' draws the SVG, anything else is a photo path.
+// Fills an aspect-ratio box. Set the box's size on the parent so images never shift the layout.
 export default function ProductVisual({
   src,
-  alt,
-  bare = false,
+  product,
   sizes = '(min-width: 1024px) 50vw, 100vw',
   priority = false,
+  className = '',
 }: {
   src: string
-  alt: string
-  bare?: boolean
+  product: Pick<Product, 'name' | 'imageFocus'>
   sizes?: string
   priority?: boolean
+  className?: string
 }) {
-  if (src.startsWith('illustration:')) {
-    const name = src.slice('illustration:'.length)
-    const scene = illustrationIsScene(name)
-    return (
-      <div className={`absolute inset-0 ${scene ? '' : 'p-[5%]'}`}>
-        <Illustration name={name} bare={bare} slice={scene} decorative={!alt} />
-      </div>
-    )
-  }
-  return <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+  if (!src) return null
+  return (
+    <Image
+      src={src}
+      alt={imageAlt(src, product.name)}
+      fill
+      sizes={sizes}
+      priority={priority}
+      style={{ objectPosition: product.imageFocus?.[src] ?? 'center' }}
+      className={`object-cover ${className}`}
+    />
+  )
 }
 
 export function primaryImage(images: string[]): string {

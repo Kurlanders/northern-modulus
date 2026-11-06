@@ -62,11 +62,11 @@ export default function ReservePage({ searchParams }: { searchParams: Params }) 
           </div>
 
           <aside className="order-1 lg:order-2 border border-nm-border bg-nm-s1" aria-label="Your reservation">
-            <div className="relative aspect-[16/9] border-b border-nm-border overflow-hidden">
-              <div className="absolute inset-0 line-grid opacity-40 pointer-events-none" aria-hidden="true" />
-              <ProductVisual src={primaryImage(product.images)} alt={product.name} bare />
+            <div className="relative aspect-[16/9] border-b border-nm-border overflow-hidden bg-nm-s3">
+              <ProductVisual src={primaryImage(product.images)} product={product} sizes="(min-width: 1024px) 420px, 100vw" />
             </div>
             <div className="p-6">
+              <p className="mb-4 text-[13px] text-nm-text-t">{SHOP_COPY.renderNote}</p>
               <p className="font-mono text-[12px] uppercase tracking-[1.5px] text-nm-green-text mb-2">{reservationLabel(product)}</p>
               <h2 className="text-[20px] font-bold text-nm-text-p mb-4">{product.name}</h2>
               <dl className="text-[15px] border-t border-nm-border">

@@ -1,7 +1,7 @@
 // All shop prices and copy live in this file, so one edit updates the whole shop.
 //
-// images[] entries are either real photo paths ('/pictures/products/x.jpg') or a generated
-// illustration ('illustration:<key>', see components/shop/Illustrations.tsx). Swap an entry for a photo path when photos exist; nothing else needs to change.
+// images[] entries are image paths. They are 3D renders for now (see RENDERS); swap an entry for a
+// photo path when photos exist and add its alt text to RENDERS, or the product name is used.
 
 export type ProductCategory = 'kit' | 'bundle' | 'top' | 'base' | 'collar' | 'accessory' | 'engineering'
 export type ProductAvailability = 'preorder' | 'made-to-order' | 'quote'
@@ -43,7 +43,40 @@ export interface Product {
   badges?: string[]
   illustration?: string
   options?: ProductOption[]
+  // object-position per image path, for images whose subject isn't centred.
+  imageFocus?: Record<string, string>
+  // Extra caption per image path, for when an image shows something this product differs from.
+  imageNotes?: Record<string, string>
 }
+
+const RENDER_DIR = '/pictures/renders'
+const render = (name: string) => `${RENDER_DIR}/${name}.jpg`
+export const HERO_RENDER = render('hero-dusk')
+
+// Alt text describes what each render actually shows. Thumbnail labels are short for the gallery.
+const RENDERS: Record<string, { label: string; alt: string }> = {
+  [render('hero-dusk')]: { label: 'At dusk', alt: '3D render: NM Event Mast at dusk, seen from low down, carrying festoon lights to both sides, with a guy line running to the ground.' },
+  [render('festoon-wide-dusk')]: { label: '4 masts', alt: '3D render: four guyed NM masts carrying festoon lights across a lawn at dusk.' },
+  [render('collar-dusk')]: { label: 'Lock collar', alt: '3D render: close-up of the black lock collar with a green star knob and a metal cross-pin through the upper tube.' },
+  [render('festoon-top-dusk')]: { label: 'Top, guy line', alt: '3D render: close-up of the festoon top at dusk with metal rings, a green guy eye with its guy line, and the light cable.' },
+  [render('banner-gate')]: { label: 'Banner gate', alt: '3D render: two guyed masts in daylight with a crossbar holding a printed example banner.' },
+  [render('metal-free-mast')]: { label: '4.5 m mast', alt: '3D render: 4.5 m mast with extension in daylight, on a tripod base, with guy lines and a dipole antenna on top.' },
+  [render('top-festoon')]: { label: 'Festoon top', alt: '3D render: close-up of the festoon top with metal rings on the mast at dusk, with blurred bulbs behind.' },
+  [render('top-banner')]: { label: 'Banner arm', alt: '3D render: close-up of the flag and banner arm on the mast at dusk, with blurred bulbs behind.' },
+  [render('top-camera')]: { label: 'Camera top', alt: '3D render: close-up of the camera and light top plate on the mast at dusk, with blurred bulbs behind.' },
+  [render('top-sail')]: { label: 'Sail clamp', alt: '3D render: close-up of the shade-sail clamp with a metal D-ring on the mast at dusk, with blurred bulbs behind.' },
+}
+
+export function imageAlt(src: string, fallback: string): string {
+  return RENDERS[src]?.alt ?? fallback
+}
+
+export function imageLabel(src: string, index: number): string {
+  return RENDERS[src]?.label ?? `View ${index + 1}`
+}
+
+// The tall render is cropped for 4:3 boxes: keep the antenna and collars in frame.
+const MAST_FOCUS = { [render('metal-free-mast')]: '50% 30%' }
 
 // Leave empty to keep the supplier unnamed on the site; set it to show the name.
 export const TUBE_SUPPLIER_NAME = ''
@@ -58,7 +91,7 @@ export const SHOP_COPY = {
   reserveNote: 'No payment now. We confirm availability and delivery date by email within 2 business days.',
   orderNote: 'No payment now. We confirm availability and delivery by email within 2 business days.',
   ratedLoads: 'Rated loads: published after load testing (February 2027)',
-  illustrationNote: 'Illustration. Product photos coming soon.',
+  renderNote: '3D render. Product photos coming soon.',
   returnsStandard: 'Standard shop products can be returned within 14 days.',
   returnsMadeToOrder: { before: 'Made to order: see the ', link: 'returns policy', after: ' for what can be returned.' },
   tube: TUBE_SUPPLIER_NAME
@@ -75,11 +108,11 @@ export const SHOP_HERO = {
 }
 
 export const USE_CASES = [
-  { id: 'festoon', title: 'Festoon lighting', text: 'Carry a run of lights across a terrace, garden or event space, with a guy line taking the pull.', illustration: 'scene-festoon', href: '/shop/nm-mast-event?top=festoon' },
-  { id: 'banner', title: 'Flags & banners', text: 'A flag arm for one mast, or a crossbar between two for banner gates and backdrops.', illustration: 'scene-banner', href: '/shop/nm-mast-event?top=banner' },
-  { id: 'sail', title: 'Shade sails', text: 'A D-ring clamp gives a shade sail a corner point exactly where you need it.', illustration: 'scene-sail', href: '/shop/nm-mast-event?top=sail' },
-  { id: 'camera', title: 'Camera & light rigs', text: 'A 1/4" and 3/8" top turns the mast into a tall, light rig for a camera or lamp.', illustration: 'scene-camera', href: '/shop/nm-mast-event?top=camera' },
-  { id: 'antenna', title: 'Metal-free antenna masts', text: 'The engineering version uses nylon fasteners: non-conductive and non-magnetic.', illustration: 'scene-antenna', href: '/shop/nm-mast-metal-free' },
+  { id: 'festoon', title: 'Festoon lighting', text: 'Carry a run of lights across a terrace, garden or event space, with a guy line taking the pull.', image: render('festoon-wide-dusk'), href: '/shop/nm-mast-event?top=festoon' },
+  { id: 'banner', title: 'Flags & banners', text: 'A flag arm for one mast, or a crossbar between two for banner gates and backdrops.', image: render('banner-gate'), href: '/shop/nm-mast-event?top=banner' },
+  { id: 'sail', title: 'Shade sails', text: 'A D-ring clamp gives a shade sail a corner point exactly where you need it.', image: render('top-sail'), href: '/shop/nm-mast-event?top=sail' },
+  { id: 'camera', title: 'Camera & light rigs', text: 'A 1/4" and 3/8" top turns the mast into a tall, light rig for a camera or lamp.', image: render('top-camera'), href: '/shop/nm-mast-event?top=camera' },
+  { id: 'antenna', title: 'Metal-free antenna masts', text: 'The engineering version uses nylon fasteners: non-conductive and non-magnetic.', image: render('metal-free-mast'), imageFocus: MAST_FOCUS, href: '/shop/nm-mast-metal-free' },
 ]
 
 export const SHOP_FILTERS: { id: string; label: string; categories: ProductCategory[] | null }[] = [
@@ -182,7 +215,7 @@ export const products: Product[] = [
     description:
       "A telescoping mast made from nested pultruded glass-fibre tubes, joined by engineered printed nodes. It doesn't rust, it isn't cold to the touch, and one person can carry it and set it up. Choose the top adapter for the job and swap it later.",
     priceEur: 179,
-    images: ['illustration:mast', 'illustration:collar', 'illustration:base-spike', 'illustration:tops-sheet', 'illustration:packed'],
+    images: [render('hero-dusk'), render('collar-dusk'), render('festoon-top-dusk'), render('festoon-wide-dusk'), render('top-festoon'), render('top-banner'), render('top-camera'), render('top-sail')],
     material: 'GFRP tube, ASA / PC / PETG-CF nodes',
     dimensions: '3.2 m extended, ~1.8 m for transport',
     leadTimeDays: 0,
@@ -192,7 +225,6 @@ export const products: Product[] = [
     availability: 'preorder',
     shipsFrom: PREORDER_SHIP_DATE,
     badges: ['Pre-order'],
-    illustration: 'mast',
     specs: [
       { label: 'Extended height', value: '3.2 m (4.5 m with extension)' },
       { label: 'Transport length', value: '~1.8 m' },
@@ -256,7 +288,7 @@ export const products: Product[] = [
     description:
       'Four complete NM Event Masts, each with a festoon top with 3 D-rings and a guy eye. Everything you need to carry lights around a terrace, garden or event space, except the lights.',
     priceEur: 649,
-    images: ['illustration:festoon-set', 'illustration:scene-festoon', 'illustration:top-festoon', 'illustration:packed'],
+    images: [render('festoon-wide-dusk'), render('hero-dusk'), render('festoon-top-dusk')],
     material: 'GFRP tube, ASA / PC / PETG-CF nodes',
     dimensions: '4 × 3.2 m extended, ~1.8 m for transport',
     leadTimeDays: 0,
@@ -266,7 +298,6 @@ export const products: Product[] = [
     availability: 'preorder',
     shipsFrom: PREORDER_SHIP_DATE,
     badges: ['Pre-order', 'Save €67'],
-    illustration: 'festoon-set',
     specs: [
       { label: 'Contents', value: '4 × NM Event Mast with festoon top' },
       { label: 'Extended height', value: '3.2 m each' },
@@ -288,7 +319,8 @@ export const products: Product[] = [
     description:
       'Adds a Ø31×3 mm GFRP section and a 38→31 lock collar to the Event Mast, taking it from 3.2 m to 4.5 m. A taller mast flexes much more, so this is for guyed use only.',
     priceEur: 49,
-    images: ['illustration:extension', 'illustration:mast'],
+    images: [render('metal-free-mast'), render('collar-dusk')],
+    imageFocus: MAST_FOCUS,
     material: 'GFRP tube, ASA collar',
     dimensions: 'Ø31×3 mm, takes the mast to 4.5 m',
     leadTimeDays: 7,
@@ -297,7 +329,6 @@ export const products: Product[] = [
     category: 'accessory',
     availability: 'made-to-order',
     badges: ['Made to order', 'Guyed use only'],
-    illustration: 'extension',
     faq: PARTS_FAQ,
     relatedSlugs: ['nm-mast-event', 'nm-collar-60-38', 'nm-base-tripod'],
   },
@@ -307,7 +338,7 @@ export const products: Product[] = [
     shortDescription: '3 D-rings and a guy eye, for carrying festoon lights in up to three directions.',
     description: 'A top adapter with 3 D-rings for festoon runs and a guy eye for the guy line. Fit it to the mast and hang your lights.',
     priceEur: 19,
-    images: ['illustration:top-festoon', 'illustration:scene-festoon'],
+    images: [render('top-festoon'), render('festoon-top-dusk')],
     material: 'ASA',
     dimensions: 'Fits the NM Mast top section',
     leadTimeDays: 7,
@@ -316,7 +347,6 @@ export const products: Product[] = [
     category: 'top',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'top-festoon',
     faq: PARTS_FAQ,
     relatedSlugs: TOP_RELATED.filter((s) => s !== 'nm-top-festoon'),
   },
@@ -326,7 +356,7 @@ export const products: Product[] = [
     shortDescription: 'A side arm that holds a flag or banner out from the mast.',
     description: 'A top adapter with a side arm for flags and vertical banners. Use it with a guy line on the side opposite the load.',
     priceEur: 29,
-    images: ['illustration:top-banner', 'illustration:scene-banner'],
+    images: [render('top-banner'), render('banner-gate')],
     material: 'ASA',
     dimensions: 'Fits the NM Mast top section',
     leadTimeDays: 7,
@@ -335,7 +365,6 @@ export const products: Product[] = [
     category: 'top',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'top-banner',
     faq: PARTS_FAQ,
     relatedSlugs: TOP_RELATED.filter((s) => s !== 'nm-top-banner'),
   },
@@ -345,7 +374,7 @@ export const products: Product[] = [
     shortDescription: 'A 1/4" and a 3/8" mount for cameras, lights and small rigs.',
     description: 'A top adapter with standard 1/4" and 3/8" mounts, so a camera or light can sit on top of the mast.',
     priceEur: 24,
-    images: ['illustration:top-camera', 'illustration:scene-camera'],
+    images: [render('top-camera')],
     material: 'ASA',
     dimensions: 'Fits the NM Mast top section; 1/4" + 3/8" mounts',
     leadTimeDays: 7,
@@ -354,7 +383,6 @@ export const products: Product[] = [
     category: 'top',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'top-camera',
     faq: PARTS_FAQ,
     relatedSlugs: TOP_RELATED.filter((s) => s !== 'nm-top-camera'),
   },
@@ -364,7 +392,7 @@ export const products: Product[] = [
     shortDescription: 'A clamp with a D-ring that gives a shade sail a corner point on the mast.',
     description: 'A clamp with a D-ring for the corner of a shade sail. Use it with a guy line on the side opposite the sail.',
     priceEur: 24,
-    images: ['illustration:top-sail', 'illustration:scene-sail'],
+    images: [render('top-sail')],
     material: 'ASA',
     dimensions: 'Fits the NM Mast top section',
     leadTimeDays: 7,
@@ -373,7 +401,6 @@ export const products: Product[] = [
     category: 'top',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'top-sail',
     faq: PARTS_FAQ,
     relatedSlugs: TOP_RELATED.filter((s) => s !== 'nm-top-sail'),
   },
@@ -383,7 +410,8 @@ export const products: Product[] = [
     shortDescription: 'For paving, concrete and indoor use, where a ground spike can\'t go.',
     description: 'A three-legged base for the mast on paving, concrete or indoors, where a ground spike can\'t go. Use it with a guy line or ballast suited to the load.',
     priceEur: 49,
-    images: ['illustration:base-tripod', 'illustration:mast'],
+    images: [render('metal-free-mast')],
+    imageFocus: { [render('metal-free-mast')]: '50% 100%' },
     material: 'ASA',
     dimensions: 'Takes the Ø60 mm lower tube',
     leadTimeDays: 7,
@@ -392,7 +420,6 @@ export const products: Product[] = [
     category: 'base',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'base-tripod',
     faq: PARTS_FAQ,
     relatedSlugs: ['nm-mast-event', 'nm-collar-60-38', 'nm-cross-clamp'],
   },
@@ -402,7 +429,7 @@ export const products: Product[] = [
     shortDescription: 'Clamps a crossbar to the mast, to build banner gates and backdrops between two masts.',
     description: 'Clamps a crossbar to the mast. Use a pair of them to build a banner gate or a backdrop between two masts.',
     priceEur: 29,
-    images: ['illustration:cross-clamp', 'illustration:scene-banner'],
+    images: [render('banner-gate')],
     material: 'ASA',
     dimensions: 'Fits the NM Mast tube sections',
     leadTimeDays: 7,
@@ -411,7 +438,6 @@ export const products: Product[] = [
     category: 'collar',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'cross-clamp',
     faq: PARTS_FAQ,
     relatedSlugs: ['nm-mast-event', 'nm-top-banner', 'nm-collar-60-38'],
   },
@@ -421,7 +447,7 @@ export const products: Product[] = [
     shortDescription: 'The split collar and cross-pin lock, for building a mast on your own tubes.',
     description: 'The same split collar with knob and cross-pin lock used on the Event Mast, sold on its own for your own 60 mm and 38 mm OD GFRP tubes. Collars for other tube sizes are made to order.',
     priceEur: 29,
-    images: ['illustration:collar', 'illustration:mast'],
+    images: [render('collar-dusk')],
     material: 'ASA, PC or PETG-CF bushing',
     dimensions: 'Ø60 mm to Ø38 mm OD round tube',
     leadTimeDays: 7,
@@ -430,7 +456,6 @@ export const products: Product[] = [
     category: 'collar',
     availability: 'made-to-order',
     badges: ['Made to order'],
-    illustration: 'collar',
     faq: PARTS_FAQ,
     relatedSlugs: ['nm-mast-event', 'nm-base-tripod', 'nm-cross-clamp'],
   },
@@ -441,7 +466,9 @@ export const products: Product[] = [
     description:
       "An engineering version of the mast with no metal in it: nylon and FRP fasteners throughout. It doesn't disturb antennas, EMC tests or compasses. Height and payload are configured to your job and it comes with a load sheet, so it is quoted rather than sold from stock.",
     priceEur: 450,
-    images: ['illustration:metal-free', 'illustration:scene-antenna', 'illustration:collar'],
+    images: [render('metal-free-mast'), render('collar-dusk')],
+    imageFocus: MAST_FOCUS,
+    imageNotes: { [render('collar-dusk')]: 'Shown: the standard collar with a metal cross-pin. This version uses nylon and FRP fasteners.' },
     material: 'GFRP tube, ASA / PC / PETG-CF nodes, nylon and FRP fasteners',
     dimensions: 'Configured to your height and payload',
     leadTimeDays: 0,
@@ -450,7 +477,6 @@ export const products: Product[] = [
     category: 'engineering',
     availability: 'quote',
     badges: ['Configured to order'],
-    illustration: 'metal-free',
     specs: [
       { label: 'Fasteners', value: 'Nylon and FRP, no metal' },
       { label: 'Electrical', value: 'Non-conductive' },

@@ -9,11 +9,15 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/shop/${product.slug}`}
-      className="group border-r border-b border-nm-border bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-nm-green-text"
+      className="group border border-nm-border bg-nm-s1 hover:border-nm-green-text transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text"
     >
-      <div className="relative aspect-[4/3] overflow-hidden border-b border-nm-border">
-        <div className="absolute inset-0 line-grid opacity-40 pointer-events-none" aria-hidden="true" />
-        <ProductVisual src={primaryImage(product.images)} alt={product.name} sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" />
+      <div className="relative aspect-[4/3] overflow-hidden border-b border-nm-border bg-nm-s3">
+        <ProductVisual
+          src={primaryImage(product.images)}
+          product={product}
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:scale-[1.03]"
+        />
       </div>
       <div className="p-6 flex flex-col flex-1">
         <p className="font-mono text-[12px] uppercase tracking-[1.5px] text-nm-green-text mb-3">{stockLabel(product)}</p>
@@ -52,7 +56,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-nm-border">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {visible.map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}

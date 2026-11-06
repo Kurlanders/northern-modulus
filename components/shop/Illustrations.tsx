@@ -513,47 +513,88 @@ const parts = {
   ),
 }
 
-// ─── Exploded view, numbered to match MAST_PAGE.howItWorks.callouts ──────
+// ─── Exploded view as a drawing sheet, numbered to match MAST_PAGE.howItWorks.callouts ──────
+// 1 px lines at any size. Grey only; the accent is reserved for the numbered callouts.
+
+const sheetLine = { strokeWidth: 1, vectorEffect: 'non-scaling-stroke' as const, className: fineClass }
+
+function SheetText({ x, y, children, anchor = 'start' }: { x: number; y: number; children: string; anchor?: 'start' | 'middle' }) {
+  return (
+    <text x={x} y={y} textAnchor={anchor} fontSize={28} className="fill-nm-text-s font-mono" stroke="none">
+      {children}
+    </text>
+  )
+}
 
 function Callout({ n, x, y, toX, toY }: { n: number; x: number; y: number; toX: number; toY: number }) {
   return (
     <g>
-      <line x1={toX} y1={toY} x2={x} y2={y} strokeWidth={FINE} className={fineClass} />
-      <circle cx={toX} cy={toY} r={4} className="fill-nm-text-t" />
-      <circle cx={x} cy={y} r={26} strokeWidth={LINE} className="fill-nm-bg stroke-nm-green-text" />
-      <text x={x} y={y + 11} textAnchor="middle" fontSize={32} className="fill-nm-text-p font-mono" stroke="none">{n}</text>
+      <line x1={toX} y1={toY} x2={x + (toX < x ? -22 : 22)} y2={y} {...sheetLine} />
+      <circle cx={x} cy={y} r={22} strokeWidth={1} vectorEffect="non-scaling-stroke" className="stroke-nm-green-text" />
+      <text x={x} y={y + 10} textAnchor="middle" fontSize={28} className="fill-nm-green-text font-mono" stroke="none">{n}</text>
+    </g>
+  )
+}
+
+function TubeOutline({ x, top, bottom, w, wall }: { x: number; top: number; bottom: number; w: number; wall: number }) {
+  return (
+    <g>
+      <rect x={x - w / 2} y={top} width={w} height={bottom - top} {...sheetLine} />
+      <line x1={x - w / 2 + wall} y1={top} x2={x - w / 2 + wall} y2={bottom} strokeDasharray="6 5" {...sheetLine} />
+      <line x1={x + w / 2 - wall} y1={top} x2={x + w / 2 - wall} y2={bottom} strokeDasharray="6 5" {...sheetLine} />
     </g>
   )
 }
 
 function Exploded() {
+  const cx = 210
   return (
     <>
-      <line x1={330} y1={30} x2={330} y2={990} strokeWidth={FINE} strokeDasharray="20 7 3 7" className={fineClass} />
-      <line x1={318} y1={50} x2={90} y2={940} strokeWidth={FINE} strokeDasharray="9 7" className={fineClass} />
-      <polygon points="82,940 98,940 90,972" className="fill-nm-text-s" />
+      <rect x={12} y={12} width={676} height={976} {...sheetLine} />
+
+      {/* Centre line and guy line */}
+      <line x1={cx} y1={24} x2={cx} y2={976} strokeDasharray="22 6 4 6" {...sheetLine} />
+      <line x1={cx - 30} y1={66} x2={52} y2={960} strokeDasharray="8 6" {...sheetLine} />
+      <line x1={36} y1={960} x2={68} y2={960} {...sheetLine} />
 
       {/* Top adapter */}
-      <Node x={330} y={36} w={64} h={60} r={8} />
-      <DRing x={392} y={66} r={15} />
-      {/* Ø38 tube */}
-      <VTube x={330} top={136} bottom={424} w={30} />
-      {/* Collar and pin */}
-      <Node x={330} y={470} w={70} h={64} r={8} />
-      <circle cx={382} cy={502} r={13} strokeWidth={LINE} className={nodeClass} />
-      <rect x={232} y={494} width={46} height={10} strokeWidth={FINE} className={`fill-nm-s3 ${lineClass}`} />
-      {/* Ø60 tube */}
-      <VTube x={330} top={574} bottom={820} w={44} />
-      {/* Base */}
-      <Node x={330} y={860} w={72} h={50} r={8} />
-      <polygon points="314,910 346,910 330,986" strokeWidth={LINE} className={`fill-nm-s3 ${lineClass}`} />
+      <rect x={cx - 30} y={40} width={60} height={56} rx={3} {...sheetLine} />
+      <circle cx={cx + 44} cy={68} r={13} {...sheetLine} />
+      <line x1={cx + 30} y1={68} x2={cx + 31} y2={68} {...sheetLine} />
 
-      <Callout n={1} x={560} y={900} toX={366} toY={886} />
-      <Callout n={2} x={560} y={700} toX={352} toY={700} />
-      <Callout n={3} x={560} y={500} toX={395} toY={502} />
-      <Callout n={4} x={560} y={280} toX={345} toY={280} />
-      <Callout n={5} x={560} y={70} toX={407} toY={66} />
-      <Callout n={6} x={80} y={620} toX={170} toY={628} />
+      <TubeOutline x={cx} top={130} bottom={420} w={26} wall={5} />
+
+      {/* Collar, knob and cross-pin */}
+      <rect x={cx - 30} y={460} width={60} height={72} rx={3} {...sheetLine} />
+      <line x1={cx - 30} y1={496} x2={cx + 30} y2={496} {...sheetLine} />
+      <rect x={cx + 30} y={486} width={14} height={20} {...sheetLine} />
+      <circle cx={cx + 56} cy={496} r={12} {...sheetLine} />
+      <rect x={cx - 92} y={491} width={46} height={10} {...sheetLine} />
+
+      <TubeOutline x={cx} top={568} bottom={812} w={42} wall={6} />
+
+      {/* Base and spike */}
+      <rect x={cx - 34} y={850} width={68} height={46} rx={3} {...sheetLine} />
+      <polygon points={`${cx - 14},896 ${cx + 14},896 ${cx},976`} {...sheetLine} />
+
+      <Callout n={1} x={342} y={872} toX={cx + 34} toY={872} />
+      <Callout n={2} x={342} y={690} toX={cx + 21} toY={690} />
+      <Callout n={3} x={342} y={496} toX={cx + 68} toY={496} />
+      <Callout n={4} x={342} y={275} toX={cx + 13} toY={275} />
+      <Callout n={5} x={342} y={68} toX={cx + 57} toY={68} />
+      <Callout n={6} x={62} y={520} toX={138} toY={520} />
+
+      <SheetText x={376} y={700}>Ø60 × 4</SheetText>
+      <SheetText x={376} y={285}>Ø38 × 3</SheetText>
+      <SheetText x={376} y={506}>Collar</SheetText>
+
+      {/* Title block */}
+      <rect x={384} y={836} width={304} height={152} {...sheetLine} />
+      <line x1={384} y1={888} x2={688} y2={888} {...sheetLine} />
+      <line x1={384} y1={938} x2={688} y2={938} {...sheetLine} />
+      <SheetText x={398} y={873}>NM-MAST-EVENT</SheetText>
+      <SheetText x={398} y={923}>REV A</SheetText>
+      <SheetText x={398} y={973}>DIMENSIONS IN MM</SheetText>
     </>
   )
 }
@@ -745,7 +786,7 @@ const drawings: Record<string, Drawing> = {
       </>
     ),
   },
-  exploded: { title: 'Exploded view of the mast, numbered from the base to the guy line', viewBox: '0 0 700 1000', content: () => <Exploded /> },
+  exploded: { title: 'Engineering drawing: exploded view of the NM Event Mast, numbered from the base to the guy line, with tube sizes Ø60 × 4 and Ø38 × 3', viewBox: '0 0 700 1000', content: () => <Exploded /> },
   'scene-hero': { title: 'NM Masts carrying festoon lights across a terrace at dusk', viewBox: '0 0 1600 900', dark: true, content: () => <SceneFestoonHero /> },
   'scene-festoon': { title: 'Masts carrying festoon lights at dusk', dark: true, content: () => <SceneFestoon /> },
   'scene-banner': { title: 'A banner gate on a crossbar between two guyed masts', dark: true, content: () => <SceneBanner /> },
