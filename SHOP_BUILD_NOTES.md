@@ -4,7 +4,7 @@ Branch: `feat/webshop-v2-mast`. Nothing went to production: `main`, Vercel setti
 
 ## Links
 
-- **Vercel preview, built from commit 750bd60:** https://northern-modulus-9c9vbgsph-rihardsvasuks1-9307s-projects.vercel.app (open `/shop`). Taken from GitHub's public deployment status, not opened by me. It may ask you to log in to Vercel. The commit that updates this file creates a newer preview with the same site; find it on the branch in the Vercel dashboard.
+- **Vercel preview, built from commit b83b20f:** https://northern-modulus-nn5p1wmdb-rihardsvasuks1-9307s-projects.vercel.app (open `/shop`). Taken from GitHub's public deployment status, not opened by me. It may ask you to log in to Vercel. The commit that updates this file creates a newer preview with the same site; find it on the branch in the Vercel dashboard.
 - **Draft PR: still not opened, one manual step.** GitHub shows no PR for this branch, so there is no description to update yet. No `gh` CLI is installed and the GitHub connector isn't authorised in this session. I did not pull your stored git credential to call the API, because that goes beyond what a push needs. Open it here: https://github.com/Kurlanders/northern-modulus/pull/new/feat/webshop-v2-mast
   - Choose **Create draft pull request**.
   - Title: `Webshop v2: NM Mast System (preview, do not merge)`
