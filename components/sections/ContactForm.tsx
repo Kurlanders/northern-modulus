@@ -210,7 +210,7 @@ export default function ContactForm({ product, initialDescription }: { product?:
             Message sent.
           </h2>
           <p className="text-body-md text-nm-text-s leading-relaxed max-w-[46ch]">
-            We have received your enquiry and will respond within one business day.
+            We have received your enquiry and will respond within 2 business days.
             Check your inbox — including spam — for our reply.
           </p>
         </div>
@@ -515,7 +515,7 @@ export default function ContactForm({ product, initialDescription }: { product?:
           {status === 'loading' ? 'Sending…' : uploading ? 'Uploading files…' : 'Send Enquiry'}
         </Button>
         <p className="mt-4 text-body-sm text-nm-text-t">
-          We respond to all enquiries within one business day.
+          We respond to all enquiries within 2 business days.
         </p>
       </div>
     </form>

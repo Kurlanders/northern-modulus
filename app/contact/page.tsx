@@ -33,7 +33,7 @@ export default function ContactPage({
               </h1>
               <p className="text-body-lg text-nm-text-s leading-relaxed max-w-[52ch]">
                 Fill in the form below and we will come back with a clear quote — material,
-                lead time, and price. Most quotes within one business day.
+                lead time, and price. Most quotes within 2 business days.
               </p>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function ContactPage({
                   </div>
                   <div>
                     <p className="text-label-sm font-mono uppercase tracking-[0.1em] text-nm-text-t mb-1">Response Time</p>
-                    <p className="text-body-sm text-nm-text-s">Within one business day</p>
+                    <p className="text-body-sm text-nm-text-s">Within 2 business days</p>
                   </div>
                 </div>
               </div>

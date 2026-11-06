@@ -23,7 +23,7 @@ export default function QuoteBox({ product }: { product: Product }) {
           Request configuration
         </Button>
         <p className="mt-4 text-[13px] leading-[1.6] text-nm-text-s">
-          Tell us the height, the payload and the use. We reply with a configuration and a price within one business day.
+          Tell us the height, the payload and the use. We reply with a configuration and a price within 2 business days.
         </p>
       </div>
       <div className="lg:hidden fixed left-0 right-0 bottom-0 z-40 border-t border-nm-border-mid bg-nm-bg px-4 py-3 flex items-center justify-between gap-4">

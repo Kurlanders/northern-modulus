@@ -16,6 +16,7 @@ import {
   SHOP_COPY,
   USE_CASES,
   getPublishedProduct,
+  hasStandardReturns,
   leadTimeLabel,
   priceLabel,
   publishedProducts,
@@ -297,7 +298,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               {flagship && <FlagshipSections />}
 
               <Section label="Safety" title="Safety and use.">
-                <CheckList items={quote ? MAST_PAGE.safety.filter((item) => !item.includes('extension')) : MAST_PAGE.safety} />
+                <CheckList items={quote ? MAST_PAGE.safetyEngineering : MAST_PAGE.safety} />
               </Section>
 
               {product.inTheBox && (
@@ -314,8 +315,18 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                     ))}
                   </div>
                   <p className="mt-6 text-[15px] text-nm-text-s">
-                    Standard shop products can be returned within 14 days.{' '}
-                    <Link href="/returns" className="underline hover:text-nm-text-p">Returns policy</Link>
+                    {hasStandardReturns(product) ? (
+                      <>
+                        {SHOP_COPY.returnsStandard}{' '}
+                        <Link href="/returns" className="underline hover:text-nm-text-p">Returns policy</Link>
+                      </>
+                    ) : (
+                      <>
+                        {SHOP_COPY.returnsMadeToOrder.before}
+                        <Link href="/returns" className="underline hover:text-nm-text-p">{SHOP_COPY.returnsMadeToOrder.link}</Link>
+                        {SHOP_COPY.returnsMadeToOrder.after}
+                      </>
+                    )}
                   </p>
                   <p className="mt-3 text-[15px] text-nm-text-s">
                     Need a different size?{' '}

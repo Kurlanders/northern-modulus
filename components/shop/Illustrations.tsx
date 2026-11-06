@@ -577,12 +577,14 @@ function SceneFestoonHero() {
       <Festoon x1={850} y1={402} x2={1210} y2={192} sag={30} bulbs={10} r={5} />
       <Festoon x1={1210} y1={192} x2={1620} y2={330} sag={34} bulbs={9} r={6.5} />
 
-      <g strokeWidth={FINE} className={fineClass}>
-        <line x1={1290} y1={190} x2={1290} y2={830} />
-        <line x1={1280} y1={200} x2={1300} y2={180} />
-        <line x1={1280} y1={840} x2={1300} y2={820} />
-      </g>
-      <text x={1306} y={540} fontSize={24} className="fill-nm-text-s font-mono" stroke="none">3.2 m</text>
+      <Annot>
+        <g strokeWidth={FINE} className={fineClass}>
+          <line x1={1290} y1={190} x2={1290} y2={830} />
+          <line x1={1280} y1={200} x2={1300} y2={180} />
+          <line x1={1280} y1={840} x2={1300} y2={820} />
+        </g>
+        <text x={1306} y={540} fontSize={24} className="fill-nm-text-s font-mono" stroke="none">3.2 m</text>
+      </Annot>
     </>
   )
 }

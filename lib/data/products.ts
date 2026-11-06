@@ -1,8 +1,7 @@
 // All shop prices and copy live in this file, so one edit updates the whole shop.
 //
 // images[] entries are either real photo paths ('/pictures/products/x.jpg') or a generated
-// illustration ('illustration:<key>', see components/shop/Illustrations.tsx). 'viewer:mast' is
-// the 3D viewer. Swap an entry for a photo path when photos exist; nothing else needs to change.
+// illustration ('illustration:<key>', see components/shop/Illustrations.tsx). Swap an entry for a photo path when photos exist; nothing else needs to change.
 
 export type ProductCategory = 'kit' | 'bundle' | 'top' | 'base' | 'collar' | 'accessory' | 'engineering'
 export type ProductAvailability = 'preorder' | 'made-to-order' | 'quote'
@@ -60,6 +59,8 @@ export const SHOP_COPY = {
   orderNote: 'No payment now. We confirm availability and delivery by email within 2 business days.',
   ratedLoads: 'Rated loads: published after load testing (February 2027)',
   illustrationNote: 'Illustration. Product photos coming soon.',
+  returnsStandard: 'Standard shop products can be returned within 14 days.',
+  returnsMadeToOrder: { before: 'Made to order: see the ', link: 'returns policy', after: ' for what can be returned.' },
   tube: TUBE_SUPPLIER_NAME
     ? `Pultruded glass-fibre (GFRP) tube, made in Latvia by ${TUBE_SUPPLIER_NAME}`
     : 'Pultruded glass-fibre (GFRP) tube, made in Latvia',
@@ -142,12 +143,17 @@ export const MAST_PAGE = {
     'Not for climbing, for lifting people, or for overhead loads above people.',
     'The 4.5 m extension is for guyed use only.',
   ],
+  safetyEngineering: [
+    'Guy and load it as specified on your load sheet.',
+    'Do not use in winds above the limit we will publish after load testing. Until then, take the mast down in strong wind.',
+    'Not for climbing, for lifting people, or for overhead loads above people.',
+  ],
 }
 
 const PARTS_FAQ = [
   { q: 'When will it ship?', a: 'Parts are made to order and ship 3–7 days after you order. We confirm the date by email.' },
   { q: 'Does it fit my own tube?', a: 'It works with 60 mm, 38 mm and 31 mm OD GFRP round tube. Collars for other tube sizes are made to order: send us a quote request.' },
-  { q: 'Can I return it?', a: 'Standard shop products have a 14-day right of withdrawal. Parts made to your own specification are excluded. See the returns page.' },
+  { q: 'Can I return it?', a: 'Made to order: see the returns policy for what can be returned.' },
 ]
 
 const TOP_RELATED = ['nm-mast-event', 'nm-top-festoon', 'nm-top-banner', 'nm-top-camera', 'nm-top-sail']
@@ -176,7 +182,7 @@ export const products: Product[] = [
     description:
       "A telescoping mast made from nested pultruded glass-fibre tubes, joined by engineered printed nodes. It doesn't rust, it isn't cold to the touch, and one person can carry it and set it up. Choose the top adapter for the job and swap it later.",
     priceEur: 179,
-    images: ['viewer:mast', 'illustration:mast', 'illustration:collar', 'illustration:base-spike', 'illustration:tops-sheet', 'illustration:packed'],
+    images: ['illustration:mast', 'illustration:collar', 'illustration:base-spike', 'illustration:tops-sheet', 'illustration:packed'],
     material: 'GFRP tube, ASA / PC / PETG-CF nodes',
     dimensions: '3.2 m extended, ~1.8 m for transport',
     leadTimeDays: 0,
@@ -475,6 +481,11 @@ export function getPublishedProduct(slug: string): Product | undefined {
 
 export function formatPrice(eur: number): string {
   return Number.isInteger(eur) ? `€${eur}` : `€${eur.toFixed(2)}`
+}
+
+// Pre-order kits and bundles get the standard line. Made-to-order parts and the engineering mast point to the policy.
+export function hasStandardReturns(product: Product): boolean {
+  return product.availability === 'preorder' || product.category === 'kit' || product.category === 'bundle'
 }
 
 export function priceLabel(product: Product): string {

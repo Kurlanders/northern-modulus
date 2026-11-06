@@ -51,7 +51,7 @@ export default function ShopPage() {
 
       {/* Hero: always dark, because it is a dusk scene. The 'dark' class re-scopes the tokens in light mode too. */}
       <section className="dark relative bg-nm-bg overflow-hidden flex flex-col lg:block lg:min-h-[760px]">
-        <div className="order-2 relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:absolute lg:inset-0">
+        <div className="order-2 relative hidden md:block aspect-[16/9] lg:aspect-auto lg:absolute lg:inset-0">
           <Illustration name="scene-hero" slice />
           <div
             className="hidden lg:block absolute inset-0 pointer-events-none"
@@ -69,7 +69,10 @@ export default function ShopPage() {
               <br />
               <span className="text-nm-green-text">{SHOP_HERO.headlineBottom}</span>
             </h1>
-            <p className="text-[17px] text-nm-text-s leading-[1.7] max-w-[520px] mb-9">{SHOP_HERO.subline}</p>
+            <p className="text-[17px] text-nm-text-s leading-[1.7] max-w-[520px] mb-6 md:mb-9">{SHOP_HERO.subline}</p>
+            <div className="md:hidden aspect-[16/9] mb-6 border border-nm-border overflow-hidden">
+              <Illustration name="scene-hero" bare slice />
+            </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button href="/shop/nm-mast-event" size="lg" withArrow>
                 Reserve the Event Mast
@@ -158,7 +161,7 @@ export default function ShopPage() {
               </h2>
               <p className="text-[15px] text-nm-text-s leading-[1.7] max-w-[560px]">
                 Custom parts, tooling, moulds, and collars for other tube sizes. Send a file or describe what you need,
-                and we reply within one business day.
+                and we reply within 2 business days.
               </p>
             </div>
             <Button href="/contact" size="lg" withArrow className="self-start lg:self-auto flex-shrink-0">

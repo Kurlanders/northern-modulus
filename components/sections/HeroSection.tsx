@@ -12,7 +12,7 @@ const HeroModel = dynamic(() => import('./HeroModel'), {
 
 const stats = [
   { value: 'FDM',    label: 'Print Method',     accent: false },
-  { value: '1 day',  label: 'Quote Turnaround', accent: false },
+  { value: '2 days', label: 'Quote Turnaround', accent: false },
   { value: '1–100+', label: 'Parts per Order',  accent: false },
   { value: 'Engineering', label: 'Led Review',  accent: true  },
 ]

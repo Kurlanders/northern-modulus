@@ -256,7 +256,7 @@ export default function ThreeDPrintingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-nm-border">
             {[
               { index: '01', title: 'Send your file', detail: 'Upload a STEP, STL, or OBJ — or describe what you need and we will advise on the geometry.' },
-              { index: '02', title: 'We review and quote', detail: 'Engineering review, material recommendation, and a clear quote — price, lead time, and any notes. Within one business day.' },
+              { index: '02', title: 'We review and quote', detail: 'Engineering review, material recommendation, and a clear quote — price, lead time, and any notes. Within 2 business days.' },
               { index: '03', title: 'We print and finish', detail: 'Parts go into production, are cleaned and inspected, then packed to protect finish in transit.' },
               { index: '04', title: 'You receive the part', detail: 'Dispatched with tracking. Repeat orders use saved settings for consistent results every batch.' },
             ].map((step) => (
@@ -275,7 +275,7 @@ export default function ThreeDPrintingPage() {
 
       <CTASection
         headline="Ready to get a quote?"
-        subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within one business day."
+        subtext="Send your file or describe what you need. We'll review it and come back with a clear quote — material, lead time, and price. Most quotes within 2 business days."
         primaryCTA="Get a Quote"
         primaryHref="/contact"
         secondaryCTA="Email Us Directly"
