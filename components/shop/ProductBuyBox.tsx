@@ -19,6 +19,14 @@ import {
 const FESTOON_SET_SLUG = 'nm-festoon-set-4'
 const FESTOON_SET_MIN_QTY = 4
 
+// The sticky bar would otherwise cover the bottom of the footer on phones.
+export function useStickyBarPadding() {
+  useEffect(() => {
+    document.body.classList.add('pb-[76px]', 'lg:pb-0')
+    return () => document.body.classList.remove('pb-[76px]', 'lg:pb-0')
+  }, [])
+}
+
 function initialValues(product: Product): Record<string, string> {
   return Object.fromEntries((product.options ?? []).map((option) => [option.id, option.choices[0].id]))
 }
@@ -36,11 +44,7 @@ export default function ProductBuyBox({ product }: { product: Product }) {
     }
   }, [product])
 
-  // The sticky bar would otherwise cover the bottom of the footer on phones.
-  useEffect(() => {
-    document.body.classList.add('pb-[76px]', 'lg:pb-0')
-    return () => document.body.classList.remove('pb-[76px]', 'lg:pb-0')
-  }, [])
+  useStickyBarPadding()
 
   const config = resolveConfig(product, values, quantity)
   const buyNow = config.stripePaymentLink
@@ -66,18 +70,16 @@ export default function ProductBuyBox({ product }: { product: Product }) {
     <>
       <div className="border border-nm-border bg-nm-s1 p-6 md:p-7">
         <p className="font-mono text-[12px] uppercase tracking-[1.5px] text-nm-green-text mb-3">{stockLabel(product)}</p>
-        <h1 className="text-[clamp(28px,3vw,40px)] font-bold text-nm-text-p leading-[1.1] tracking-[-0.025em] mb-4">
+        <h1 className="text-[clamp(26px,2.4vw,34px)] font-bold text-nm-text-p leading-[1.12] tracking-[-0.025em] mb-4">
           {product.name}
         </h1>
-        <p className="text-[15px] text-nm-text-s leading-[1.75] mb-6">{product.description}</p>
-
         <p className="text-[34px] font-bold text-nm-text-p tracking-[-0.02em] leading-none">{formatPrice(product.priceEur)}</p>
         <p className="mt-2 text-[13px] text-nm-text-t">{SHOP_COPY.vatNote}</p>
         <p className="mt-3 text-[15px] font-medium text-nm-text-p">
-          {preorder ? `Pre-order: ${SHOP_COPY.shipsFromLabel.toLowerCase()}` : `Ships ${leadTimeLabel(product)}`}
+          {preorder ? SHOP_COPY.preorderLine : `Ships ${leadTimeLabel(product)}`}
         </p>
 
-        <div className="mt-7 space-y-6">
+        <div className="mt-6 space-y-5">
           {(product.options ?? []).map((option) => (
             <fieldset key={option.id}>
               <legend className="font-mono text-[12px] uppercase tracking-[1.5px] text-nm-text-s mb-3">{option.label}</legend>

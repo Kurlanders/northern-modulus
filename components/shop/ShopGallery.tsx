@@ -18,6 +18,19 @@ const viewLabels: Record<string, string> = {
   'illustration:base-tripod': 'Tripod base',
   'illustration:tops-sheet': 'Top adapters',
   'illustration:packed': 'Packed',
+  'illustration:festoon-set': 'The set',
+  'illustration:extension': 'Extension',
+  'illustration:cross-clamp': 'Clamp',
+  'illustration:metal-free': 'Assembled',
+  'illustration:top-festoon': 'Festoon top',
+  'illustration:top-banner': 'Banner arm',
+  'illustration:top-camera': 'Camera top',
+  'illustration:top-sail': 'Sail clamp',
+  'illustration:scene-festoon': 'In use',
+  'illustration:scene-banner': 'In use',
+  'illustration:scene-sail': 'In use',
+  'illustration:scene-camera': 'In use',
+  'illustration:scene-antenna': 'In use',
 }
 
 // Illustrations now; swap the entries in products.ts for photo paths and nothing here changes.
@@ -56,7 +69,7 @@ export default function ShopGallery({ images, name }: { images: string[]; name: 
                   <span className="font-mono text-[12px] text-nm-text-s bg-nm-bg border border-nm-border px-2.5 py-1.5">Drag to rotate</span>
                 ) : (
                   <span className="pointer-events-auto">
-                    <Button variant="secondary" size="sm" onClick={() => setViewerRequested(true)} className="bg-nm-bg">
+                    <Button variant="secondary" size="sm" onClick={() => setViewerRequested(true)} className="!bg-nm-bg">
                       Open 3D view
                     </Button>
                   </span>
@@ -71,7 +84,7 @@ export default function ShopGallery({ images, name }: { images: string[]; name: 
       </figure>
 
       {shown.length > 1 && (
-        <div className="mt-4 grid grid-cols-3 sm:grid-cols-6 gap-2" role="group" aria-label="Product views">
+        <div className="mt-4 flex gap-2 overflow-x-auto pb-1 sm:grid sm:grid-cols-6 sm:overflow-visible sm:pb-0" role="group" aria-label="Product views">
           {shown.map((image, index) => {
             const label = viewLabels[image] ?? `View ${index + 1}`
             const active = image === current
@@ -80,9 +93,8 @@ export default function ShopGallery({ images, name }: { images: string[]; name: 
                 key={image}
                 type="button"
                 aria-pressed={active}
-                aria-label={label}
                 onClick={() => setSelected(index)}
-                className={`group relative flex flex-col border bg-nm-s1 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text ${
+                className={`group relative flex flex-col flex-shrink-0 w-[104px] sm:w-auto border bg-nm-s1 text-left transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nm-green-text ${
                   active ? 'border-nm-green-text' : 'border-nm-border hover:border-nm-field'
                 }`}
               >

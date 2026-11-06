@@ -74,7 +74,7 @@ function GuyLine({ color }: { color: string }) {
   )
 }
 
-function Mast({ tube, line }: { tube: string; line: string }) {
+function Mast({ tube, line, grid }: { tube: string; line: string; grid: string }) {
   return (
     // Centred on the camera target, which is half the mast's height.
     <group position={[0, -1.6, 0]}>
@@ -87,10 +87,7 @@ function Mast({ tube, line }: { tube: string; line: string }) {
       <DRing angle={(Math.PI * 2) / 3} />
       <DRing angle={(Math.PI * 4) / 3} />
       <GuyLine color={line} />
-      <mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[0.8, 0.806, 96]} />
-        <meshBasicMaterial color={line} />
-      </mesh>
+      <gridHelper args={[4, 16, line, grid]} />
     </group>
   )
 }
@@ -103,7 +100,7 @@ export default function MastViewer({ onError }: { onError: () => void }) {
   return (
     <ViewerErrorBoundary onError={onError}>
       <Canvas
-        camera={{ position: [2.4, 1.1, 4.6], fov: 38, near: 0.1, far: 50 }}
+        camera={{ position: [2.8, 1.3, 5.4], fov: 38, near: 0.1, far: 50 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 1.5]}
         style={{ background: 'transparent', width: '100%', height: '100%' }}
@@ -111,7 +108,7 @@ export default function MastViewer({ onError }: { onError: () => void }) {
         <ambientLight intensity={dark ? 1.1 : 1.5} />
         <directionalLight position={[4, 6, 5]} intensity={dark ? 2.6 : 1.8} />
         <directionalLight position={[-5, 2, -3]} intensity={dark ? 1.2 : 0.8} />
-        <Mast tube={dark ? '#D8D5CF' : '#B8B4AA'} line={dark ? '#8A9097' : '#5E636A'} />
+        <Mast tube={dark ? '#D8D5CF' : '#B8B4AA'} line={dark ? '#8A9097' : '#5E636A'} grid={dark ? '#2E3236' : '#CFCAC0'} />
         <OrbitControls
           enablePan={false}
           enableZoom={false}

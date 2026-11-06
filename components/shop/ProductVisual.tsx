@@ -20,7 +20,7 @@ export default function ProductVisual({
     const scene = illustrationIsScene(name)
     return (
       <div className={`absolute inset-0 ${scene ? '' : 'p-[5%]'}`}>
-        <Illustration name={name} bare={bare} slice={scene} />
+        <Illustration name={name} bare={bare} slice={scene} decorative={!alt} />
       </div>
     )
   }

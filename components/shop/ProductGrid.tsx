@@ -9,7 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/shop/${product.slug}`}
-      className="group bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-nm-green-text"
+      className="group border-r border-b border-nm-border bg-nm-s1 hover:bg-nm-s2 transition-colors duration-200 flex flex-col focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-nm-green-text"
     >
       <div className="relative aspect-[4/3] overflow-hidden border-b border-nm-border">
         <div className="absolute inset-0 line-grid opacity-40 pointer-events-none" aria-hidden="true" />
@@ -52,7 +52,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-nm-border border border-nm-border">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l border-t border-nm-border">
         {visible.map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}

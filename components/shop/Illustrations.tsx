@@ -200,13 +200,20 @@ function DuskSky({ w, h, horizon }: { w: number; h: number; horizon: number }) {
   )
 }
 
+// Many small crowns under a slowly changing height, so it reads as a distant forest.
 function Treeline({ w, y, seed = 1 }: { w: number; y: number; seed?: number }) {
   let d = `M0 ${y}`
-  for (let x = 0; x <= w; x += 30) {
-    const rise = ((x * 7 + seed * 13) % 37) + ((x * 3 + seed * 5) % 19)
-    d += ` L${x} ${y - 10 - rise * 0.7} L${x + 15} ${y - 2 - rise * 0.3}`
+  let x = 0
+  let i = seed * 7
+  while (x < w) {
+    i += 1
+    const width = 10 + (i * i * 13) % 22
+    const envelope = 22 + 14 * Math.sin(x * 0.011 + seed) + 8 * Math.sin(x * 0.037 + seed * 2)
+    const top = y - envelope - (i * 31) % 12
+    d += ` Q${x + width / 2} ${top - 8} ${x + width} ${top + 6}`
+    x += width
   }
-  d += ` L${w} ${y} Z`
+  d += ` L${x} ${y} Z`
   return <path d={d} className="fill-nm-s1" stroke="none" />
 }
 
@@ -321,10 +328,10 @@ const parts = {
       <VTube x={400} top={40} bottom={290} w={84} />
       <BreakLine x={400} y={40} w={84} />
       <Ground x1={70} x2={730} y={544} />
-      <g strokeWidth={22} strokeLinecap="round" className="stroke-nm-text-t">
+      <g strokeWidth={22} strokeLinecap="round" className="stroke-nm-steel">
         <line x1={400} y1={340} x2={400} y2={528} />
       </g>
-      <g strokeWidth={24} strokeLinecap="round" className="stroke-nm-text-s">
+      <g strokeWidth={24} strokeLinecap="round" className="stroke-nm-steel-l">
         <line x1={370} y1={340} x2={150} y2={530} />
         <line x1={430} y1={340} x2={650} y2={530} />
       </g>
@@ -716,8 +723,14 @@ const drawings: Record<string, Drawing> = {
     content: () => (
       <>
         <Ground x1={30} x2={770} y={500} />
-        {[110, 300, 490, 680].map((x, i) => (
-          <MiniMast key={x} x={x} ground={500} height={360} w={13} />
+        {[110, 300, 490, 680].map((x) => (
+          <g key={x}>
+            <VTube x={x} top={140} bottom={320} w={10} />
+            <VTube x={x} top={320} bottom={490} w={16} />
+            <Node x={x} y={306} w={26} h={30} r={4} />
+            <Node x={x} y={124} w={22} h={20} r={4} />
+            <Node x={x} y={470} w={30} h={30} r={4} />
+          </g>
         ))}
         <Festoon x1={110} y1={140} x2={300} y2={140} sag={22} bulbs={6} />
         <Festoon x1={300} y1={140} x2={490} y2={140} sag={22} bulbs={6} />
