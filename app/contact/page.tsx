@@ -1,7 +1,7 @@
 import SectionLabel from '@/components/ui/SectionLabel'
 import ContactForm from '@/components/sections/ContactForm'
 import { pageMetadata } from '@/lib/metadata'
-import { getPublishedProduct } from '@/lib/data/products'
+import { CONFIG_REQUEST_TEMPLATE, getPublishedProduct } from '@/lib/data/products'
 import { company } from '@/lib/company'
 
 export const metadata = pageMetadata(
@@ -16,6 +16,7 @@ export default function ContactPage({
 }) {
   const slug = typeof searchParams.product === 'string' ? searchParams.product : undefined
   const product = slug ? getPublishedProduct(slug) : undefined
+  const configRequest = product?.availability === 'quote'
 
   return (
     <>
@@ -48,11 +49,11 @@ export default function ContactPage({
             <div className="lg:col-span-7">
               {product && (
                 <div className="mb-8 px-5 py-4 border border-nm-green-text bg-nm-green-accent/[0.08] text-[15px] text-nm-text-p">
-                  <span className="text-nm-text-t">Enquiry about:</span>{' '}
+                  <span className="text-nm-text-t">{configRequest ? 'Configuration request:' : 'Enquiry about:'}</span>{' '}
                   <span className="font-semibold">{product.name}</span>
                 </div>
               )}
-              <ContactForm product={product?.slug} />
+              <ContactForm product={product?.slug} initialDescription={configRequest ? CONFIG_REQUEST_TEMPLATE : undefined} />
             </div>
 
             {/* Sidebar */}

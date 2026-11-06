@@ -53,6 +53,7 @@ export const PREORDER_SHIP_DATE = '2027-04-15'
 export const SHOP_COPY = {
   vatNote: 'No VAT added (seller not VAT-registered)',
   shipsFromLabel: 'Ships from April 2027',
+  preorderLine: 'Pre-order: ships from April 2027',
   partsLeadTime: '3–7 days after order',
   deliveryNote: 'Pickup in Riga, or delivery in Latvia (parcel locker or courier, quoted). Outside Latvia: on request for larger orders.',
   reserveNote: 'No payment now. We confirm availability and delivery date by email within 2 business days.',
@@ -529,4 +530,21 @@ export function reserveHref(product: Product, config: ResolvedConfig): string {
   const params = new URLSearchParams({ product: product.slug, qty: String(config.quantity) })
   for (const { option, choice } of config.selections) params.set(option.id, choice.id)
   return `/shop/reserve?${params.toString()}`
+}
+
+export function reservationLabel(product: Product): string {
+  return product.availability === 'preorder' ? 'Reservation (pre-order)' : 'Order via enquiry (made to order)'
+}
+
+// Structured text for the enquiry email: the backend contract has no fields for a configuration.
+export function reservationSummary(product: Product, config: ResolvedConfig): string {
+  return [
+    reservationLabel(product),
+    `Product: ${product.name} (${product.slug})`,
+    ...config.selections.map((s) => `${s.option.label}: ${s.choice.label}${s.choice.priceDeltaEur > 0 ? ` (+${formatPrice(s.choice.priceDeltaEur)})` : ''}`),
+    `Quantity: ${config.quantity}`,
+    `Unit price: ${formatPrice(config.unitPrice)}`,
+    `Total: ${formatPrice(config.total)}. ${SHOP_COPY.vatNote}`,
+    `Lead time: ${leadTimeLabel(product)}`,
+  ].join('\n')
 }

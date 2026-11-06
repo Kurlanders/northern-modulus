@@ -43,7 +43,7 @@ function safeFileName(name: string): string {
   return name.replace(/[/\\\u0000-\u001f\u007f]+/g, '_').slice(-150)
 }
 
-export default function ContactForm({ product }: { product?: string }) {
+export default function ContactForm({ product, initialDescription }: { product?: string; initialDescription?: string }) {
   const [status, setStatus] = useState<Status>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [serviceArea, setServiceArea] = useState<string>(product ? 'Shop product' : '')
@@ -323,7 +323,8 @@ export default function ContactForm({ product }: { product?: string }) {
             Project Description <span className="text-nm-green-text">*</span>
           </label>
           <textarea
-            id="description" name="description" required rows={5}
+            id="description" name="description" required rows={initialDescription ? 8 : 5}
+            defaultValue={initialDescription}
             placeholder="Describe the part, application, material preferences, quantity, and any dimensional or finish requirements."
             className={`${inputClass} resize-y min-h-[120px]`}
           />
