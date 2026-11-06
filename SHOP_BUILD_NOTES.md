@@ -4,8 +4,8 @@ Branch: `feat/webshop-v2-mast`. Nothing went to production: `main`, Vercel setti
 
 ## Links
 
-- **Vercel preview, built from commit 56cc625:** https://northern-modulus-jmlag5ugc-rihardsvasuks1-9307s-projects.vercel.app (open `/shop`). Taken from GitHub's public deployment status, not opened by me. It may ask you to log in to Vercel. The commit that adds this file creates a newer preview with the same site; find it on the branch in the Vercel dashboard.
-- **Draft PR: not opened, one manual step.** No `gh` CLI is installed and the GitHub connector isn't authorised in this session. I did not pull your stored git credential to call the API, because that goes beyond what a push needs. Open it here: https://github.com/Kurlanders/northern-modulus/pull/new/feat/webshop-v2-mast
+- **Vercel preview, built from commit 750bd60:** https://northern-modulus-9c9vbgsph-rihardsvasuks1-9307s-projects.vercel.app (open `/shop`). Taken from GitHub's public deployment status, not opened by me. It may ask you to log in to Vercel. The commit that updates this file creates a newer preview with the same site; find it on the branch in the Vercel dashboard.
+- **Draft PR: still not opened, one manual step.** GitHub shows no PR for this branch, so there is no description to update yet. No `gh` CLI is installed and the GitHub connector isn't authorised in this session. I did not pull your stored git credential to call the API, because that goes beyond what a push needs. Open it here: https://github.com/Kurlanders/northern-modulus/pull/new/feat/webshop-v2-mast
   - Choose **Create draft pull request**.
   - Title: `Webshop v2: NM Mast System (preview, do not merge)`
   - Description: copy the "PR description" section at the end of this file.
@@ -15,7 +15,7 @@ Branch: `feat/webshop-v2-mast`. Nothing went to production: `main`, Vercel setti
 | Page | What it has |
 |---|---|
 | `/shop` | Dark hero with a festoon scene at dusk; "One mast. Many jobs." tiles linking with `?top=` preselected; catalogue with kits first and filter chips; trust strip; custom-work band. The "launching soon" placeholder now shows only if no product is published. |
-| `/shop/nm-mast-event` | Gallery with 6 views, including the 3D viewer; sticky buy box with configurator, live total and Festoon Set nudge; key specs; rated-loads placeholder; exploded view with 4 setup steps; 5 use cases; GFRP vs steel vs aluminium; collapsible engineering notes; safety; what's in the box; 9 FAQs; related products. Sticky price and Reserve bar on mobile. |
+| `/shop/nm-mast-event` | Gallery with 5 views, "Assembled" first; sticky buy box with configurator, live total and Festoon Set nudge; key specs; rated-loads placeholder; exploded view with 4 setup steps; 5 use cases; GFRP vs steel vs aluminium; collapsible engineering notes; safety; what's in the box; 9 FAQs; related products. Sticky price and Reserve bar on mobile. |
 | Other 10 product pages | Same template, simpler. Configurator is the quantity only. |
 | `/shop/nm-mast-metal-free` | No buy box. "Request configuration" opens the quote form pre-filled. |
 | `/shop/reserve` | Order summary plus a short form (name, email, phone, pickup or delivery city, notes). Not indexed by search engines. |
@@ -44,10 +44,14 @@ Also added:
 - **Setup time FAQ:** says one person can do it and that a measured time comes later, because you gave no figure.
 - **Winter FAQ:** says to use the tripod base on frozen ground. That is my reasoning, not from the brief: please check it.
 - **Safety wording:** I added "Until then, take the mast down in strong wind" so the wind rule is usable before a limit exists.
-- **3D viewer:** built from the real tube sizes. It loads by itself on desktop after 1.2 s; on phones it waits for a tap. Its code is about 226 kB gzipped, loaded only on demand, under the 250 kB limit.
+- **3D viewer removed (owner decision after review):** the gallery slide and `components/shop/MastViewer.tsx` are gone, and "Assembled" is the first image. `three`, `@react-three/fiber` and `@react-three/drei` stay in `package.json` because `components/sections/HeroModel.tsx` (home hero and empty shop state) still uses them.
 - **OG images:** static PNGs, because `next/og` fails to build on Windows. `metadataBase` is now `https://northernmodulus.com`, so OG links on previews point at production and won't resolve until merge.
 - **Sitemap:** none exists, so none was added, as the brief says.
-- **`CLAUDE.md` response times:** quotes stay "within one business day"; reservations say "within 2 business days", as the brief says.
+- **Reply times (owner decision after review):** every reply-time promise now says "within 2 business days": quotes, the quote form, the metal-free page, reservations. The home hero stat changed from "1 day" to "2 days" for the same reason, and the rule in `CLAUDE.md` is updated.
+- **Returns line (owner decision after review):** the 14-day line shows on pre-orders, kits and bundles. Made-to-order parts and the engineering mast say "Made to order: see the returns policy for what can be returned."
+- **Part FAQ:** the "Can I return it?" answer on made-to-order parts mentioned the 14-day right, which contradicted the new line, so it now uses the same wording.
+- **Metal-free safety:** the first line is now "Guy and load it as specified on your load sheet." The wind and no-climbing lines stay. The 4.5 m extension line was already hidden on this page, because the extension is sold for the Event Mast.
+- **Mobile hero:** below 768 px a compact illustration without the dimension label sits above the CTAs. From 768 px up the hero is unchanged.
 - **Removed:** `ProductActions.tsx` and `ProductGallery.tsx`, no longer used.
 
 ## Owner to-do before launch
@@ -71,7 +75,10 @@ Also added:
 **Other items:**
 - [ ] Add load-test results and rated loads (`SHOP_COPY.ratedLoads`), plus the wind limit in the safety text
 - [ ] Confirm all prices
-- [ ] **Confirm the returns policy for pre-orders.** `/returns` and `/terms` don't mention pre-orders or reservations. The FAQ repeats the 14-day withdrawal for standard shop products.
+- [ ] **Confirm withdrawal-right rules for made-to-order goods with an accountant or lawyer.**
+- [ ] **Decide the `/shop` trust point "14-day returns on shop products".** It is still shown (`TRUST_POINTS`), but it now reads broader than the product pages, because made-to-order parts no longer promise 14 days. Reword it or remove it after the legal check.
+- [ ] **Align `/returns` with the product pages.** It still gives a 14-day right for "standard shop products" and excludes only items made to specification. It does not say how made-to-order parts are treated.
+- [ ] **Confirm the pre-order returns policy.** `/returns` and `/terms` don't mention pre-orders or reservations. The FAQ repeats the 14-day withdrawal for standard shop products.
 - [ ] **Review `/terms` wording.** It says prices "include all applicable taxes"; the shop says "No VAT added (seller not VAT-registered)". They don't conflict, but you may want one phrasing. I left legal pages unchanged, as instructed.
 - [ ] Decide `TUBE_SUPPLIER_NAME` (empty hides the name)
 - [ ] Create Stripe links; a filled `stripePaymentLink` turns the CTA into "Buy now". The Buy now path was not clicked through, because all links are empty.
@@ -99,24 +106,32 @@ Also added:
 
 | Page | Performance | Accessibility | SEO |
 |---|---|---|---|
-| `/shop` | 94 | 96 | 100 |
-| `/shop/nm-mast-event` | 93 | 96 | 100 |
-| `/shop/nm-top-festoon` | 93 | 96 | 100 |
-| `/shop/nm-mast-metal-free` | 93 | 96 | 100 |
+| `/shop` | 92 | 96 | 100 |
+| `/shop/nm-mast-event` | 94 | 96 | 100 |
+| `/shop/nm-top-festoon` | 94 | 96 | 100 |
+| `/shop/nm-mast-metal-free` | 94 | 96 | 100 |
 
-Scores were taken just before the last small copy fix. Screenshots are in `docs/shop-screenshots/`: `<page>-1440.png` and `<page>-390.png`, plus light-mode and 3D viewer shots.
+Screenshots are in `docs/shop-screenshots/`: `<page>-1440.png` and `<page>-390.png`, plus light-mode shots.
 
 ## PR description
 
 **Preview only. Do not merge.**
 
-Turns `/shop` into a webshop with the NM Mast System as its first product: 11 published products, a flagship page with configurator and 3D viewer, and a Reserve flow on the existing enquiry endpoint. No payment is taken.
+Turns `/shop` into a webshop with the NM Mast System as its first product: 11 published products, a flagship page with configurator, and a Reserve flow on the existing enquiry endpoint. No payment is taken.
 
 - All prices and copy are in `lib/data/products.ts`
 - No new dependencies, backend changes or trackers
 - No load ratings: a placeholder shows until February 2027; calculated figures appear only under "Engineering notes (calculated, not tested)"
 - Illustrations are labelled as illustrations
-- Lint, type-check and build pass; Lighthouse mobile 93+ / 96 / 100
+- Lint, type-check and build pass; Lighthouse mobile 92+ / 96 / 100
+
+Changes after review:
+
+- 3D viewer removed; "Assembled" is the first gallery image. The 3D packages stay because the home hero uses them.
+- Every reply-time promise is now "within 2 business days", including the home hero stat ("2 days").
+- The 14-day returns line shows only on pre-orders, kits and bundles. Made-to-order parts and the engineering mast point to the returns policy.
+- Metal-free safety now says "Guy and load it as specified on your load sheet."
+- Below 768 px, `/shop` shows a compact hero illustration above the CTAs.
 
 Before launch: see the owner to-do and known issues in `SHOP_BUILD_NOTES.md`. In particular, send one real test reservation on the preview, since testing intercepted the API.
 
