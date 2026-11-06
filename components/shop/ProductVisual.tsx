@@ -28,5 +28,5 @@ export default function ProductVisual({
 }
 
 export function primaryImage(images: string[]): string {
-  return images.find((image) => !image.startsWith('viewer:')) ?? ''
+  return images[0] ?? ''
 }
