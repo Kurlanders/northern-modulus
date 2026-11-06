@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const SITE_NAME = 'Northern Modulus'
 
 // Page-level openGraph replaces the root one entirely, so siteName/type are repeated here.
-export function pageMetadata(title: string, description: string): Metadata {
+export function pageMetadata(title: string, description: string, image?: string): Metadata {
   return {
     title,
     description,
@@ -12,6 +12,7 @@ export function pageMetadata(title: string, description: string): Metadata {
       siteName: SITE_NAME,
       title: `${title} — ${SITE_NAME}`,
       description,
+      ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}),
     },
   }
 }

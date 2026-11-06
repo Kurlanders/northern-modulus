@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer'
 import AttributionCapture from '@/components/AttributionCapture'
 import ThemeProvider from '@/components/theme/ThemeProvider'
 import { DEFAULT_THEME_COLOR } from '@/lib/theme'
+import { company } from '@/lib/company'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://${company.domain}`),
   title: {
     default: 'Northern Modulus — Engineering-Led 3D Printing in Riga',
     template: '%s — Northern Modulus',

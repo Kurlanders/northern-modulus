@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import HeroSection from '@/components/sections/HeroSection'
+import ShopAnnouncement from '@/components/sections/ShopAnnouncement'
 import RecentPrints from '@/components/sections/RecentPrints'
 import WhatWeSolve from '@/components/sections/WhatWeSolve'
 import PrintCapabilities from '@/components/sections/PrintCapabilities'
@@ -27,6 +28,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <ShopAnnouncement />
       <RecentPrints />
       <WhatWeSolve />
       <PrintCapabilities />
