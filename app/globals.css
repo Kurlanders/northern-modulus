@@ -38,6 +38,7 @@
   --nm-error:        180 35 24;    /* #B42318 */
   --nm-error-bg:     254 243 242;  /* #FEF3F2 */
   --nm-error-border: 244 184 178;  /* #F4B8B2 */
+  --nm-bulb:         214 142 40;   /* #D68E28 warm festoon light in shop illustrations */
 }
 
 .dark {
@@ -64,6 +65,7 @@
   --nm-error:        248 113 113;  /* #F87171 */
   --nm-error-bg:     43 18 21;     /* #2B1215 */
   --nm-error-border: 127 42 42;    /* #7F2A2A */
+  --nm-bulb:         247 196 106;  /* #F7C46A warm festoon light in shop illustrations */
 }
 
 /* ─── Base reset & defaults ────────────────────────────────────────────── */

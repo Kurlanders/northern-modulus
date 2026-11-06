@@ -8,6 +8,7 @@ const NM_TOKENS = [
   'text-p', 'text-s', 'text-t',
   'steel', 'steel-l',
   'error', 'error-bg', 'error-border',
+  'bulb',
 ] as const
 
 const nmColors = Object.fromEntries(
